@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class UnitUIManager : MonoBehaviour
 {
-    [SerializeField] private UnitHealth unitHealth;
+    [SerializeField] private UnitUIHealth unitHealth;
     [SerializeField] private Image healthBar;
     [SerializeField] private float easeSpeed = 2f;
 

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurretFire : MonoBehaviour
+public class UnitPlayerTurretFire : MonoBehaviour
 {
     [SerializeField] private InputReaderSO inputReader;
 

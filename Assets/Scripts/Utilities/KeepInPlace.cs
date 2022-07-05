@@ -10,9 +10,9 @@ public class KeepInPlace : MonoBehaviour
     [SerializeField] private Transform followObject;
     [SerializeField] private Vector3 offset;
 
-    void LateUpdate()
+    private void FixedUpdate()
     {
         transform.position = followObject.position + offset;
-        transform.rotation = Quaternion.identity;
+        transform.rotation = Quaternion.Euler(new Vector3(0, followObject.rotation.y, 0));
     }
 }

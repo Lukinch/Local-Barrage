@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurretRotation : MonoBehaviour
+public class UnitPlayerTurretRotation : MonoBehaviour
 {
     [SerializeField] private InputReaderSO inputReader;
     [SerializeField] private Transform objectToRotate;

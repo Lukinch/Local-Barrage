@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitHealth : MonoBehaviour
+public class UnitUIHealth : MonoBehaviour
 {
     [SerializeField] private UnitCollision unitCollision;
     [SerializeField] private float maxHealth;
