@@ -8,6 +8,7 @@ public class Projectile : MonoBehaviour
 {
     [SerializeField] private GameObject impactParticles;
 
+    public Transform projectileOwner;
     public float damage = 10f;
 
     private void OnTriggerEnter(Collider other)

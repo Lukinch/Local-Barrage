@@ -11,6 +11,7 @@ public class UnitPlayerTurretFire : MonoBehaviour
     [SerializeField] private Transform firingPoint;
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private float projectileForce;
+    [SerializeField] private float projectileDamage;
 
     private void OnEnable()
     {
@@ -23,7 +24,16 @@ public class UnitPlayerTurretFire : MonoBehaviour
 
     private void FireProjectile()
     {
-        GameObject projectile = Instantiate(projectilePrefab, firingPoint.position, firingPoint.rotation);
-        projectile.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * projectileForce, ForceMode.Impulse);
+        GameObject projectile = Instantiate(
+            projectilePrefab,
+            firingPoint.position,
+            firingPoint.rotation);
+
+        Projectile projectileInfo = projectile.GetComponent<Projectile>();
+        projectileInfo.damage = projectileDamage;
+        projectileInfo.projectileOwner = transform;
+
+        projectile.GetComponent<Rigidbody>()
+            .AddRelativeForce(Vector3.forward * projectileForce, ForceMode.Impulse);
     }
 }
