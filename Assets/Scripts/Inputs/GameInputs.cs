@@ -69,16 +69,16 @@ public partial class @GameInputs : IInputActionCollection2, IDisposable
                     ""id"": ""d93fe252-b366-468e-9f4b-ff71650e55ab"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": ""Hold(duration=500)"",
                     ""initialStateCheck"": false
                 },
                 {
                     ""name"": ""Turret Fire Hold"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""9288b0cb-19f6-406c-aeab-5afd94c5c0a6"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Hold(duration=20)"",
+                    ""interactions"": ""Hold(duration=500)"",
                     ""initialStateCheck"": false
                 }
             ],

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitPlayerMover : MonoBehaviour
+public class PlayerMoveController : MonoBehaviour
 {
     [SerializeField] private InputReaderSO inputReader;
     [SerializeField] private float forceStrenght;

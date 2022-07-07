@@ -2,47 +2,32 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UnitUIHealth : MonoBehaviour
 {
-    [SerializeField] private UnitCollision unitCollision;
-    [SerializeField] private float maxHealth;
+    [SerializeField] private UnitHealth unitHealth;
+    [SerializeField] private Image healthBar;
+    [SerializeField] private float easeSpeed = 2f;
 
     private float currentHealth;
 
-    public event Action<float> OnTakeDamageEvent; 
+    private void OnEnable() => unitHealth.OnTakeDamageEvent += OnTakeHealthDamage;
+    private void OnDisable() => unitHealth.OnTakeDamageEvent -= OnTakeHealthDamage;
 
-    private void OnEnable()
+    private void Start() => currentHealth = healthBar.fillAmount;
+
+    private void Update()
     {
-        unitCollision.ProjectileCollisionEvent += GetProjectileInfo;
+        if (healthBar.fillAmount != currentHealth)
+            UpdateHealthVisuals();
     }
 
-    private void OnDisable()
-    {
-        unitCollision.ProjectileCollisionEvent -= GetProjectileInfo;
-    }
+    private void OnTakeHealthDamage(float unitHealth) => currentHealth = unitHealth;
 
-    private void Start()
+    private void UpdateHealthVisuals()
     {
-        currentHealth = maxHealth;
+        healthBar.fillAmount =
+            Mathf.MoveTowards(healthBar.fillAmount, currentHealth, easeSpeed * Time.deltaTime);
     }
-
-    private void GetProjectileInfo(Projectile projectileReceived)
-    {
-        TakeDamage(projectileReceived.damage);
-    }
-
-    private void TakeDamage(float damageAmount)
-    {
-        currentHealth -= damageAmount;
-        if (currentHealth <= 0)
-        {
-            currentHealth = 0;
-            DestroySelf();
-        }
-        
-        OnTakeDamageEvent?.Invoke(currentHealth / maxHealth);
-    }
-
-    private void DestroySelf() => Destroy(gameObject);
 }

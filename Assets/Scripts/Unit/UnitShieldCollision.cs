@@ -3,16 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitCollision : MonoBehaviour
+public class UnitShieldCollision : MonoBehaviour
 {
-    public Action<Projectile> ProjectileCollisionEvent;
+    public Action<Projectile> ShieldCollisionEvent;
 
     private void OnTriggerEnter(Collider other)
     {
         Projectile projectile = other.GetComponent<Projectile>();
         if (projectile != null)
         {
-            ProjectileCollisionEvent?.Invoke(projectile);
+            ShieldCollisionEvent?.Invoke(projectile);
         }
     }
 }
