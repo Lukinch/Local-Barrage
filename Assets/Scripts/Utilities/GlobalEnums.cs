@@ -23,6 +23,6 @@ public static class GlobalEnums
         /// <summary>Hold to continuously fire projectiles</summary>
         HOLD_TO_FIRE,
         /// <summary>Hold to charge and then fire one projectile</summary>
-        HOLD_TO_CHARGE
+        CHARGE_TO_FIRE
     }
 }

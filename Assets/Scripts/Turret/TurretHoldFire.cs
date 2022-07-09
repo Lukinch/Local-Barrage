@@ -3,118 +3,78 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerTurretFireController : MonoBehaviour
+public class TurretHoldFire : TurretBase
 {
     #region Serialized Fieds
-    [SerializeField] private InputReaderSO inputReader;
-
-    [Header("Turret Dependencies")]
-    [Tooltip("The turret that should handle the firing logic")]
-    [SerializeField] private TurretBase turret;
-    [Tooltip("The desired firing mode logic")]
-    [SerializeField] private GlobalEnums.FiringMode firingMode;
-    [Tooltip("Bullets per second when hold to fire mode is selected")]
-    [SerializeField] private int firingRate = 10;
+    [Header("This turret specific")]
+    [SerializeField] private List<Transform> firingPoints;
+    [Space(10)]
+    [Tooltip("Pause time between each firing point Fire action")]
+    [SerializeField] private float timeBetweenShots = 0.2f;
+    [Tooltip("How often the Fire action should be called")]
+    [SerializeField] private float timeBetweenFireActions = 10;
     [Tooltip("Time till the turret overheats when hold to fire mode is selected")]
     [SerializeField, Range(1, 20)] private float overheatTime = 5f;
     [Tooltip("Time till the turret cools off when hold to fire mode is selected")]
     [SerializeField, Range(1, 20)] private float coolingTime = 3f;
     [Tooltip("Time that will take to charge to fire a projectile")]
-    [SerializeField, Range(1, 5)] private float chargeTime = 1.5f;
+    [SerializeField] private float overheatPerShot = 0.3f;
     #endregion
 
     #region Private variables
+    /// <summary>Minimum value to no overshoot below zero, to avoid zero divisions</summary>
+    private static readonly float MIN_VALUE_AMOUNT = 0.01f;
+
     private float currentOverheatAmount = MIN_VALUE_AMOUNT;
     private float currentChargeAmount = MIN_VALUE_AMOUNT;
 
-    private float timeBetweenShots;
+    private float timeBetweenFireAction;
     private float coolOffValue;
 
     private bool isHoldActive;
-    private bool isChargeActive;
     private bool isOverheated;
+    private bool isFireActionTakingPlace;
 
     private Coroutine holdCoroutine;
     private Coroutine increaseOverheatCoroutine;
     private Coroutine decreaseOverheatCoroutine;
-    private Coroutine chargeCoroutine;
 
-    private static readonly float MIN_VALUE_AMOUNT = 0.01f;
+    private bool isFiring;
     #endregion
 
     #region Public variables and Actions
-    [HideInInspector] public bool holdFireModeActive;
-    [HideInInspector] public bool chargeFireModeActive;
-
     public event Action<float> OnOverheatAmountChanged;
-    public event Action<float> OnChargeAmountChanged;
     #endregion
 
     #region Initialize
     private void OnEnable() => SubscribeToInputs();
-    private void OnDisable() => DisableAllInputs();
-
-    private void SubscribeToInputs()
+    private void OnDisable()
     {
-        switch (firingMode)
-        {
-            case GlobalEnums.FiringMode.TAP_TO_FIRE:
-                SubscribeToTapFireEvents();
-                break;
-            case GlobalEnums.FiringMode.HOLD_TO_FIRE:
-                holdFireModeActive = true;
-                SubscribeToHoldFireEvents();
-                break;
-            case GlobalEnums.FiringMode.HOLD_TO_CHARGE:
-                chargeFireModeActive = true;
-                SubscribeToChargeFireEvents();
-                break;
-        }
+        DisableAllInputs();
+        StopAllCoroutines();
     }
     #endregion
 
     #region Subscription Handling
-    private void SubscribeToTapFireEvents()
-    {
-        inputReader.FireInstantEvent += OnFireInstantPerformed;
-    }
-    private void SubscribeToHoldFireEvents()
+    private void SubscribeToInputs()
     {
         inputReader.FireHoldEventStarted += OnFireHoldStarted;
         inputReader.FireHoldEventCanceled += OnFireHoldCanceled;
         inputReader.FireHoldEventPerformed += OnFireHoldPerformed;
     }
-    private void SubscribeToChargeFireEvents()
-    {
-        inputReader.FireChargeEventStarted += OnFireChargeStarted;
-        inputReader.FireChargeEventCanceled += OnFireChargeCanceled;
-        inputReader.FireChargeEventPerformed += OnFireChargePerformed;
-    }
 
     private void DisableAllInputs()
     {
-        inputReader.FireInstantEvent -= OnFireInstantPerformed;
-
         inputReader.FireHoldEventStarted -= OnFireHoldStarted;
         inputReader.FireHoldEventCanceled -= OnFireHoldCanceled;
         inputReader.FireHoldEventPerformed -= OnFireHoldPerformed;
-
-        inputReader.FireChargeEventStarted -= OnFireChargeStarted;
-        inputReader.FireChargeEventCanceled -= OnFireChargeCanceled;
-        inputReader.FireChargeEventPerformed -= OnFireChargePerformed;
     }
     #endregion
 
     #region Actions calling
-    private void OnFireInstantPerformed() => turret.Fire();
-
     private void OnFireHoldStarted() => StartHoldEvent();
     private void OnFireHoldCanceled() => StopHoldEvent();
     private void OnFireHoldPerformed() => StopHoldEvent();
-
-    private void OnFireChargeStarted() => StartChargeEvent();
-    private void OnFireChargeCanceled() => StopChargeEvent();
-    private void OnFireChargePerformed() => StopChargeEvent();
     #endregion
 
     #region Hold To Fire Logic
@@ -122,11 +82,11 @@ public class PlayerTurretFireController : MonoBehaviour
     {
         if (isOverheated) return;
 
-        timeBetweenShots = 1 / (float)firingRate;
+        timeBetweenFireAction = 1 / (float)timeBetweenFireActions;
         isHoldActive = true;
         StopCoroutine(nameof(DecreaseOverheat));
         holdCoroutine = StartCoroutine(nameof(FireHold));
-        increaseOverheatCoroutine = StartCoroutine(nameof(IncreaseOverheat));
+        //increaseOverheatCoroutine = StartCoroutine(nameof(IncreaseOverheat));
     }
 
     private void StopHoldEvent()
@@ -135,29 +95,27 @@ public class PlayerTurretFireController : MonoBehaviour
 
         isHoldActive = false;
         StopCoroutine(holdCoroutine);
-        StopCoroutine(increaseOverheatCoroutine);
+        //StopCoroutine(increaseOverheatCoroutine);
 
         if (currentOverheatAmount > 0)
         {
             coolOffValue = (overheatTime / coolingTime) / 50;
             decreaseOverheatCoroutine = StartCoroutine(nameof(DecreaseOverheat));
         }
-
-        timeBetweenShots = 500;
     }
 
     private IEnumerator FireHold()
     {
         while (isHoldActive)
         {
-            turret.Fire();
-            yield return new WaitForSeconds(timeBetweenShots);
+            Fire();
+            yield return new WaitForFixedUpdate();
         }
     }
 
     private IEnumerator IncreaseOverheat()
     {
-        while(isHoldActive && currentOverheatAmount < overheatTime)
+        while (isHoldActive && currentOverheatAmount < overheatTime)
         {
             currentOverheatAmount += 0.02f;
             if (currentOverheatAmount > overheatTime) currentOverheatAmount = overheatTime;
@@ -191,42 +149,48 @@ public class PlayerTurretFireController : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
     }
-    #endregion
 
-    #region Charge To Fire Logic
-    private void StartChargeEvent()
+    protected override void Fire()
     {
-        isChargeActive = true;
-        
-        chargeCoroutine = StartCoroutine(nameof(FireCharge));
+        if (isFireActionTakingPlace) return;
+        if (isFiring) return;
+
+        isFireActionTakingPlace = true;
+        isFiring = true;
+        StartCoroutine(nameof(FireFromFirginPoints));
     }
 
-    private void StopChargeEvent()
+    private IEnumerator FireFromFirginPoints()
     {
-        isChargeActive = false;
-        StopCoroutine(chargeCoroutine);
-
-        currentChargeAmount = MIN_VALUE_AMOUNT;
-
-        OnChargeAmountChanged?.Invoke(currentChargeAmount / chargeTime);
-    }
-
-    private IEnumerator FireCharge()
-    {
-        while (isChargeActive && currentChargeAmount <= chargeTime)
+        foreach (Transform firingPoint in firingPoints)
         {
-            currentChargeAmount += 0.02f;
-
-            OnChargeAmountChanged?.Invoke(currentChargeAmount / chargeTime);
-
-            if (currentChargeAmount >= chargeTime)
-            {
-                turret.Fire();
-                StopChargeEvent();
-            }
-
-            yield return new WaitForFixedUpdate();
+            FireProjectile(firingPoint);
+            IncreaseOverheatPerShot();
+            yield return new WaitForSeconds(timeBetweenShots);
         }
+
+        StartCoroutine(nameof(WaitForNextFireAction));
+        isFiring = false;
+    }
+
+    private void IncreaseOverheatPerShot()
+    {
+        currentOverheatAmount += overheatPerShot;
+        if (currentOverheatAmount > overheatTime) currentOverheatAmount = overheatTime;
+
+        OnOverheatAmountChanged?.Invoke(currentOverheatAmount / overheatTime);
+
+        if (currentOverheatAmount >= overheatTime)
+        {
+            StopHoldEvent();
+            isOverheated = true;
+        }
+    }
+
+    private IEnumerator WaitForNextFireAction()
+    {
+        yield return new WaitForSeconds(timeBetweenFireActions);
+        isFireActionTakingPlace = false;
     }
     #endregion
 }
