@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 63870800736890145}
   - component: {fileID: 1880032864877777734}
   - component: {fileID: 1314472819983768915}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Reload Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 5739305829832748472}
   - component: {fileID: 2187212146356673082}
   - component: {fileID: 2862858796512488458}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -221,7 +221,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4425263989358063269}
   - component: {fileID: 5861363204921955838}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Reload Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -277,7 +277,7 @@ GameObject:
   - component: {fileID: 7013804249539800273}
   - component: {fileID: 5094413971597891611}
   - component: {fileID: 7923293207653122218}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Turret Heavy 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -291,7 +291,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6751462039405640142}
-  m_LocalRotation: {x: 0.000000021855694, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 0.45, y: 0.45, z: 0.45}
   m_ConstrainProportionsScale: 1
@@ -363,7 +363,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6489675f905ba61498f0a9e8d25adcc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputReader: {fileID: 11400000, guid: 98b731489f603fb43a9039f721b77754, type: 2}
   turretStats: {fileID: 11400000, guid: 421ac06fd449c0c41a4b6dcde170d654, type: 2}
   projectilePrefab: {fileID: 7516791745877141054, guid: 05c900abef257a44182bdddb66502797,
     type: 3}
@@ -380,7 +379,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2858896001020314084}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Firing Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -415,7 +414,7 @@ GameObject:
   - component: {fileID: 8303051574783318067}
   - component: {fileID: 4051737764172403635}
   - component: {fileID: 3312641918014730057}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Turret UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -440,7 +439,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 6.5000005}
+  m_AnchoredPosition: {x: 0, y: 12}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &236757405604704411

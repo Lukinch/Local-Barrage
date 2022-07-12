@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public abstract class TurretBase : MonoBehaviour
 {
     [Header("Base Fields")]
-    [SerializeField] protected InputReaderSO inputReader;
     [SerializeField] protected SO_TurretStats turretStats;
     [SerializeField] protected GameObject projectilePrefab;
 

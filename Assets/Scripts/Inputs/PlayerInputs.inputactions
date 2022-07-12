@@ -1,19 +1,10 @@
 {
-    "name": "GameInputs",
+    "name": "PlayerInputs",
     "maps": [
         {
-            "name": "Vehicle",
+            "name": "Player",
             "id": "df5e4536-cd96-4a6f-a801-60c5326c0f4a",
             "actions": [
-                {
-                    "name": "Brake",
-                    "type": "Button",
-                    "id": "ca144fe7-9589-4100-966d-3953dfdd773c",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
                 {
                     "name": "Movement",
                     "type": "Value",
@@ -26,7 +17,7 @@
                 {
                     "name": "Turret Rotation",
                     "type": "Value",
-                    "id": "60df84a5-e6dc-4bff-a40b-eb8c831ac5ad",
+                    "id": "bedc36ef-425a-4bcf-9642-6c77873d6ab1",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
@@ -35,7 +26,7 @@
                 {
                     "name": "Turret Fire Instant",
                     "type": "Button",
-                    "id": "41f8282a-3ac7-45d6-97aa-d10113f8bd89",
+                    "id": "d2098a3f-8058-4c46-9d60-d406f41f4762",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -44,7 +35,7 @@
                 {
                     "name": "Turret Fire Charge",
                     "type": "Button",
-                    "id": "d93fe252-b366-468e-9f4b-ff71650e55ab",
+                    "id": "35e9af93-dd81-4f1c-b66c-58765525ac8d",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Hold(duration=500)",
@@ -53,36 +44,23 @@
                 {
                     "name": "Turret Fire Hold",
                     "type": "PassThrough",
-                    "id": "9288b0cb-19f6-406c-aeab-5afd94c5c0a6",
+                    "id": "242ba927-465d-45b3-b358-e1e7446b9108",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Hold(duration=500)",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Join",
+                    "type": "Button",
+                    "id": "10f0866e-9c44-44d8-a962-b84291617228",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "f70025aa-de38-4faf-bebf-3e118ec31b6d",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Brake",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "636d0c65-6bc7-4e0a-a7d3-f86337ead7f3",
-                    "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Brake",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "WASD Keys",
                     "id": "c2725168-d387-4065-9dfd-a6102a8e5739",
@@ -100,7 +78,7 @@
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -111,7 +89,7 @@
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -122,7 +100,7 @@
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -133,7 +111,7 @@
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -144,14 +122,102 @@
                     "path": "<Gamepad>/leftStick",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "1c25f35d-40de-4ecc-b15c-e7bbde7b0b86",
+                    "id": "1a7d978c-6457-4b6f-bde1-a3d92165ef87",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Join",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "681964a1-612d-452e-89ab-defab254723d",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Join",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "aeb975fe-bd5b-4d1f-98c5-779651987eda",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Turret Fire Hold",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ea76e7cd-fb42-4538-9a88-24c5fcf58df8",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Turret Fire Hold",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ff702579-52a3-453d-ad60-0dcc988581b5",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Turret Fire Charge",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f1235406-9f19-41f4-97f8-7d0d3f3628da",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Turret Fire Charge",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "11422b7d-639a-46b2-a678-c9b8d88dde21",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Turret Fire Instant",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fe28ca90-313c-440a-8217-2502c430a310",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Turret Fire Instant",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "abecd0f9-2a5e-48f4-98f3-3c1e9ef5d22f",
                     "path": "<Gamepad>/rightStick",
                     "interactions": "",
                     "processors": "",
@@ -162,78 +228,12 @@
                 },
                 {
                     "name": "",
-                    "id": "37ee7379-d842-4332-9611-df786a0e73ab",
+                    "id": "3572dc42-e9f9-40fc-92b5-99bebde77170",
                     "path": "<Mouse>/position",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Mouse",
+                    "groups": "Keyboard&Mouse",
                     "action": "Turret Rotation",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "01e6f157-cd15-4ba8-8ec2-2ec27e9f41fb",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Turret Fire Instant",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e43025d4-bc3a-4ca4-9e01-97f177d9e2fe",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Mouse",
-                    "action": "Turret Fire Instant",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "d61eee3b-ad50-4d78-b0f8-6ee682380a6f",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Turret Fire Charge",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ea9ca408-6064-4af8-8d04-517477b1a540",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Mouse",
-                    "action": "Turret Fire Charge",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "dc867654-2d24-4ad4-9518-463a2957da94",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Turret Fire Hold",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "fae32cba-54ce-4c0a-8637-98d01d76dbfc",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Mouse",
-                    "action": "Turret Fire Hold",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -242,19 +242,31 @@
     ],
     "controlSchemes": [
         {
-            "name": "Keyboard",
-            "bindingGroup": "Keyboard",
-            "devices": []
-        },
-        {
-            "name": "Mouse",
-            "bindingGroup": "Mouse",
-            "devices": []
-        },
-        {
             "name": "Gamepad",
             "bindingGroup": "Gamepad",
-            "devices": []
+            "devices": [
+                {
+                    "devicePath": "<Gamepad>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Keyboard&Mouse",
+            "bindingGroup": "Keyboard&Mouse",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Mouse>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
         }
     ]
 }

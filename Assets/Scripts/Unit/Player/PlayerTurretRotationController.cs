@@ -2,10 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerTurretRotationController : MonoBehaviour
 {
-    [SerializeField] private InputReaderSO inputReader;
     [SerializeField] private Transform objectToRotate;
     [SerializeField] private LayerMask mouseWorldLayerMask;
 
@@ -14,17 +14,6 @@ public class PlayerTurretRotationController : MonoBehaviour
     private Vector2 gamepadValue;
     private Vector3 worldPoint;
     private Camera mainCamera;
-    
-    private void OnEnable()
-    {
-        inputReader.TurretRotationMouseEvent += OnMouseRotationChanged;
-        //input.TurretRotationGamepadEvent += OnGamepadRotationChanged;
-    }
-    private void OnDisable()
-    {
-        inputReader.TurretRotationMouseEvent -= OnMouseRotationChanged;
-        //input.TurretRotationGamepadEvent -= OnGamepadRotationChanged;
-    }
 
     private void Awake()
     {
@@ -33,23 +22,41 @@ public class PlayerTurretRotationController : MonoBehaviour
 
     private void Update()
     {
-        HandleMouseInput();
+        if (!isInputMouse) HandleGamepadInput();
+        if (isInputMouse) HandleMouseInput();
+    }
+
+    public void OnTurretRotation(InputAction.CallbackContext context)
+    {
+        isInputMouse = context.control.device.name == "Mouse";
+
+        if (isInputMouse) mousePosition = context.ReadValue<Vector2>();
+        else 
+        {
+            Vector2 value = context.ReadValue<Vector2>();
+            if (value != Vector2.zero)
+                gamepadValue = context.ReadValue<Vector2>();
+        }
     }
 
     private void HandleMouseInput()
     {
-        worldPoint = GetMouseInWorld();
-        Vector3 targetPosition = new Vector3(worldPoint.x, objectToRotate.position.y, worldPoint.z);
-        objectToRotate.LookAt(targetPosition);
+       worldPoint = GetMouseInWorld();
+       Vector3 targetPosition = new Vector3(worldPoint.x, objectToRotate.position.y, worldPoint.z);
+       objectToRotate.LookAt(targetPosition);
     }
 
     private Vector3 GetMouseInWorld()
     {
-        Ray ray = mainCamera.ScreenPointToRay(mousePosition);
-        Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue, mouseWorldLayerMask);
-        return raycastHit.point;
+       Ray ray = mainCamera.ScreenPointToRay(mousePosition);
+       Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue, mouseWorldLayerMask);
+       return raycastHit.point;
     }
 
-    private void OnMouseRotationChanged(Vector2 value) => mousePosition = value;
-    private void OnGamepadRotationChanged(Vector2 value) => gamepadValue = value;
+    private void HandleGamepadInput()
+    {
+        float angleRadians = Mathf.Atan2(gamepadValue.y, gamepadValue.x);
+        float angleDegrees = -angleRadians * Mathf.Rad2Deg;
+        objectToRotate.rotation = Quaternion.AngleAxis(angleDegrees + 90, Vector3.up);
+    }
 }

@@ -2,10 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class TurretHoldFire : TurretBase
 {
-    #region Serialized Fieds
     [Header("This turret specific")]
     [SerializeField] private List<Transform> firingPoints;
     [Space(10)]
@@ -19,9 +19,9 @@ public class TurretHoldFire : TurretBase
     [SerializeField, Range(1, 20)] private float coolingTime = 3f;
     [Tooltip("Time that will take to charge to fire a projectile")]
     [SerializeField] private float overheatPerShot = 0.3f;
-    #endregion
 
-    #region Private variables
+    private TurretFiringController turretFiringController;
+    
     /// <summary>Minimum value to no overshoot below zero, to avoid zero divisions</summary>
     private static readonly float MIN_VALUE_AMOUNT = 0.01f;
 
@@ -40,44 +40,35 @@ public class TurretHoldFire : TurretBase
     private Coroutine decreaseOverheatCoroutine;
 
     private bool isFiring;
-    #endregion
-
-    #region Public variables and Actions
+    
     public event Action<float> OnOverheatAmountChanged;
-    #endregion
+    
+    private void OnEnable()
+    {
+        if (turretFiringController == null)
+        {
+            turretFiringController = GetComponentInParent<TurretFiringController>();
+        }
 
-    #region Initialize
-    private void OnEnable() => SubscribeToInputs();
+        turretFiringController.onFireHoldStarted += StartHoldEvent;
+        turretFiringController.onFireHoldCanceled += StopHoldEvent;
+        turretFiringController.onFireHoldPerformed += StopHoldEvent;
+    }
+    
     private void OnDisable()
     {
-        DisableAllInputs();
-        StopAllCoroutines();
-    }
-    #endregion
-
-    #region Subscription Handling
-    private void SubscribeToInputs()
-    {
-        inputReader.FireHoldEventStarted += OnFireHoldStarted;
-        inputReader.FireHoldEventCanceled += OnFireHoldCanceled;
-        inputReader.FireHoldEventPerformed += OnFireHoldPerformed;
+        turretFiringController.onFireHoldStarted -= StartHoldEvent;
+        turretFiringController.onFireHoldCanceled -= StopHoldEvent;
+        turretFiringController.onFireHoldPerformed -= StopHoldEvent;
     }
 
-    private void DisableAllInputs()
-    {
-        inputReader.FireHoldEventStarted -= OnFireHoldStarted;
-        inputReader.FireHoldEventCanceled -= OnFireHoldCanceled;
-        inputReader.FireHoldEventPerformed -= OnFireHoldPerformed;
-    }
-    #endregion
-
-    #region Actions calling
-    private void OnFireHoldStarted() => StartHoldEvent();
-    private void OnFireHoldCanceled() => StopHoldEvent();
-    private void OnFireHoldPerformed() => StopHoldEvent();
-    #endregion
-
-    #region Hold To Fire Logic
+    // public void OnFireHold(InputAction.CallbackContext context)
+    // {
+    //     if (context.started) StartHoldEvent();
+    //     if (context.canceled) StopHoldEvent();
+    //     if (context.performed) StopHoldEvent();
+    // }
+    
     private void StartHoldEvent()
     {
         if (isOverheated) return;
@@ -192,5 +183,4 @@ public class TurretHoldFire : TurretBase
         yield return new WaitForSeconds(timeBetweenFireActions);
         isFireActionTakingPlace = false;
     }
-    #endregion
 }
