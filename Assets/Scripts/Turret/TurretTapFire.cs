@@ -36,11 +36,6 @@ public class TurretTapFire : TurretBase
         turretFiringController.onFireInstantPerformed -= Fire;
     }
 
-    // public void OnFireInstant(InputAction.CallbackContext context)
-    // {
-    //     if (context.performed) Fire();
-    // }
-
     protected override void Fire()
     {
         if (isReloading) return;

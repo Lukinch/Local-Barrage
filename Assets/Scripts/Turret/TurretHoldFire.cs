@@ -61,13 +61,6 @@ public class TurretHoldFire : TurretBase
         turretFiringController.onFireHoldCanceled -= StopHoldEvent;
         turretFiringController.onFireHoldPerformed -= StopHoldEvent;
     }
-
-    // public void OnFireHold(InputAction.CallbackContext context)
-    // {
-    //     if (context.started) StartHoldEvent();
-    //     if (context.canceled) StopHoldEvent();
-    //     if (context.performed) StopHoldEvent();
-    // }
     
     private void StartHoldEvent()
     {
@@ -77,7 +70,6 @@ public class TurretHoldFire : TurretBase
         isHoldActive = true;
         StopCoroutine(nameof(DecreaseOverheat));
         holdCoroutine = StartCoroutine(nameof(FireHold));
-        //increaseOverheatCoroutine = StartCoroutine(nameof(IncreaseOverheat));
     }
 
     private void StopHoldEvent()
@@ -86,7 +78,6 @@ public class TurretHoldFire : TurretBase
 
         isHoldActive = false;
         StopCoroutine(holdCoroutine);
-        //StopCoroutine(increaseOverheatCoroutine);
 
         if (currentOverheatAmount > 0)
         {

@@ -46,13 +46,6 @@ public class TurretChargeFire : TurretBase
         turretFiringController.onFireChargeCanceled -= StopChargeEvent;
         turretFiringController.onFireChargePerformed -= StopChargeEvent;
     }
-        
-    // public void OnFireCharge(InputAction.CallbackContext context)
-    // {
-    //     if (context.started) StartChargeEvent();
-    //     if (context.canceled) StopChargeEvent();
-    //     if (context.performed) StopChargeEvent();
-    // }
     
     private void StartChargeEvent()
     {
