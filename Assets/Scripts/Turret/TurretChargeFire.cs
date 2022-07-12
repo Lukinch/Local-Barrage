@@ -2,10 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class TurretChargeFire : TurretBase
 {
-    #region Serialized Fieds
     [Header("This turret specific")]
     [SerializeField] private List<Transform> firingPoints;
     [Space(10)]
@@ -13,10 +13,11 @@ public class TurretChargeFire : TurretBase
     [SerializeField] private float timeBetweenShots = 0.2f;
     [Tooltip("Time that will take to charge to fire a projectile")]
     [SerializeField, Range(0.1f, 5)] private float chargeTime = 1.5f;
-    #endregion
-
-    #region Private variables
+    
+    /// <summary>Minimum value to no overshoot below zero, to avoid zero divisions</summary>
     private float currentChargeAmount = MIN_VALUE_AMOUNT;
+
+    private TurretFiringController turretFiringController;
 
     private bool isChargeActive;
 
@@ -24,44 +25,28 @@ public class TurretChargeFire : TurretBase
 
     /// <summary>Minimum value to no overshoot below zero, to avoid zero divisions</summary>
     private static readonly float MIN_VALUE_AMOUNT = 0.01f;
-    #endregion
-
-    #region Public variables and Actions
+    
     public event Action<float> OnChargeAmountChanged;
-    #endregion
+    
+    private void OnEnable()
+    {
+        if (turretFiringController == null)
+        {
+            turretFiringController = GetComponentInParent<TurretFiringController>();
+        }
 
-    #region Initialize
-    private void OnEnable() => SubscribeToInputs();
+        turretFiringController.onFireChargeStarted += StartChargeEvent;
+        turretFiringController.onFireChargeCanceled += StopChargeEvent;
+        turretFiringController.onFireChargePerformed += StopChargeEvent;
+    }
+    
     private void OnDisable()
     {
-        DisableAllInputs();
-        StopAllCoroutines();
+        turretFiringController.onFireChargeStarted -= StartChargeEvent;
+        turretFiringController.onFireChargeCanceled -= StopChargeEvent;
+        turretFiringController.onFireChargePerformed -= StopChargeEvent;
     }
-    #endregion
-
-    #region Subscription Handling
-    private void SubscribeToInputs()
-    {
-        inputReader.FireChargeEventStarted += OnFireChargeStarted;
-        inputReader.FireChargeEventCanceled += OnFireChargeCanceled;
-        inputReader.FireChargeEventPerformed += OnFireChargePerformed;
-    }
-
-    private void DisableAllInputs()
-    {
-        inputReader.FireChargeEventStarted -= OnFireChargeStarted;
-        inputReader.FireChargeEventCanceled -= OnFireChargeCanceled;
-        inputReader.FireChargeEventPerformed -= OnFireChargePerformed;
-    }
-    #endregion
-
-    #region Actions calling
-    private void OnFireChargeStarted() => StartChargeEvent();
-    private void OnFireChargeCanceled() => StopChargeEvent();
-    private void OnFireChargePerformed() => StopChargeEvent();
-    #endregion
-
-    #region Charge To Fire Logic
+    
     private void StartChargeEvent()
     {
         isChargeActive = true;
@@ -110,5 +95,4 @@ public class TurretChargeFire : TurretBase
             yield return new WaitForSeconds(timeBetweenShots);
         }
     }
-    #endregion
 }

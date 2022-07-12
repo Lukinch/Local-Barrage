@@ -2,10 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class TurretTapFire : TurretBase
 {
-    #region Serialized Fieds
     [Header("This turret specific")]
     [SerializeField] private List<Transform> firingPoints;
     [Space(10)]
@@ -13,43 +13,29 @@ public class TurretTapFire : TurretBase
     [SerializeField] private float timeBetweenShots = 0.2f;
     [Tooltip("Time till the next Fire action is available")]
     [SerializeField] private float reloadTime = 0.3f;
-    #endregion
 
-    #region Private variables
+    private TurretFiringController turretFiringController;
+
     private bool isReloading;
     private float currentReloadTime;
-    #endregion
 
-    #region Public variables and Actions
     public event Action<float> OnReloadTimeChanged;
-    #endregion
+    
+    private void OnEnable()
+    {
+        if (turretFiringController == null)
+        {
+            turretFiringController = GetComponentInParent<TurretFiringController>();
+        }
 
-    #region Initialize
-    private void OnEnable() => SubscribeToInputs();
+        turretFiringController.onFireInstantPerformed += Fire;
+    }
+    
     private void OnDisable()
     {
-        DisableAllInputs();
-        StopAllCoroutines();
-    }
-    #endregion
-
-    #region Subscription Handling
-    private void SubscribeToInputs()
-    {
-        inputReader.FireInstantEvent += OnFireInstantPerformed;
+        turretFiringController.onFireInstantPerformed -= Fire;
     }
 
-    private void DisableAllInputs()
-    {
-        inputReader.FireInstantEvent -= OnFireInstantPerformed;
-    }
-    #endregion
-
-    #region Actions calling
-    private void OnFireInstantPerformed() => Fire();
-    #endregion
-
-    #region Tap To Fire Logic
     protected override void Fire()
     {
         if (isReloading) return;
@@ -87,7 +73,4 @@ public class TurretTapFire : TurretBase
             yield return new WaitForFixedUpdate();
         }
     }
-
-
-    #endregion
 }

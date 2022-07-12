@@ -2,19 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMoveController : MonoBehaviour
 {
-    [SerializeField] private InputReaderSO inputReader;
     [SerializeField] private float forceStrenght;
 
     [SerializeField] private Rigidbody unitRB;
 
     private Vector2 movement;
-    
-    private void OnEnable() => inputReader.MovementEvent += OnMovementEvent;
-    private void OnDisable() => inputReader.MovementEvent -= OnMovementEvent;
-    private void OnMovementEvent(Vector2 value) => movement = value;
 
     private void FixedUpdate()
     {
@@ -26,4 +22,13 @@ public class PlayerMoveController : MonoBehaviour
         unitRB.AddForce(new Vector3(movement.x, 0, movement.y) * forceStrenght);
     }
 
+    /// <summary>
+    /// Called by Player Input component with Unity Events to
+    /// process controller inputs
+    /// </summary>
+    /// <param name="context">All the data from the input action</param>
+    public void OnMovement(InputAction.CallbackContext context) 
+    {
+        movement = context.ReadValue<Vector2>();
+    }
 }
