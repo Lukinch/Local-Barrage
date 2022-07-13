@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class TurretHoldFire : TurretBase
 {
@@ -19,8 +18,6 @@ public class TurretHoldFire : TurretBase
     [SerializeField, Range(1, 20)] private float coolingTime = 3f;
     [Tooltip("Time that will take to charge to fire a projectile")]
     [SerializeField] private float overheatPerShot = 0.3f;
-
-    private TurretFiringController turretFiringController;
     
     /// <summary>Minimum value to no overshoot below zero, to avoid zero divisions</summary>
     private static readonly float MIN_VALUE_AMOUNT = 0.01f;

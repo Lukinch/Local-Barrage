@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class TurretChargeFire : TurretBase
 {
@@ -16,8 +15,6 @@ public class TurretChargeFire : TurretBase
     
     /// <summary>Minimum value to no overshoot below zero, to avoid zero divisions</summary>
     private float currentChargeAmount = MIN_VALUE_AMOUNT;
-
-    private TurretFiringController turretFiringController;
 
     private bool isChargeActive;
 

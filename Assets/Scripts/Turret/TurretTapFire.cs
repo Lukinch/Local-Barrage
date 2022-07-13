@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class TurretTapFire : TurretBase
 {
@@ -13,8 +12,6 @@ public class TurretTapFire : TurretBase
     [SerializeField] private float timeBetweenShots = 0.2f;
     [Tooltip("Time till the next Fire action is available")]
     [SerializeField] private float reloadTime = 0.3f;
-
-    private TurretFiringController turretFiringController;
 
     private bool isReloading;
     private float currentReloadTime;
