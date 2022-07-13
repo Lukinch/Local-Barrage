@@ -1,6 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -8,13 +6,24 @@ public class Projectile : MonoBehaviour
 {
     [SerializeField] private GameObject impactParticles;
 
-    public Transform projectileOwner;
-    public float damage = 10f;
+    [HideInInspector] public GameObject owner;
+    [HideInInspector] public float damage;
 
     private void OnTriggerEnter(Collider other)
     {
-        Destroy(gameObject);
+        UnitCollision unitCollision = other.GetComponent<UnitCollision>();
 
-        Instantiate(impactParticles, transform.position, transform.rotation);
+        if (unitCollision != null)
+        {
+            if (owner == unitCollision.owner) return;
+
+            Instantiate(impactParticles, transform.position, transform.rotation);
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instantiate(impactParticles, transform.position, transform.rotation);
+            Destroy(gameObject);
+        }
     }
 }
