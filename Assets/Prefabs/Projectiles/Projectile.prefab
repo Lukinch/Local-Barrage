@@ -171,7 +171,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7516791745877141054}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.18, y: 0.18, z: 0.18}
   m_ConstrainProportionsScale: 1
@@ -241,7 +241,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.29
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &1363642431941470367
 Rigidbody:
@@ -273,4 +273,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   impactParticles: {fileID: 2148755788377579214, guid: 6090544a7ed1a244ba2d5712033fbd9d,
     type: 3}
+  owner: {fileID: 0}
   damage: 20
