@@ -8,10 +8,8 @@ public class TurretChargeFire : TurretBase
     [Header("This turret specific")]
     [SerializeField] private List<Transform> firingPoints;
     [Space(10)]
-    [Tooltip("Pause time between each firing point Fire action")]
-    [SerializeField] private float timeBetweenShots = 0.2f;
-    [Tooltip("Time that will take to charge to fire a projectile")]
-    [SerializeField, Range(0.1f, 5)] private float chargeTime = 1.5f;
+    [Tooltip("Scriptable Object containing the turret stats")]
+    [SerializeField] private TurretChargeFireStatsSO turretChargeFireStatsSO;
     
     /// <summary>Minimum value to no overshoot below zero, to avoid zero divisions</summary>
     private float currentChargeAmount = MIN_VALUE_AMOUNT;
@@ -31,7 +29,7 @@ public class TurretChargeFire : TurretBase
         {
             turretFiringController = GetComponentInParent<TurretFiringController>();
         }
-
+        
         turretFiringController.onFireChargeStarted += StartChargeEvent;
         turretFiringController.onFireChargeCanceled += StopChargeEvent;
         turretFiringController.onFireChargePerformed += StopChargeEvent;
@@ -58,18 +56,18 @@ public class TurretChargeFire : TurretBase
 
         currentChargeAmount = MIN_VALUE_AMOUNT;
 
-        OnChargeAmountChanged?.Invoke(currentChargeAmount / chargeTime);
+        OnChargeAmountChanged?.Invoke(currentChargeAmount / turretChargeFireStatsSO.chargeTime);
     }
 
     private IEnumerator FireCharge()
     {
-        while (isChargeActive && currentChargeAmount <= chargeTime)
+        while (isChargeActive && currentChargeAmount <= turretChargeFireStatsSO.chargeTime)
         {
             currentChargeAmount += 0.02f;
 
-            OnChargeAmountChanged?.Invoke(currentChargeAmount / chargeTime);
+            OnChargeAmountChanged?.Invoke(currentChargeAmount / turretChargeFireStatsSO.chargeTime);
 
-            if (currentChargeAmount >= chargeTime)
+            if (currentChargeAmount >= turretChargeFireStatsSO.chargeTime)
             {
                 Fire();
                 StopChargeEvent();
@@ -88,8 +86,8 @@ public class TurretChargeFire : TurretBase
     {
         foreach (Transform firingPoint in firingPoints)
         {
-            FireProjectile(firingPoint);
-            yield return new WaitForSeconds(timeBetweenShots);
+            FireProjectile(firingPoint, turretChargeFireStatsSO.damagePerShot, turretChargeFireStatsSO.projectileForce);
+            yield return new WaitForSeconds(turretChargeFireStatsSO.timeBetweenShots);
         }
     }
 }

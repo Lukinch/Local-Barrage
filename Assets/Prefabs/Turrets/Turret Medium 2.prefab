@@ -422,14 +422,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b26dfcc99d65ed14cbd1bc6114a1dafa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turretStats: {fileID: 11400000, guid: 421ac06fd449c0c41a4b6dcde170d654, type: 2}
   projectilePrefab: {fileID: 7516791745877141054, guid: 05c900abef257a44182bdddb66502797,
     type: 3}
   firingPoints:
   - {fileID: 2345165702316209195}
   - {fileID: 7058718560935205890}
-  timeBetweenShots: 0
-  chargeTime: 0.6
+  turretChargeFireStatsSO: {fileID: 11400000, guid: 5bc9810de62c6f34e9c58561083b0f33,
+    type: 2}
 --- !u!1 &7971272058394947569
 GameObject:
   m_ObjectHideFlags: 0

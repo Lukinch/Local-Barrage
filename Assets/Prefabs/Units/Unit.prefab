@@ -1343,6 +1343,12 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 4744160010941332705}
     m_Modifications:
+    - target: {fileID: 1967595514805035175, guid: b24280a00f158c947bd0f8e84a3d0f87,
+        type: 3}
+      propertyPath: turretHoldFireStatsSO
+      value: 
+      objectReference: {fileID: 11400000, guid: f5ba99b4e7fd34246b34a2be3644d705,
+        type: 2}
     - target: {fileID: 5125157034099506614, guid: b24280a00f158c947bd0f8e84a3d0f87,
         type: 3}
       propertyPath: m_Name
@@ -1507,6 +1513,12 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 4744160010941332705}
     m_Modifications:
+    - target: {fileID: 3421071044901079838, guid: 2b57e1b4f549d3341b7c0cbb0308d425,
+        type: 3}
+      propertyPath: turretHoldFireStatsSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 0a75f20d818bf1d4bbcd82db06f16d6d,
+        type: 2}
     - target: {fileID: 5181790085673286115, guid: 2b57e1b4f549d3341b7c0cbb0308d425,
         type: 3}
       propertyPath: m_Name

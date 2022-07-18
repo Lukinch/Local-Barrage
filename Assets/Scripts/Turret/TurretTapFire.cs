@@ -8,10 +8,8 @@ public class TurretTapFire : TurretBase
     [Header("This turret specific")]
     [SerializeField] private List<Transform> firingPoints;
     [Space(10)]
-    [Tooltip("Pause time between each firing point Fire action")]
-    [SerializeField] private float timeBetweenShots = 0.2f;
-    [Tooltip("Time till the next Fire action is available")]
-    [SerializeField] private float reloadTime = 0.3f;
+    [Tooltip("Scriptable Object containing the turret stats")]
+    [SerializeField] private TurretTapFireStatsSO turretTapFireStatsSO;
 
     private bool isReloading;
     private float currentReloadTime;
@@ -24,7 +22,7 @@ public class TurretTapFire : TurretBase
         {
             turretFiringController = GetComponentInParent<TurretFiringController>();
         }
-
+        
         turretFiringController.onFireInstantPerformed += Fire;
     }
     
@@ -45,8 +43,8 @@ public class TurretTapFire : TurretBase
     {
         foreach (Transform firingPoint in firingPoints)
         {
-            FireProjectile(firingPoint);
-            yield return new WaitForSeconds(timeBetweenShots);
+            FireProjectile(firingPoint, turretTapFireStatsSO.damagePerShot, turretTapFireStatsSO.projectileForce);
+            yield return new WaitForSeconds(turretTapFireStatsSO.timeBetweenShots);
         }
 
         StartCoroutine(nameof(WaitForRealod));
@@ -54,13 +52,13 @@ public class TurretTapFire : TurretBase
 
     private IEnumerator WaitForRealod()
     {
-        while (isReloading && currentReloadTime <= reloadTime)
+        while (isReloading && currentReloadTime <= turretTapFireStatsSO.reloadTime)
         {
             currentReloadTime += 0.02f;
 
-            OnReloadTimeChanged?.Invoke(currentReloadTime / reloadTime);
+            OnReloadTimeChanged?.Invoke(currentReloadTime / turretTapFireStatsSO.reloadTime);
 
-            if (currentReloadTime >= reloadTime)
+            if (currentReloadTime >= turretTapFireStatsSO.reloadTime)
             {
                 currentReloadTime = 0;
                 OnReloadTimeChanged?.Invoke(0);

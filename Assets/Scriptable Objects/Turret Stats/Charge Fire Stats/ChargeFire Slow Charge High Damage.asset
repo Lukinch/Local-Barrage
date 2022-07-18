@@ -9,9 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfab029b98380a947b19e35f1ddc2eb3, type: 3}
-  m_Name: Turret Stats prototype
+  m_Script: {fileID: 11500000, guid: 38c1f9c43de799848bfeced7cb1116cd, type: 3}
+  m_Name: ChargeFire Slow Charge High Damage
   m_EditorClassIdentifier: 
-  damagePerShot: 20
-  projectileForce: 20
-  damageType: 3
+  statsDescription: 
+  timeBetweenShots: 0
+  chargeTime: 1
+  damagePerShot: 200
+  projectileForce: 50
+  damageType: 0
