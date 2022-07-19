@@ -300,18 +300,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb2888c637879cc4eaf136ebab89118a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turretStats: {fileID: 11400000, guid: 421ac06fd449c0c41a4b6dcde170d654, type: 2}
   projectilePrefab: {fileID: 7516791745877141054, guid: 05c900abef257a44182bdddb66502797,
     type: 3}
   firingPoints:
   - {fileID: 6674453338858959480}
   - {fileID: 1037248557897714534}
   - {fileID: 7533148605414548594}
-  timeBetweenShots: 0.1
-  timeBetweenFireActions: 0.5
-  overheatTime: 5
-  coolingTime: 3.5
-  overheatPerShot: 0.3
+  turretHoldFireStatsSO: {fileID: 11400000, guid: f5ba99b4e7fd34246b34a2be3644d705,
+    type: 2}
 --- !u!1 &6662238906477852298
 GameObject:
   m_ObjectHideFlags: 0

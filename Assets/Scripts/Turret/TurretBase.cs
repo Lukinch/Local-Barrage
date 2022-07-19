@@ -4,15 +4,12 @@ using UnityEngine;
 public abstract class TurretBase : MonoBehaviour
 {
     [Header("Base Fields")]
-    [SerializeField] protected SO_TurretStats turretStats;
     [SerializeField] protected GameObject projectilePrefab;
 
     protected TurretFiringController turretFiringController;
 
-    private GameObject turretOwner;
-
     protected virtual void Fire() { }
-    protected virtual void FireProjectile(Transform firingPoint)
+    protected virtual void FireProjectile(Transform firingPoint, float damagePerShot, float projectileForce)
     {
         GameObject projectile = Instantiate(
             projectilePrefab,
@@ -20,10 +17,10 @@ public abstract class TurretBase : MonoBehaviour
             firingPoint.rotation);
 
         Projectile projectileInfo = projectile.GetComponent<Projectile>();
-        projectileInfo.damage = turretStats.damagePerShot;
+        projectileInfo.damage = damagePerShot;
         projectileInfo.owner = turretFiringController.owner;
 
         projectile.GetComponent<Rigidbody>()
-            .AddRelativeForce(Vector3.forward * turretStats.projectileForce, ForceMode.Impulse);
+            .AddRelativeForce(Vector3.forward * projectileForce, ForceMode.Impulse);
     }
 }
