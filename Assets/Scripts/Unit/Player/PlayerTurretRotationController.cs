@@ -20,6 +20,11 @@ public class PlayerTurretRotationController : MonoBehaviour
         mainCamera = Camera.main;
     }
 
+    public void SetNewCamera(Camera newCamera)
+    {
+        mainCamera = newCamera;
+    }
+
     private void Update()
     {
         if (!isInputMouse) HandleGamepadInput();
