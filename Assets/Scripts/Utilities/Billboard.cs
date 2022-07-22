@@ -13,6 +13,11 @@ public class Billboard : MonoBehaviour
         cameraTransform = Camera.main.transform;
     }
 
+    public void SetNewCamera(Camera newCamera)
+    {
+        cameraTransform = newCamera.transform;
+    }
+
     private void LateUpdate()
     {
         transform.LookAt(transform.position + cameraTransform.forward);

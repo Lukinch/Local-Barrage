@@ -22,6 +22,12 @@ public class PlayerMoveController : MonoBehaviour
         unitRB.AddForce(new Vector3(movement.x, 0, movement.y) * forceStrenght);
     }
 
+    public void StopMovement()
+    {
+        unitRB.velocity = Vector3.zero;
+        unitRB.angularVelocity = Vector3.zero;
+    }
+
     /// <summary>
     /// Called by Player Input component with Unity Events to
     /// process controller inputs
