@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 public class TurretFiringController : MonoBehaviour
 {
-    public GameObject owner;
+    public PlayerInput Owner;
 
     public event Action onFireInstantPerformed;
     

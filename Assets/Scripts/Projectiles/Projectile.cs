@@ -1,29 +1,59 @@
 
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Projectile : MonoBehaviour
 {
     [SerializeField] private GameObject impactParticles;
+    [SerializeField] private int timeToDestroy = 3;
+    private int currentTime;
 
-    [HideInInspector] public GameObject owner;
-    [HideInInspector] public float damage;
+    [HideInInspector] public int Owner;
+    [HideInInspector] public float Damage;
+
+    private void Start()
+    {
+        currentTime = timeToDestroy;
+        StartCoroutine(nameof(DeathCountDown));
+    }
+
+    private IEnumerator DeathCountDown()
+    {
+        while (currentTime > 0)
+        {
+            yield return new WaitForSeconds(1);
+            currentTime--;
+        }
+        DestroySelf();
+    }
+
+    public void DestroySelf()
+    {
+        Destroy(gameObject);
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        UnitCollision unitCollision = other.GetComponent<UnitCollision>();
+        IDamageCollision unitCollision = other.GetComponent<IDamageCollision>();
 
         if (unitCollision != null)
         {
-            if (owner == unitCollision.owner) return;
+            if (Owner == unitCollision.Owner) return;
 
-            Instantiate(impactParticles, transform.position, transform.rotation);
-            Destroy(gameObject);
+            unitCollision.TakeDamage(Damage);
+
+            Destroy();
         }
         else
         {
-            Instantiate(impactParticles, transform.position, transform.rotation);
-            Destroy(gameObject);
+            Destroy();
         }
+    }
+
+    private void Destroy()
+    {
+        Instantiate(impactParticles, transform.position, transform.rotation);
+        Destroy(gameObject);
     }
 }

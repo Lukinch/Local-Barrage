@@ -60,7 +60,7 @@ public class LevelManager : MonoBehaviour
     {
         for (int i = 0; i < playerInputs.Count; i++)
         {
-            playerInputs[i].gameObject.GetComponent<PlayerTurretRotationController>().SetNewCamera(levelCamera);
+            playerInputs[i].gameObject.GetComponentInChildren<PlayerTurretRotationController>().SetNewCamera(levelCamera);
             playerInputs[i].gameObject.GetComponentInChildren<Billboard>().SetNewCamera(levelCamera);
             playerInputs[i].gameObject.GetComponentInChildren<TurretBase>().GetComponentInChildren<Billboard>().SetNewCamera(levelCamera);
 

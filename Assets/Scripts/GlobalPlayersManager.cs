@@ -36,7 +36,6 @@ public class GlobalPlayersManager : MonoBehaviour
 
     private void AddPlayer(PlayerInput playerInput)
     {
-        Debug.Log(playerInput);
         if (players.Count == maxNumerOfPlayers) return;
         players.Add(playerInput);
 
