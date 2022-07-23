@@ -15,7 +15,7 @@ public class MainMenuManager : MonoBehaviour
     private List<PlayerTurretRotationController> playerRotationControllers = new List<PlayerTurretRotationController>();
     private List<KeepInPlace> playerKeepInPlaceControllers = new List<KeepInPlace>();
     private List<TurretBase> playerFiringControllers = new List<TurretBase>();
-    private List<GameObject> playerHullColliders = new List<GameObject>();
+    private List<GameObject> playerLiveUI = new List<GameObject>();
     private List<GameObject> playerShieldColliders = new List<GameObject>();
     private List<GameObject> palyerMainMenuUI = new List<GameObject>();
 
@@ -35,7 +35,7 @@ public class MainMenuManager : MonoBehaviour
 
         levelManager.OnPlayerAdded += ManageNewPlayer;
 
-        UnitMainManueUIManager.isPlayerReady += PlayerReady;
+        UIUnitMainMenuManager.isPlayerReady += PlayerReady;
 
         currentTimer = nextLevelCountDown;
     }
@@ -58,12 +58,12 @@ public class MainMenuManager : MonoBehaviour
     private void AddComponentsToTheLists(PlayerInput playerInput)
     {
         playerMoveControllers.Add(playerInput.gameObject.GetComponent<PlayerMoveController>());
-        playerRotationControllers.Add(playerInput.gameObject.GetComponent<PlayerTurretRotationController>());
+        palyerMainMenuUI.Add(playerInput.gameObject.GetComponentInChildren<UIUnitMainMenuManager>().gameObject);
         playerKeepInPlaceControllers.Add(playerInput.gameObject.GetComponentInChildren<KeepInPlace>());
+        playerLiveUI.Add(playerInput.gameObject.GetComponentInChildren<Billboard>().gameObject);
+        playerShieldColliders.Add(playerInput.gameObject.GetComponentInChildren<PlayerShieldCollision>().gameObject);
+        playerRotationControllers.Add(playerInput.gameObject.GetComponentInChildren<PlayerTurretRotationController>());
         playerFiringControllers.Add(playerInput.gameObject.GetComponentInChildren<TurretBase>());
-        playerHullColliders.Add(playerInput.gameObject.GetComponentInChildren<UnitHullCollision>().gameObject);
-        playerShieldColliders.Add(playerInput.gameObject.GetComponentInChildren<UnitShieldCollision>().gameObject);
-        palyerMainMenuUI.Add(playerInput.gameObject.GetComponentInChildren<UnitMainManueUIManager>().gameObject);
     }
 
     private void DisablePlayerInncesaryComponents()
@@ -71,8 +71,8 @@ public class MainMenuManager : MonoBehaviour
         playerMoveControllers[currentAmountOfPlayers].enabled = false;
         playerRotationControllers[currentAmountOfPlayers].enabled = false;
         playerKeepInPlaceControllers[currentAmountOfPlayers].enabled = false;
+        playerLiveUI[currentAmountOfPlayers].SetActive(false);
         playerFiringControllers[currentAmountOfPlayers].enabled = false;
-        playerHullColliders[currentAmountOfPlayers].SetActive(false);
         playerShieldColliders[currentAmountOfPlayers].SetActive(false);
         palyerMainMenuUI[currentAmountOfPlayers].SetActive(true);
     }
@@ -85,8 +85,8 @@ public class MainMenuManager : MonoBehaviour
             playerMoveControllers[i].enabled = true;
             playerRotationControllers[i].enabled = true;
             playerKeepInPlaceControllers[i].enabled = true;
+            playerLiveUI[i].SetActive(true);
             playerFiringControllers[i].enabled = true;
-            playerHullColliders[i].SetActive(true);
             playerShieldColliders[i].SetActive(true);
             palyerMainMenuUI[i].SetActive(false);
         }
