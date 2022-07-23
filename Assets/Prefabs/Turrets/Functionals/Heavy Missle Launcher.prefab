@@ -336,7 +336,7 @@ GameObject:
   - component: {fileID: 4059542804042040977}
   - component: {fileID: 5511264880845886391}
   m_Layer: 6
-  m_Name: Turret Heavy 2
+  m_Name: Heavy Missle Launcher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

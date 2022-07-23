@@ -14,10 +14,10 @@ TagManager:
   - Player
   - Mouse Interaction
   - Obstacles
-  - 
-  - 
-  - 
-  - 
+  - Projectile Collision
+  - Hull Collision
+  - Shield Collision
+  - Pickable Collision
   - 
   - 
   - 

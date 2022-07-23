@@ -394,7 +394,7 @@ GameObject:
   - component: {fileID: 6695048144844871734}
   - component: {fileID: 3421071044901079838}
   m_Layer: 6
-  m_Name: Turret Medium 3
+  m_Name: Small Multi Cannon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

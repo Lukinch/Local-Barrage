@@ -286,7 +286,7 @@ GameObject:
   - component: {fileID: 5530199087122619748}
   - component: {fileID: 1223642715781330826}
   m_Layer: 6
-  m_Name: Turret Medium 2
+  m_Name: Medium Railgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

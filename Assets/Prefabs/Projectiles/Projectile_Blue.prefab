@@ -157,7 +157,7 @@ GameObject:
   - component: {fileID: 1001563984675704812}
   - component: {fileID: 1363642431941470367}
   - component: {fileID: 241781864960477934}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Projectile_Blue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -273,5 +273,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   impactParticles: {fileID: 2148755788377579214, guid: 7eedc1be095b30742b8ebdf76c92e7ad,
     type: 3}
-  owner: {fileID: 0}
-  damage: 20
+  timeToDestroy: 3
+  Owner: 0
+  Damage: 0

@@ -533,7 +533,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh30350
+  m_Name: pb_Mesh28154
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -1657,6 +1657,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LevelManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 4726968840784248225, guid: ae70621fa6dcda047a2e1ed4f3c63309,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8035566030596607081, guid: ae70621fa6dcda047a2e1ed4f3c63309,
         type: 3}
@@ -4369,7 +4374,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh30306
+  m_Name: pb_Mesh28110
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -4581,10 +4586,25 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1286613752789945206, guid: 7dad52ab9b8dc8447b1415e9e5219faf,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -17
+      objectReference: {fileID: 0}
+    - target: {fileID: 1286613752789945206, guid: 7dad52ab9b8dc8447b1415e9e5219faf,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -17
+      objectReference: {fileID: 0}
     - target: {fileID: 2305443746132153614, guid: 7dad52ab9b8dc8447b1415e9e5219faf,
         type: 3}
       propertyPath: m_Name
       value: SpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 2305443746132153614, guid: 7dad52ab9b8dc8447b1415e9e5219faf,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4968166314711866794, guid: 7dad52ab9b8dc8447b1415e9e5219faf,
         type: 3}
@@ -4640,6 +4660,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6379713306386109916, guid: 7dad52ab9b8dc8447b1415e9e5219faf,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 6379713306386109916, guid: 7dad52ab9b8dc8447b1415e9e5219faf,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -17
+      objectReference: {fileID: 0}
+    - target: {fileID: 6454061015976220083, guid: 7dad52ab9b8dc8447b1415e9e5219faf,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 6454061015976220083, guid: 7dad52ab9b8dc8447b1415e9e5219faf,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 7698615396674986519, guid: 7dad52ab9b8dc8447b1415e9e5219faf,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -17
+      objectReference: {fileID: 0}
+    - target: {fileID: 7698615396674986519, guid: 7dad52ab9b8dc8447b1415e9e5219faf,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 17
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
