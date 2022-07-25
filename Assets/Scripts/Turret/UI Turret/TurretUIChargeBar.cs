@@ -21,12 +21,8 @@ public class TurretUIChargeBar : MonoBehaviour
 
     private void OnDisable()
     {
-        turretChargeScript.OnChargeAmountChanged -= OnChargeAmountChanged;
-    }
-
-    private void Awake()
-    {
         ResetUIComponentes();
+        turretChargeScript.OnChargeAmountChanged -= OnChargeAmountChanged;
     }
 
     private void Update()
@@ -49,6 +45,7 @@ public class TurretUIChargeBar : MonoBehaviour
 
     private void ResetUIComponentes()
     {
+        currentChargeAmount = 0;
         chargeImage.fillAmount = 0;
     }
 }

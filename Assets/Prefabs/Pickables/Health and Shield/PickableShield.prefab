@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5535891344323122133}
   - component: {fileID: 5535891344323122132}
+  - component: {fileID: 956321182}
   m_Layer: 12
   m_Name: PickableShield
   m_TagString: Untagged
@@ -32,7 +33,7 @@ Transform:
   - {fileID: 8409531186296906200}
   - {fileID: 7351593765572240675}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &5535891344323122132
 BoxCollider:
@@ -47,6 +48,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.8, y: 2, z: 1.8}
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &956321182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5535891344323122135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a38b75b60833e6449d5da113e761215, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupSfx: {fileID: 0}
+  pickupVfx: {fileID: 0}
+  shieldAmount: 20
 --- !u!1001 &3335390964453954552
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2738120147838669610}
   - component: {fileID: 2738120147838669611}
+  - component: {fileID: 1894167493}
   m_Layer: 12
   m_Name: PickableHealth
   m_TagString: Untagged
@@ -32,7 +33,7 @@ Transform:
   - {fileID: 5517585005210368021}
   - {fileID: 1092885458937013724}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &2738120147838669611
 BoxCollider:
@@ -47,6 +48,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.8, y: 2, z: 1.8}
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &1894167493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2738120147838669608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad9458bf06b388447a8b2239af27a7ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupSfx: {fileID: 0}
+  pickupVfx: {fileID: 0}
+  healAmount: 20
 --- !u!1001 &2470464445556013794
 PrefabInstance:
   m_ObjectHideFlags: 0

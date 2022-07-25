@@ -17,9 +17,9 @@ public class TurretChargeFire : TurretBase
     private bool isChargeActive;
 
     private Coroutine chargeCoroutine;
-
+    
     /// <summary>Minimum value to no overshoot below zero, to avoid zero divisions</summary>
-    private static readonly float MIN_VALUE_AMOUNT = 0.01f;
+    private static readonly float MIN_VALUE_AMOUNT = 0.001f;
     
     public event Action<float> OnChargeAmountChanged;
     
@@ -37,6 +37,9 @@ public class TurretChargeFire : TurretBase
     
     private void OnDisable()
     {
+        isChargeActive = false;
+        currentChargeAmount = 0;
+        
         turretFiringController.onFireChargeStarted -= StartChargeEvent;
         turretFiringController.onFireChargeCanceled -= StopChargeEvent;
         turretFiringController.onFireChargePerformed -= StopChargeEvent;

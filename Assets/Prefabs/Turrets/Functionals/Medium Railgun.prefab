@@ -372,6 +372,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b26dfcc99d65ed14cbd1bc6114a1dafa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  turretName: Medium Railgun
   projectilePrefab: {fileID: 7516791745877141054, guid: 05c900abef257a44182bdddb66502797,
     type: 3}
   firingPoints:

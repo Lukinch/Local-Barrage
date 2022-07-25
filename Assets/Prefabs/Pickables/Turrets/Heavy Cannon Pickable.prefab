@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9133766778344861798}
   - component: {fileID: 4069228760759458142}
+  - component: {fileID: 2010130252}
   m_Layer: 12
   m_Name: Heavy Cannon Pickable
   m_TagString: Untagged
@@ -32,7 +33,7 @@ Transform:
   - {fileID: 8932571149696238160}
   - {fileID: 6058709502767733117}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &4069228760759458142
 BoxCollider:
@@ -47,6 +48,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.8, y: 2, z: 1.8}
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &2010130252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9133766778344861817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3865867787f9424da8f21b9f20250bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupSfx: {fileID: 0}
+  pickupVfx: {fileID: 0}
+  turretPrefab: {fileID: 6751462039405640142, guid: d53b43478cbad064da21bb1b00bc6184,
+    type: 3}
 --- !u!1001 &9133766777128055547
 PrefabInstance:
   m_ObjectHideFlags: 0

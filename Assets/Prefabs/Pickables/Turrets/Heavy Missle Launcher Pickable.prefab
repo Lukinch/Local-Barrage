@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4194117361899475174}
   - component: {fileID: 3356472556459920972}
+  - component: {fileID: 2027359614}
   m_Layer: 12
   m_Name: Heavy Missle Launcher Pickable
   m_TagString: Untagged
@@ -32,7 +33,7 @@ Transform:
   - {fileID: 5568112217760209912}
   - {fileID: 1216266329772799898}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &3356472556459920972
 BoxCollider:
@@ -47,6 +48,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.8, y: 2, z: 1.8}
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &2027359614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4194117361899475175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3865867787f9424da8f21b9f20250bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupSfx: {fileID: 0}
+  pickupVfx: {fileID: 0}
+  turretPrefab: {fileID: 2546390710920472388, guid: a811a0992d60f6948a5f7b60929bfbd5,
+    type: 3}
 --- !u!1001 &4194117361732312092
 PrefabInstance:
   m_ObjectHideFlags: 0

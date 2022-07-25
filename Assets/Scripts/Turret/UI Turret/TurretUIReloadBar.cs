@@ -21,12 +21,8 @@ public class TurretUIReloadBar : MonoBehaviour
 
     private void OnDisable()
     {
-        turretTapScript.OnReloadTimeChanged -= OnTimeAmountChanged;
-    }
-
-    private void Awake()
-    {
         ResetUIComponentes();
+        turretTapScript.OnReloadTimeChanged -= OnTimeAmountChanged;
     }
 
     private void Update()
@@ -49,6 +45,7 @@ public class TurretUIReloadBar : MonoBehaviour
 
     private void ResetUIComponentes()
     {
+        currentChargeAmount = 0;
         reloadImage.fillAmount = 0;
     }
 }
