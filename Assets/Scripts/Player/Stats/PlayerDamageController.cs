@@ -43,6 +43,7 @@ public class PlayerDamageController : MonoBehaviour
 
         currentShield = maxShield;
         OnShieldHealthChangedEvent?.Invoke(currentShield / maxShield);
+        shieldCollision.gameObject.SetActive(true);
 
         gameObject.SetActive(false);
     }

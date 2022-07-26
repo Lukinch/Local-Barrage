@@ -12,7 +12,11 @@ public class UIPlayerHealthController : MonoBehaviour
     private float currentHealth;
 
     private void OnEnable() => playerDamageController.OnHullHealthChangedEvent += OnTakeHealthDamage;
-    private void OnDisable() => playerDamageController.OnHullHealthChangedEvent -= OnTakeHealthDamage;
+    private void OnDisable()
+    {
+        currentHealth = healthBar.fillAmount = 1;
+        playerDamageController.OnHullHealthChangedEvent -= OnTakeHealthDamage;
+    }
 
     private void Start() => currentHealth = healthBar.fillAmount;
 

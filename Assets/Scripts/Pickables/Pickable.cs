@@ -28,7 +28,7 @@ public class Pickable : MonoBehaviour
         if (!pickupSfx) Destroy(gameObject);
     }
 
-    private void CreateSFX(AudioClip clip, Vector3 position, float spatialBlend, float rolloffDistanceMin = 1f)
+    protected virtual void CreateSFX(AudioClip clip, Vector3 position, float spatialBlend, float rolloffDistanceMin = 1f)
     {
         GameObject impactSfxInstance = new GameObject();
         impactSfxInstance.transform.position = position;

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class LevelManager : MonoBehaviour
+public class LevelPlayersManager : MonoBehaviour
 {
     [SerializeField] private Camera levelCamera;
     [SerializeField] private List<Transform> spawnPoints;

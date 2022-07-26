@@ -12,7 +12,11 @@ public class UIPlayerShieldController : MonoBehaviour
     private float currentShield;
 
     private void OnEnable() => playerDamageController.OnShieldHealthChangedEvent += OnTakeShieldDamage;
-    private void OnDisable() => playerDamageController.OnShieldHealthChangedEvent -= OnTakeShieldDamage;
+    private void OnDisable()
+    {
+        currentShield = shieldBar.fillAmount = 1;
+        playerDamageController.OnShieldHealthChangedEvent -= OnTakeShieldDamage;
+    }
 
     private void Start() => currentShield = shieldBar.fillAmount;
 

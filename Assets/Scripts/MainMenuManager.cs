@@ -8,7 +8,7 @@ using TMPro;
 
 public class MainMenuManager : MonoBehaviour
 {
-    private LevelManager levelManager;
+    private LevelPlayersManager levelManager;
     private List<PlayerInput> players = new List<PlayerInput>();
 
     private List<PlayerMoveController> playerMoveControllers = new List<PlayerMoveController>();
@@ -31,7 +31,7 @@ public class MainMenuManager : MonoBehaviour
 
     private void Awake()
     {
-        levelManager = FindObjectOfType<LevelManager>();
+        levelManager = FindObjectOfType<LevelPlayersManager>();
 
         levelManager.OnPlayerAdded += ManageNewPlayer;
 
