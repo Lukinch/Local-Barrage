@@ -19,14 +19,14 @@ public class PlayerDamageController : MonoBehaviour
 
     private void OnEnable()
     {
-        hullCollision.HullCollisionEvent += OnHullDamaged;
-        shieldCollision.ShieldCollisionEvent += OnShieldDamage;
+        hullCollision.HullCollisionEvent += DamageHull;
+        shieldCollision.ShieldCollisionEvent += DamageShield;
     }
 
     private void OnDisable()
     {
-        hullCollision.HullCollisionEvent -= OnHullDamaged;
-        shieldCollision.ShieldCollisionEvent -= OnShieldDamage;
+        hullCollision.HullCollisionEvent -= DamageHull;
+        shieldCollision.ShieldCollisionEvent -= DamageShield;
     }
 
     private void Start()
@@ -36,8 +36,25 @@ public class PlayerDamageController : MonoBehaviour
 
         hullCollision.gameObject.SetActive(false);
     }
+    private void DisableSelf()
+    {
+        currentHealth = maxHealth;
+        OnHullHealthChangedEvent?.Invoke(currentHealth / maxHealth);
 
-    private void OnHullDamaged(float damage)
+        currentShield = maxShield;
+        OnShieldHealthChangedEvent?.Invoke(currentShield / maxShield);
+        shieldCollision.gameObject.SetActive(true);
+
+        gameObject.SetActive(false);
+    }
+
+    private void EnableHull() => hullCollision.gameObject.SetActive(true);    
+    private void DisableHull() => hullCollision.gameObject.SetActive(false);
+
+    private void EnableShield() => shieldCollision.gameObject.SetActive(true);
+    private void DisableShield() => shieldCollision.gameObject.SetActive(false);
+
+    public void DamageHull(float damage)
     {
         currentHealth -= damage;
         if (currentHealth <= 0)
@@ -49,7 +66,7 @@ public class PlayerDamageController : MonoBehaviour
         OnHullHealthChangedEvent?.Invoke(currentHealth / maxHealth);
     }
 
-    private void OnShieldDamage(float damage)
+    public void DamageShield(float damage)
     {
         currentShield -= damage;
         if (currentShield <= 0)
@@ -61,23 +78,6 @@ public class PlayerDamageController : MonoBehaviour
         
         OnShieldHealthChangedEvent?.Invoke(currentShield / maxShield);
     }
-
-    private void DisableSelf()
-    {
-        currentHealth = maxHealth;
-        OnHullHealthChangedEvent?.Invoke(currentHealth / maxHealth);
-
-        currentShield = maxShield;
-        OnShieldHealthChangedEvent?.Invoke(currentShield / maxShield);
-
-        gameObject.SetActive(false);
-    }
-
-    private void EnableHull() => hullCollision.gameObject.SetActive(true);    
-    private void DisableHull() => hullCollision.gameObject.SetActive(false);
-
-    private void EnableShield() => shieldCollision.gameObject.SetActive(true);
-    private void DisableShield() => shieldCollision.gameObject.SetActive(false);
 
     public void RestoreHealth(float amountToRestore)
     {
@@ -99,5 +99,20 @@ public class PlayerDamageController : MonoBehaviour
         if (currentShield > maxShield) currentShield = maxShield;
 
         OnShieldHealthChangedEvent?.Invoke(currentShield / maxShield);
+    }
+
+    public bool HealthCanBeHealed()
+    {
+        return currentHealth < maxHealth;
+    }
+
+    public bool ShieldCanBeHealed()
+    {
+        return currentShield < maxShield;
+    }
+
+    public bool IsShieldActive()
+    {
+        return shieldCollision.gameObject.activeSelf;
     }
 }

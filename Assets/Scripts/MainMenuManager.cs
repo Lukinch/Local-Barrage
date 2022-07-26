@@ -8,12 +8,12 @@ using TMPro;
 
 public class MainMenuManager : MonoBehaviour
 {
-    private LevelManager levelManager;
+    private LevelPlayersManager levelManager;
     private List<PlayerInput> players = new List<PlayerInput>();
 
     private List<PlayerMoveController> playerMoveControllers = new List<PlayerMoveController>();
     private List<PlayerTurretRotationController> playerRotationControllers = new List<PlayerTurretRotationController>();
-    private List<KeepInPlace> playerKeepInPlaceControllers = new List<KeepInPlace>();
+    private List<KeepInPlacePosition> playerKeepInPlaceControllers = new List<KeepInPlacePosition>();
     private List<TurretBase> playerFiringControllers = new List<TurretBase>();
     private List<GameObject> playerLiveUI = new List<GameObject>();
     private List<GameObject> playerShieldColliders = new List<GameObject>();
@@ -31,7 +31,7 @@ public class MainMenuManager : MonoBehaviour
 
     private void Awake()
     {
-        levelManager = FindObjectOfType<LevelManager>();
+        levelManager = FindObjectOfType<LevelPlayersManager>();
 
         levelManager.OnPlayerAdded += ManageNewPlayer;
 
@@ -59,7 +59,7 @@ public class MainMenuManager : MonoBehaviour
     {
         playerMoveControllers.Add(playerInput.gameObject.GetComponent<PlayerMoveController>());
         palyerMainMenuUI.Add(playerInput.gameObject.GetComponentInChildren<UIUnitMainMenuManager>().gameObject);
-        playerKeepInPlaceControllers.Add(playerInput.gameObject.GetComponentInChildren<KeepInPlace>());
+        playerKeepInPlaceControllers.Add(playerInput.gameObject.GetComponentInChildren<KeepInPlacePosition>());
         playerLiveUI.Add(playerInput.gameObject.GetComponentInChildren<Billboard>().gameObject);
         playerShieldColliders.Add(playerInput.gameObject.GetComponentInChildren<PlayerShieldCollision>().gameObject);
         playerRotationControllers.Add(playerInput.gameObject.GetComponentInChildren<PlayerTurretRotationController>());

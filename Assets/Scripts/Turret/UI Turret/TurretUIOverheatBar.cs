@@ -21,12 +21,8 @@ public class TurretUIOverheatBar : MonoBehaviour
 
     private void OnDisable()
     {
-        turretHoldScript.OnOverheatAmountChanged -= OnOverheatAmountChanged;
-    }
-
-    private void Awake()
-    {
         ResetUIComponentes();
+        turretHoldScript.OnOverheatAmountChanged -= OnOverheatAmountChanged;
     }
 
     private void Update()
@@ -45,6 +41,7 @@ public class TurretUIOverheatBar : MonoBehaviour
 
     private void ResetUIComponentes()
     {
+        currentOverheatAmount = 0;
         overHeatImage.fillAmount = 0;
     }
 }

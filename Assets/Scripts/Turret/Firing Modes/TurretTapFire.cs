@@ -28,6 +28,9 @@ public class TurretTapFire : TurretBase
     
     private void OnDisable()
     {
+        isReloading = false;
+        currentReloadTime = 0;
+        
         turretFiringController.onFireInstantPerformed -= Fire;
     }
 

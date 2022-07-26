@@ -12,23 +12,21 @@ public class TurretHoldFire : TurretBase
     [SerializeField] private TurretHoldFireStatsSO turretHoldFireStatsSO;
     
     /// <summary>Minimum value to no overshoot below zero, to avoid zero divisions</summary>
-    private static readonly float MIN_VALUE_AMOUNT = 0.01f;
+    private static readonly float MIN_VALUE_AMOUNT = 0.001f;
 
     private float currentOverheatAmount = MIN_VALUE_AMOUNT;
-    private float currentChargeAmount = MIN_VALUE_AMOUNT;
 
     private float timeBetweenFireAction;
     private float coolOffValue;
 
     private bool isHoldActive;
+    private bool isFiring;
     private bool isOverheated;
     private bool isFireActionTakingPlace;
 
     private Coroutine holdCoroutine;
-    private Coroutine increaseOverheatCoroutine;
     private Coroutine decreaseOverheatCoroutine;
 
-    private bool isFiring;
     
     public event Action<float> OnOverheatAmountChanged;
     
@@ -46,9 +44,34 @@ public class TurretHoldFire : TurretBase
     
     private void OnDisable()
     {
+        isHoldActive = false;
+        isFireActionTakingPlace = false;
+        isFiring = false;
+        currentOverheatAmount = 0;
+
         turretFiringController.onFireHoldStarted -= StartHoldEvent;
         turretFiringController.onFireHoldCanceled -= StopHoldEvent;
         turretFiringController.onFireHoldPerformed -= StopHoldEvent;
+    }
+
+    private void FixedUpdate()
+    {
+        if (isHoldActive) return;
+        if (isFireActionTakingPlace) return;
+        if (isFiring) return;
+        
+        if (currentOverheatAmount > MIN_VALUE_AMOUNT)
+        {
+            currentOverheatAmount -= coolOffValue;
+            if (currentOverheatAmount < 0) currentOverheatAmount = MIN_VALUE_AMOUNT;
+
+            OnOverheatAmountChanged?.Invoke(currentOverheatAmount / turretHoldFireStatsSO.overheatTime);
+
+            if (isOverheated && currentOverheatAmount <= MIN_VALUE_AMOUNT)
+            {
+                isOverheated = false;
+            }
+        }
     }
     
     private void StartHoldEvent()
@@ -57,7 +80,7 @@ public class TurretHoldFire : TurretBase
 
         timeBetweenFireAction = 1 / (float)turretHoldFireStatsSO.timeBetweenFireActions;
         isHoldActive = true;
-        StopCoroutine(nameof(DecreaseOverheat));
+        //StopCoroutine(nameof(DecreaseOverheat));
         holdCoroutine = StartCoroutine(nameof(FireHold));
     }
 
@@ -71,7 +94,7 @@ public class TurretHoldFire : TurretBase
         if (currentOverheatAmount > 0)
         {
             coolOffValue = (turretHoldFireStatsSO.overheatTime / turretHoldFireStatsSO.coolingTime) / 50;
-            decreaseOverheatCoroutine = StartCoroutine(nameof(DecreaseOverheat));
+            //decreaseOverheatCoroutine = StartCoroutine(nameof(DecreaseOverheat));
         }
     }
 
