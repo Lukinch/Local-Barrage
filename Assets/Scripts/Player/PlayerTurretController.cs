@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ public class PlayerTurretController : MonoBehaviour
     [SerializeField] private Transform turretSpawnPosition;
     [SerializeField] private float newTurretDuration = 5f;
 
-    private List<TurretBase> availableTurrets = new List<TurretBase>();
+    private List<TurretBase> availableTurrets;
     private GameObject currentEnabledTurret;
     private Coroutine countdownCoroutine;
     private bool hasActiveTurret;
@@ -20,6 +21,7 @@ public class PlayerTurretController : MonoBehaviour
 
     private void Awake()
     {
+        availableTurrets = new List<TurretBase>();
         availableTurrets.Add(GetComponentInChildren<TurretBase>());
         currentEnabledTurret = availableTurrets[0].gameObject;
 

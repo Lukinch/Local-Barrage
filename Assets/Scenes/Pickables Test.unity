@@ -5435,6 +5435,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6799449592347568542, guid: 4471842684e00304da44d51186ec79ac,
         type: 3}
+      propertyPath: statsLocations.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6799449592347568542, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: weaponsLocations.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6799449592347568542, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
       propertyPath: statsLocations.Array.data[0]
       value: 
       objectReference: {fileID: 1164453557}

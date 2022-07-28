@@ -23,7 +23,7 @@ public class TurretTapFire : TurretBase
             turretFiringController = GetComponentInParent<TurretFiringController>();
         }
         
-        turretFiringController.onFireInstantPerformed += Fire;
+        turretFiringController.OnFireInstantPerformed += Fire;
     }
     
     private void OnDisable()
@@ -31,7 +31,7 @@ public class TurretTapFire : TurretBase
         isReloading = false;
         currentReloadTime = 0;
         
-        turretFiringController.onFireInstantPerformed -= Fire;
+        turretFiringController.OnFireInstantPerformed -= Fire;
     }
 
     protected override void Fire()
@@ -46,7 +46,11 @@ public class TurretTapFire : TurretBase
     {
         foreach (Transform firingPoint in firingPoints)
         {
-            FireProjectile(firingPoint, turretTapFireStatsSO.damagePerShot, turretTapFireStatsSO.projectileForce);
+            FireProjectile(
+                firingPoint,
+                turretTapFireStatsSO.damagePerShot,
+                turretTapFireStatsSO.projectileForce);
+            
             yield return new WaitForSeconds(turretTapFireStatsSO.timeBetweenShots);
         }
 

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UIPlayerShieldController : MonoBehaviour
 {
-    [SerializeField] private PlayerDamageController playerDamageController;
+    [SerializeField] private PlayerStatsController playerDamageController;
     [SerializeField] private Image shieldBar;
     [SerializeField] private float easeSpeed = 2f;
 

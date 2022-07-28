@@ -1,9 +1,8 @@
+
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerDamageController : MonoBehaviour
+public class PlayerStatsController : MonoBehaviour
 {
     [SerializeField] private PlayerHullCollision hullCollision;
     [SerializeField] private PlayerShieldCollision shieldCollision;

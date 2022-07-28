@@ -1,6 +1,6 @@
 
 public interface IDamageCollision
 {
-    int Owner { get; }
+    int OwnerInputId { get; }
     void TakeDamage(float damage);
 }

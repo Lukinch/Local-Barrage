@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UIPlayerHealthController : MonoBehaviour
 {
-    [SerializeField] private PlayerDamageController playerDamageController;
+    [SerializeField] private PlayerStatsController playerDamageController;
     [SerializeField] private Image healthBar;
     [SerializeField] private float easeSpeed = 2f;
 

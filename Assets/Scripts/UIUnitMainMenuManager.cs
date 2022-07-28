@@ -1,6 +1,5 @@
+
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,7 +8,7 @@ public class UIUnitMainMenuManager : MonoBehaviour
     [SerializeField] Button readyButton;
     [SerializeField] Image background;
 
-    public static event Action<bool> isPlayerReady;
+    public static event Action<bool> IsPlayerReady;
 
     private bool isReady = false;
 
@@ -26,7 +25,7 @@ public class UIUnitMainMenuManager : MonoBehaviour
     {
         isReady = !isReady;
         UpdateReadyVisuals();
-        isPlayerReady?.Invoke(isReady);
+        IsPlayerReady?.Invoke(isReady);
     }
 
     private void UpdateReadyVisuals()

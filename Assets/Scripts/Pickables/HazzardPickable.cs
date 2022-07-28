@@ -6,20 +6,17 @@ public class HazzardPickable : Pickable
 {
     [SerializeField] private float damageAmount;
 
-    private void OnTriggerEnter(Collider other)
+    protected override void ImplementEffect(PlayerPickableCollision player)
     {
-        PlayerPickableCollision player = other.GetComponent<PlayerPickableCollision>();
-
-        if (player != null)
+        if (player.PlayerStatsController.IsShieldActive())
         {
-            if (player.PlayerDamageController.IsShieldActive())
-            {
-                player.PlayerDamageController.DamageShield(damageAmount);
-            }
-            else
-            {
-                player.PlayerDamageController.DamageHull(damageAmount);
-            }
+            player.PlayerStatsController.DamageShield(damageAmount);
+        }
+        else
+        {
+            player.PlayerStatsController.DamageHull(damageAmount);
         }
     }
+
+    protected override void NotifyDestruction() {}
 }
