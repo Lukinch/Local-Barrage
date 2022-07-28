@@ -1,21 +1,15 @@
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random=UnityEngine.Random;
 
-enum Processes
-{
-    HealSpawn,
-    ShieldSpawn,
-    WeaponSpawn
-}
-
 public class LevelPickablesManager : MonoBehaviour
 {
-    [SerializeField] private List<Transform> weaponsLocations = new List<Transform>();
-    [SerializeField] private List<Transform> statsLocations = new List<Transform>();
-    [SerializeField] private List<GameObject> weaponPrefabs = new List<GameObject>();
+    [SerializeField] private List<Transform> weaponsLocations;
+    [SerializeField] private List<Transform> statsLocations;
+    [SerializeField] private List<GameObject> weaponPrefabs;
     [SerializeField] private GameObject healthPrefab;
     [SerializeField] private GameObject shieldPrefab;
     [SerializeField] private int weaponsAtATime = 3;
@@ -29,32 +23,16 @@ public class LevelPickablesManager : MonoBehaviour
     private int currentAmountOfWeapons;
     private Transform[] statsLocationsBeingUsed;
     private Transform[] weaponsLocationsBeingUsed;
-    private Queue<Processes> queuedStatsProcesses = new Queue<Processes>();
-    private Queue<Processes> queuedWeaponsProcesses = new Queue<Processes>();
+    private Queue<Processes> queuedStatsProcesses;
+    private Queue<Processes> queuedWeaponsProcesses;
     private bool isStatSpawningTakingPlace;
     private bool isWeaponSpawningTakingPlace;
 
     private void Awake()
     {
-        statsLocationsBeingUsed = new Transform[statsLocations.Count];
-        weaponsLocationsBeingUsed = new Transform[weaponsLocations.Count];
+        InitializeQueuesAndArrays();
 
-        if (statsLocations.Count % 2 == 0)
-        {
-            int total = healsAtATime + shieldsAtATime;
-            if (total >= statsLocations.Count)
-            {
-                healsAtATime = shieldsAtATime = statsLocations.Count / 2;
-            }
-        }
-        else
-        {
-            int total = healsAtATime + shieldsAtATime;
-            if (total >= statsLocations.Count)
-            {
-                healsAtATime = shieldsAtATime = (statsLocations.Count - 1) / 2;
-            }
-        }
+        FixAmountOfStatsAtATime();
 
         HealthPickable.OnHealthDestroyed += OnNewHealRequested;
         ShieldPickable.OnShieldDestroyed += OnNewShieldRequested;
@@ -82,6 +60,35 @@ public class LevelPickablesManager : MonoBehaviour
         }
     }
 
+    private void InitializeQueuesAndArrays()
+    {
+        queuedStatsProcesses = new Queue<Processes>();
+        queuedWeaponsProcesses = new Queue<Processes>();
+
+        statsLocationsBeingUsed = new Transform[statsLocations.Count];
+        weaponsLocationsBeingUsed = new Transform[weaponsLocations.Count];
+    }
+
+    private void FixAmountOfStatsAtATime()
+    {
+        if (statsLocations.Count % 2 == 0)
+        {
+            int total = healsAtATime + shieldsAtATime;
+            if (total >= statsLocations.Count)
+            {
+                healsAtATime = shieldsAtATime = statsLocations.Count / 2;
+            }
+        }
+        else
+        {
+            int total = healsAtATime + shieldsAtATime;
+            if (total >= statsLocations.Count)
+            {
+                healsAtATime = shieldsAtATime = (statsLocations.Count - 1) / 2;
+            }
+        }
+    }
+
     private void OnNewHealRequested(Transform parent)
     {
         currentAmountOfHeals--;
@@ -93,6 +100,7 @@ public class LevelPickablesManager : MonoBehaviour
 
         queuedStatsProcesses.Enqueue(Processes.HealSpawn);
     }
+
     private void OnNewShieldRequested(Transform parent)
     {
         currentAmountOfShields--;
@@ -120,19 +128,17 @@ public class LevelPickablesManager : MonoBehaviour
     private IEnumerator WaitForNextStatSpawn(Processes process)
     {
         isStatSpawningTakingPlace = true;
-        Debug.Log("Stat spawning taking place");
         yield return new WaitForSeconds(timeBetweenSpawns);
 
         switch (process)
         {
             case Processes.HealSpawn:
-                SpawnNewHealth();
+                SpawnHealth();
                 break;
             case Processes.ShieldSpawn:
-                SpawnNewShield();
+                SpawnShield();
                 break;
         }
-        Debug.Log("Stat spawned");
 
         isStatSpawningTakingPlace = false;
     }
@@ -140,16 +146,14 @@ public class LevelPickablesManager : MonoBehaviour
     private IEnumerator WaitForNextWeaponSpawn()
     {
         isWeaponSpawningTakingPlace = true;
-        Debug.Log("Stat spawning taking place");
         yield return new WaitForSeconds(timeBetweenSpawns);
 
-        SpawnNewWeapon();
-        Debug.Log("Weapon spawned");
+        SpawnWeapon();
 
         isWeaponSpawningTakingPlace = false;
     }
 
-    private void SpawnNewHealth()
+    private void SpawnHealth()
     {
         if (currentAmountOfHeals >= healsAtATime) return;
         
@@ -165,7 +169,7 @@ public class LevelPickablesManager : MonoBehaviour
         currentAmountOfHeals++;
     }
 
-    private void SpawnNewShield()
+    private void SpawnShield()
     {
         if (currentAmountOfShields >= shieldsAtATime) return;
         
@@ -181,7 +185,7 @@ public class LevelPickablesManager : MonoBehaviour
         currentAmountOfShields++;
     }
 
-    private void SpawnNewWeapon()
+    private void SpawnWeapon()
     {
         if (currentAmountOfWeapons >= weaponsAtATime) return;
         
@@ -202,12 +206,12 @@ public class LevelPickablesManager : MonoBehaviour
     #region Initialize
     private void InitializeSpawning()
     {
-        SpawnHeals();
-        SpawnShields();
-        SpawnWeapons();
+        InitializeHeals();
+        InitializeShields();
+        InitializeWeapons();
     }
 
-    private void SpawnHeals()
+    private void InitializeHeals()
     {
         for (int i = 0; i < healsAtATime; i++)
         {
@@ -224,7 +228,7 @@ public class LevelPickablesManager : MonoBehaviour
         }
     }
 
-    private void SpawnShields()
+    private void InitializeShields()
     {
         for (int i = 0; i < shieldsAtATime; i++)
         {
@@ -240,7 +244,7 @@ public class LevelPickablesManager : MonoBehaviour
         }
     }
 
-    private void SpawnWeapons()
+    private void InitializeWeapons()
     {
         for (int i = 0; i < weaponsAtATime; i++)
         {
@@ -264,4 +268,11 @@ public class LevelPickablesManager : MonoBehaviour
         InitializeSpawning();
     }
     #endregion
+}
+
+enum Processes
+{
+    HealSpawn,
+    ShieldSpawn,
+    WeaponSpawn
 }

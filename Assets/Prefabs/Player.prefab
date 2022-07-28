@@ -291,7 +291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c067704eaf94f434fac27eeb522d5b83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Owner: {fileID: 4365908596991377682}
+  PlayerInput: {fileID: 4365908596991377682}
 --- !u!1 &1522150771533646612
 GameObject:
   m_ObjectHideFlags: 0
@@ -1839,7 +1839,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turretController: {fileID: 1054963788964794805}
-  image: {fileID: 4417204301498306107}
+  fillImage: {fileID: 4417204301498306107}
 --- !u!1 &7080591948984823622
 GameObject:
   m_ObjectHideFlags: 0
@@ -1900,7 +1900,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTurretController: {fileID: 1054963788964794805}
-  playerDamageController: {fileID: 1595896662717460703}
+  playerStatsController: {fileID: 1595896662717460703}
 --- !u!1 &7471575534874647847
 GameObject:
   m_ObjectHideFlags: 0

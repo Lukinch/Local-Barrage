@@ -4,32 +4,32 @@ using UnityEngine.InputSystem;
 
 public class TurretFiringController : MonoBehaviour
 {
-    public PlayerInput Owner;
+    public PlayerInput PlayerInput;
 
-    public event Action onFireInstantPerformed;
+    public event Action OnFireInstantPerformed;
     
-    public event Action onFireHoldStarted;
-    public event Action onFireHoldCanceled;
-    public event Action onFireHoldPerformed;
+    public event Action OnFireHoldStarted;
+    public event Action OnFireHoldCanceled;
+    public event Action OnFireHoldPerformed;
 
-    public event Action onFireChargeStarted;
-    public event Action onFireChargeCanceled;
-    public event Action onFireChargePerformed;
+    public event Action OnFireChargeStarted;
+    public event Action OnFireChargeCanceled;
+    public event Action OnFireChargePerformed;
 
     public void OnFireInstant(InputAction.CallbackContext context)
     {
-        if (context.performed) onFireInstantPerformed?.Invoke();
+        if (context.performed) OnFireInstantPerformed?.Invoke();
     }
     public void OnFireHold(InputAction.CallbackContext context)
     {
-        if (context.started) onFireHoldStarted?.Invoke();
-        if (context.canceled) onFireHoldCanceled?.Invoke();
-        if (context.performed) onFireHoldPerformed?.Invoke();
+        if (context.started) OnFireHoldStarted?.Invoke();
+        if (context.canceled) OnFireHoldCanceled?.Invoke();
+        if (context.performed) OnFireHoldPerformed?.Invoke();
     }
     public void OnFireCharge(InputAction.CallbackContext context)
     {
-        if (context.started) onFireChargeStarted?.Invoke();
-        if (context.canceled) onFireChargeCanceled?.Invoke();
-        if (context.performed) onFireChargePerformed?.Invoke();
+        if (context.started) OnFireChargeStarted?.Invoke();
+        if (context.canceled) OnFireChargeCanceled?.Invoke();
+        if (context.performed) OnFireChargePerformed?.Invoke();
     }
 }

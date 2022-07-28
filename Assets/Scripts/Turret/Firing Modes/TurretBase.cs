@@ -23,7 +23,7 @@ public abstract class TurretBase : MonoBehaviour
 
         Projectile projectileInfo = projectile.GetComponent<Projectile>();
         projectileInfo.Damage = damagePerShot;
-        projectileInfo.Owner = turretFiringController.Owner.playerIndex;
+        projectileInfo.Owner = turretFiringController.PlayerInput.playerIndex;
 
         projectile.GetComponent<Rigidbody>()
             .AddRelativeForce(Vector3.forward * projectileForce, ForceMode.Impulse);

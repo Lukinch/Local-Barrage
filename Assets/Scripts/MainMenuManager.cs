@@ -1,4 +1,4 @@
-using System;
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,34 +8,34 @@ using TMPro;
 
 public class MainMenuManager : MonoBehaviour
 {
-    private LevelPlayersManager levelManager;
-    private List<PlayerInput> players = new List<PlayerInput>();
+    [SerializeField] private int nextLevelCountDown = 5;
+    [SerializeField] private TextMeshProUGUI countDownText;
 
-    private List<PlayerMoveController> playerMoveControllers = new List<PlayerMoveController>();
-    private List<PlayerTurretRotationController> playerRotationControllers = new List<PlayerTurretRotationController>();
-    private List<KeepInPlacePosition> playerKeepInPlaceControllers = new List<KeepInPlacePosition>();
-    private List<TurretBase> playerFiringControllers = new List<TurretBase>();
-    private List<GameObject> playerLiveUI = new List<GameObject>();
-    private List<GameObject> playerShieldColliders = new List<GameObject>();
-    private List<GameObject> palyerMainMenuUI = new List<GameObject>();
+    private LevelPlayersManager levelManager;
+    private List<PlayerInput> players;
+    private List<PlayerMoveController> playerMoveControllers;
+    private List<PlayerTurretRotationController> playerRotationControllers;
+    private List<KeepInPlacePosition> playerKeepInPlaceControllers;
+    private List<TurretBase> playerFiringControllers;
+    private List<GameObject> playerLiveUI;
+    private List<GameObject> playerShieldColliders;
+    private List<GameObject> palyerMainMenuUI;
 
     private int currentAmountOfPlayers;
     private int amountOfPlayersReady;
-    [SerializeField] private int nextLevelCountDown = 5;
-
-    [SerializeField] private TextMeshProUGUI countDownText;
-
     private int currentTimer;
 
     private Coroutine countDown;
 
     private void Awake()
     {
+        InitializeLists();
+
         levelManager = FindObjectOfType<LevelPlayersManager>();
 
         levelManager.OnPlayerAdded += ManageNewPlayer;
 
-        UIUnitMainMenuManager.isPlayerReady += PlayerReady;
+        UIUnitMainMenuManager.IsPlayerReady += PlayerReady;
 
         currentTimer = nextLevelCountDown;
     }
@@ -43,6 +43,18 @@ public class MainMenuManager : MonoBehaviour
     private void OnDisable()
     {
         levelManager.OnPlayerAdded -= ManageNewPlayer;
+    }
+
+    private void InitializeLists()
+    {
+        players = new List<PlayerInput>();
+        playerMoveControllers = new List<PlayerMoveController>();
+        playerRotationControllers = new List<PlayerTurretRotationController>();
+        playerKeepInPlaceControllers = new List<KeepInPlacePosition>();
+        playerFiringControllers = new List<TurretBase>();
+        playerLiveUI = new List<GameObject>();
+        playerShieldColliders = new List<GameObject>();
+        palyerMainMenuUI = new List<GameObject>();
     }
 
     private void ManageNewPlayer(PlayerInput playerInput)

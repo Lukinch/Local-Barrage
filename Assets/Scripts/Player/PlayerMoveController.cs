@@ -1,6 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -29,11 +27,7 @@ public class PlayerMoveController : MonoBehaviour
         unitRB.angularVelocity = Vector3.zero;
     }
 
-    /// <summary>
-    /// Called by Player Input component with Unity Events to
-    /// process controller inputs
-    /// </summary>
-    /// <param name="context">All the data from the input action</param>
+    /// <summary>Called by Player Input Events</summary>
     public void OnMovement(InputAction.CallbackContext context) 
     {
         movement = context.ReadValue<Vector2>();

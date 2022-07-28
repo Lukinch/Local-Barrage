@@ -9,42 +9,16 @@ public class ShieldPickable : Pickable
 
     public static event Action<Transform> OnShieldDestroyed;
 
-    private void OnTriggerEnter(Collider other)
+    protected override void ImplementEffect(PlayerPickableCollision player)
     {
-        PlayerPickableCollision player = other.GetComponent<PlayerPickableCollision>();
+        if (!player.PlayerStatsController.ShieldCanBeHealed()) return;
 
-        if (player != null)
-        {
-            if (!player.PlayerDamageController.ShieldCanBeHealed()) return;
-
-            player.PlayerDamageController.RestoreShield(shieldAmount);
-            OnPicked();
-        }
+        player.PlayerStatsController.RestoreShield(shieldAmount);
+        OnPicked();
     }
 
-    protected override void OnPicked()
+    protected override void NotifyDestruction()
     {
-        if (pickupSfx)
-        {
-            CreateSFX(pickupSfx, transform.position, 3f, 0f);
-            StartCoroutine(nameof(WaitForEvent), pickupSfx.length);
-        }
-
-        if (pickupVfx)
-        {
-            Instantiate(pickupVfx, transform.position, Quaternion.identity);
-        }
-
-        if (!pickupSfx)
-        {
-            OnShieldDestroyed?.Invoke(transform.parent);
-            Destroy(gameObject);
-        }
-    }
-
-    private IEnumerator WaitForEvent(float seconds)
-    {
-        yield return new WaitForSeconds(seconds - 0.1f);
         OnShieldDestroyed?.Invoke(transform.parent);
     }
 }

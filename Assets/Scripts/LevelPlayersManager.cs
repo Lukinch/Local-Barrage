@@ -1,5 +1,5 @@
+
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -17,13 +17,13 @@ public class LevelPlayersManager : MonoBehaviour
 
     private void Awake()
     {
+        globalPlayerManager = FindObjectOfType<GlobalPlayersManager>();
+
         levelCamera = Camera.main;
     }
 
     private void Start()
     {
-        globalPlayerManager = FindObjectOfType<GlobalPlayersManager>();
-
         List<PlayerInput> playerManagerPlayers = globalPlayerManager.GetPlayerInputs;
 
         if (playerManagerPlayers.Count > 0)
@@ -32,6 +32,7 @@ public class LevelPlayersManager : MonoBehaviour
             AssignAllPlayersNewCamera();
             SpawnPlayers();
         }
+        
         globalPlayerManager.OnNewPlayerAdded += AddNewPlayer;
     }
 

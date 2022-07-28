@@ -1,19 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class PlayerPickableCollision : MonoBehaviour
 {
     [SerializeField] private PlayerTurretController playerTurretController;
-    [SerializeField] private PlayerDamageController playerDamageController;
+    [SerializeField] private PlayerStatsController playerStatsController;
 
     public PlayerTurretController TurretController
     {
         get => playerTurretController;
     }
 
-    public PlayerDamageController PlayerDamageController
+    public PlayerStatsController PlayerStatsController
     {
-        get => playerDamageController;
+        get => playerStatsController;
     }
 }

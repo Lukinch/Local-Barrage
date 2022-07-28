@@ -3,29 +3,44 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Pickable : MonoBehaviour
+public abstract class Pickable : MonoBehaviour
 {
     [SerializeField] protected AudioClip pickupSfx;
     [SerializeField] protected ParticleSystem pickupVfx;
 
-    protected virtual void OnPicked()
+    private void OnTriggerEnter(Collider other)
     {
-        PlayPickupFeedback();
+        PlayerPickableCollision player = other.GetComponent<PlayerPickableCollision>();
+
+        if (player != null)
+        {
+            ImplementEffect(player);
+        }
     }
 
-    public void PlayPickupFeedback()
+    protected virtual void OnPicked()
     {
-        if (pickupSfx)
-        {
-            CreateSFX(pickupSfx, transform.position, 3f, 0f);
-        }
-
         if (pickupVfx)
         {
             Instantiate(pickupVfx, transform.position, Quaternion.identity);
         }
 
-        if (!pickupSfx) Destroy(gameObject);
+        if (pickupSfx)
+        {
+            CreateSFX(pickupSfx, transform.position, 3f, 0f);
+            StartCoroutine(nameof(WaitForSfxEnd), pickupSfx.length);
+        }
+        else
+        {
+            NotifyDestruction();
+            Destroy(gameObject);
+        }
+    }
+
+    private IEnumerator WaitForSfxEnd(float seconds)
+    {
+        yield return new WaitForSeconds(seconds - 0.1f);
+        NotifyDestruction();
     }
 
     protected virtual void CreateSFX(AudioClip clip, Vector3 position, float spatialBlend, float rolloffDistanceMin = 1f)
@@ -40,4 +55,7 @@ public class Pickable : MonoBehaviour
 
         Destroy(gameObject, clip.length);
     }
+
+    protected abstract void ImplementEffect(PlayerPickableCollision player);
+    protected abstract void NotifyDestruction();
 }
