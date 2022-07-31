@@ -3,40 +3,38 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Random=UnityEngine.Random;
+using Random = UnityEngine.Random;
 
 public class LevelPickablesManager : MonoBehaviour
 {
-    [SerializeField] private List<Transform> weaponsLocations;
-    [SerializeField] private List<Transform> statsLocations;
-    [SerializeField] private List<GameObject> weaponPrefabs;
-    [SerializeField] private GameObject healthPrefab;
-    [SerializeField] private GameObject shieldPrefab;
-    [SerializeField] private int weaponsAtATime = 3;
-    [SerializeField] private int healsAtATime = 2;
-    [SerializeField] private int shieldsAtATime = 2;
-    [SerializeField] private float timeToStartSpawning = 3f;
-    [SerializeField] private float timeBetweenSpawns = 3f;
+    [Header("Locations")]
+    [SerializeField] private Transform[] turretLocations;
+    [SerializeField] private Transform[] statsLocations;
+    [Header("Prefabs")]
+    [SerializeField] private GameObject[] turretPrefabs;
+    [SerializeField] private GameObject[] statsPrefabs;
+    [Header("Settings")]
+    [SerializeField] private int turretsAtATime;
+    [SerializeField] private int statsAtATime;
+    [SerializeField] private float timeToStartSpawning;
+    [SerializeField] private float timeBetweenSpawns;
 
-    private int currentAmountOfHeals;
-    private int currentAmountOfShields;
-    private int currentAmountOfWeapons;
     private Transform[] statsLocationsBeingUsed;
-    private Transform[] weaponsLocationsBeingUsed;
+    private Transform[] turretsLocationsBeingUsed;
     private Queue<Processes> queuedStatsProcesses;
-    private Queue<Processes> queuedWeaponsProcesses;
+    private Queue<Processes> queuedTurretsProcesses;
+    private int currentAmountOfTurrets;
+    private int currentAmountOfStats;
     private bool isStatSpawningTakingPlace;
-    private bool isWeaponSpawningTakingPlace;
+    private bool isTurretSpawningTakingPlace;
 
     private void Awake()
     {
         InitializeQueuesAndArrays();
 
-        FixAmountOfStatsAtATime();
-
-        HealthPickable.OnHealthDestroyed += OnNewHealRequested;
-        ShieldPickable.OnShieldDestroyed += OnNewShieldRequested;
-        TurretPickable.OnTurretDestroyed += OnNewWeaponRequested;
+        HealthPickable.OnHealthDestroyed += OnStatRequested;
+        ShieldPickable.OnShieldDestroyed += OnStatRequested;
+        TurretPickable.OnTurretDestroyed += OnWeaponRequested;
     }
 
     private void Start()
@@ -48,14 +46,17 @@ public class LevelPickablesManager : MonoBehaviour
     {
         if (queuedStatsProcesses.Count > 0)
         {
+            if (currentAmountOfStats >= statsAtATime) return;
             if (isStatSpawningTakingPlace) return;
-            StartCoroutine(nameof(WaitForNextStatSpawn), queuedStatsProcesses.Dequeue());
+            queuedStatsProcesses.Dequeue();
+            StartCoroutine(nameof(WaitForNextStatSpawn));
         }
 
-        if (queuedWeaponsProcesses.Count > 0)
+        if (queuedTurretsProcesses.Count > 0)
         {
-            if (isWeaponSpawningTakingPlace) return;
-            queuedWeaponsProcesses.Dequeue();
+            if (currentAmountOfTurrets >= turretsAtATime) return;
+            if (isTurretSpawningTakingPlace) return;
+            queuedTurretsProcesses.Dequeue();
             StartCoroutine(nameof(WaitForNextWeaponSpawn));
         }
     }
@@ -63,216 +64,102 @@ public class LevelPickablesManager : MonoBehaviour
     private void InitializeQueuesAndArrays()
     {
         queuedStatsProcesses = new Queue<Processes>();
-        queuedWeaponsProcesses = new Queue<Processes>();
+        queuedTurretsProcesses = new Queue<Processes>();
 
-        statsLocationsBeingUsed = new Transform[statsLocations.Count];
-        weaponsLocationsBeingUsed = new Transform[weaponsLocations.Count];
+        statsLocationsBeingUsed = new Transform[statsLocations.Length];
+        turretsLocationsBeingUsed = new Transform[turretLocations.Length];
     }
 
-    private void FixAmountOfStatsAtATime()
+    private IEnumerator WaitForSpawn()
     {
-        if (statsLocations.Count % 2 == 0)
+        yield return new WaitForSeconds(timeToStartSpawning);
+        Initialize();
+    }
+
+    private void Initialize()
+    {
+        SpawnMultiplePrefabs(statsAtATime, statsLocations, statsLocationsBeingUsed, statsPrefabs, currentAmountOfStats);
+        SpawnMultiplePrefabs(turretsAtATime, turretLocations, turretsLocationsBeingUsed, turretPrefabs, currentAmountOfTurrets);
+    }
+
+    private void SpawnSinglePrefab(Transform[] locations, Transform[] locationsUsed, GameObject[] prefabs, int trackAmount)
+    {
+        int index = Random.Range(0, locations.Length);
+        while (locationsUsed[index] != null)
         {
-            int total = healsAtATime + shieldsAtATime;
-            if (total >= statsLocations.Count)
-            {
-                healsAtATime = shieldsAtATime = statsLocations.Count / 2;
-            }
+            index = Random.Range(0, locations.Length);
         }
-        else
+
+        int prebaIndex = Random.Range(0, prefabs.Length);
+        Instantiate(prefabs[prebaIndex], locations[index]);
+        locationsUsed[index] = locations[index];
+        trackAmount++;
+    }
+
+    private void SpawnMultiplePrefabs(int limitAmount, Transform[] locations, Transform[] locationsUsed, GameObject[] prefabs, int trackAmount)
+    {
+        for (int i = 0; i < limitAmount; i++)
         {
-            int total = healsAtATime + shieldsAtATime;
-            if (total >= statsLocations.Count)
+            int index = Random.Range(0, locations.Length);
+            while (locationsUsed[index] != null)
             {
-                healsAtATime = shieldsAtATime = (statsLocations.Count - 1) / 2;
+                index = Random.Range(0, locations.Length);
             }
+
+            int prebaIndex = Random.Range(0, prefabs.Length);
+            Instantiate(prefabs[prebaIndex], locations[index]);
+            locationsUsed[index] = locations[index];
+            trackAmount++;
         }
     }
 
-    private void OnNewHealRequested(Transform parent)
+    private void OnStatRequested(Transform pickableParent)
     {
-        currentAmountOfHeals--;
+        currentAmountOfStats--;
         int index = Array.FindIndex(
             statsLocationsBeingUsed,
-            location => location == parent);
-
-        statsLocationsBeingUsed[index] = null;
-
-        queuedStatsProcesses.Enqueue(Processes.HealSpawn);
-    }
-
-    private void OnNewShieldRequested(Transform parent)
-    {
-        currentAmountOfShields--;
-        int index = Array.FindIndex(
-            statsLocationsBeingUsed,
-            location => location == parent);
+            location => location == pickableParent);
 
         statsLocationsBeingUsed[index] = null;
         
-        queuedStatsProcesses.Enqueue(Processes.ShieldSpawn);
+        queuedStatsProcesses.Enqueue(Processes.StatSpawn);
     }
 
-    private void OnNewWeaponRequested(Transform parent)
+    private void OnWeaponRequested(Transform pickableParent)
     {
-        currentAmountOfWeapons--;
+        currentAmountOfTurrets--;
         int index = Array.FindIndex(
-            weaponsLocationsBeingUsed,
-            location => location == parent);
+            turretsLocationsBeingUsed,
+            location => location == pickableParent);
 
-        weaponsLocationsBeingUsed[index] = null;
+        turretsLocationsBeingUsed[index] = null;
         
-        queuedWeaponsProcesses.Enqueue(Processes.WeaponSpawn);
+        queuedTurretsProcesses.Enqueue(Processes.WeaponSpawn);
     }
 
-    private IEnumerator WaitForNextStatSpawn(Processes process)
+    private IEnumerator WaitForNextStatSpawn()
     {
         isStatSpawningTakingPlace = true;
         yield return new WaitForSeconds(timeBetweenSpawns);
 
-        switch (process)
-        {
-            case Processes.HealSpawn:
-                SpawnHealth();
-                break;
-            case Processes.ShieldSpawn:
-                SpawnShield();
-                break;
-        }
+        SpawnSinglePrefab(statsLocations, statsLocationsBeingUsed, statsPrefabs, currentAmountOfStats);
 
         isStatSpawningTakingPlace = false;
     }
 
     private IEnumerator WaitForNextWeaponSpawn()
     {
-        isWeaponSpawningTakingPlace = true;
+        isTurretSpawningTakingPlace = true;
         yield return new WaitForSeconds(timeBetweenSpawns);
 
-        SpawnWeapon();
+        SpawnSinglePrefab(turretLocations, turretsLocationsBeingUsed, turretPrefabs, currentAmountOfTurrets);
 
-        isWeaponSpawningTakingPlace = false;
+        isTurretSpawningTakingPlace = false;
     }
-
-    private void SpawnHealth()
-    {
-        if (currentAmountOfHeals >= healsAtATime) return;
-        
-        int index = Random.Range(0, statsLocations.Count - 1);
-
-        while (statsLocationsBeingUsed[index] != null)
-        {
-            index = Random.Range(0, statsLocations.Count - 1);
-        }
-
-        var heal = Instantiate(healthPrefab, statsLocations[index]);
-        statsLocationsBeingUsed[index] = statsLocations[index];
-        currentAmountOfHeals++;
-    }
-
-    private void SpawnShield()
-    {
-        if (currentAmountOfShields >= shieldsAtATime) return;
-        
-        int index = Random.Range(0, statsLocations.Count - 1);
-
-        while (statsLocationsBeingUsed[index] != null)
-        {
-            index = Random.Range(0, statsLocations.Count - 1);
-        }
-
-        var shield = Instantiate(shieldPrefab, statsLocations[index]);
-        statsLocationsBeingUsed[index] = statsLocations[index];
-        currentAmountOfShields++;
-    }
-
-    private void SpawnWeapon()
-    {
-        if (currentAmountOfWeapons >= weaponsAtATime) return;
-        
-        int index = Random.Range(0, weaponsLocations.Count - 1);
-
-        while (weaponsLocationsBeingUsed[index] != null)
-        {
-            index = Random.Range(0, weaponsLocations.Count - 1);
-        }
-
-        var weapon = Instantiate(
-            weaponPrefabs[UnityEngine.Random.Range(0, weaponPrefabs.Count)],
-            weaponsLocations[index]);
-        weaponsLocationsBeingUsed[index] = weaponsLocations[index];
-        currentAmountOfWeapons++;
-    }
-
-    #region Initialize
-    private void InitializeSpawning()
-    {
-        InitializeHeals();
-        InitializeShields();
-        InitializeWeapons();
-    }
-
-    private void InitializeHeals()
-    {
-        for (int i = 0; i < healsAtATime; i++)
-        {
-            int index = Random.Range(0, statsLocations.Count - 1);
-
-            while (statsLocationsBeingUsed[index] != null)
-            {
-                index = Random.Range(0, statsLocations.Count - 1);
-            }
-
-            var heal = Instantiate(healthPrefab, statsLocations[index]);
-            statsLocationsBeingUsed[index] = statsLocations[index];
-            currentAmountOfHeals++;
-        }
-    }
-
-    private void InitializeShields()
-    {
-        for (int i = 0; i < shieldsAtATime; i++)
-        {
-            int index = Random.Range(0, statsLocations.Count - 1);
-            while (statsLocationsBeingUsed[index] != null)
-            {
-                index = Random.Range(0, statsLocations.Count - 1);
-            }
-
-            var shield = Instantiate(shieldPrefab, statsLocations[index]);
-            statsLocationsBeingUsed[index] = statsLocations[index];
-            currentAmountOfShields++;
-        }
-    }
-
-    private void InitializeWeapons()
-    {
-        for (int i = 0; i < weaponsAtATime; i++)
-        {
-            int index = Random.Range(0, weaponsLocations.Count - 1);
-            while (weaponsLocationsBeingUsed[index] != null)
-            {
-                index = Random.Range(0, weaponsLocations.Count - 1);
-            }
-
-            var weapon = Instantiate(
-                weaponPrefabs[UnityEngine.Random.Range(0, weaponPrefabs.Count)],
-                weaponsLocations[index]);
-            weaponsLocationsBeingUsed[index] = weaponsLocations[index];
-            currentAmountOfWeapons++;
-        }
-    }
-
-    private IEnumerator WaitForSpawn()
-    {
-        yield return new WaitForSeconds(timeToStartSpawning);
-        InitializeSpawning();
-    }
-    #endregion
 }
 
 enum Processes
 {
-    HealSpawn,
-    ShieldSpawn,
+    StatSpawn,
     WeaponSpawn
 }
