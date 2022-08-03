@@ -15,6 +15,7 @@ public class PlayerStatsController : MonoBehaviour
 
     public event Action<float> OnHullHealthChangedEvent;
     public event Action<float> OnShieldHealthChangedEvent;
+    public static event Action OnPlayerKilled;
 
     private void OnEnable()
     {
@@ -45,6 +46,7 @@ public class PlayerStatsController : MonoBehaviour
         shieldCollision.gameObject.SetActive(true);
 
         gameObject.SetActive(false);
+        OnPlayerKilled?.Invoke();
     }
 
     private void EnableHull() => hullCollision.gameObject.SetActive(true);    

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class LevelPlayersManager : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class LevelPlayersManager : MonoBehaviour
     public List<PlayerInput> PlayerInputs { get => playerInputs; }
 
     private GlobalPlayersManager globalPlayerManager;
+    private int amountOfPlayersKilled;
 
     public event Action<PlayerInput> OnPlayerAdded;
 
@@ -34,6 +36,7 @@ public class LevelPlayersManager : MonoBehaviour
         }
         
         globalPlayerManager.OnNewPlayerAdded += AddNewPlayer;
+        PlayerStatsController.OnPlayerKilled += ManagePlayerKilledEvent;
     }
 
     private void OnDisable()
@@ -54,6 +57,7 @@ public class LevelPlayersManager : MonoBehaviour
         {
             playerInputs[i].gameObject.GetComponent<PlayerMoveController>().StopMovement();
             playerInputs[i].gameObject.transform.position = spawnPoints[i].position;
+            playerInputs[i].gameObject.SetActive(true);
         }
     }
 
@@ -66,6 +70,39 @@ public class LevelPlayersManager : MonoBehaviour
             playerInputs[i].gameObject.GetComponentInChildren<TurretBase>().GetComponentInChildren<Billboard>().SetNewCamera(levelCamera);
 
             playerInputs[i].gameObject.transform.position = spawnPoints[i].position;
+        }
+    }
+
+    private void ManagePlayerKilledEvent()
+    {
+        amountOfPlayersKilled++;
+        if (amountOfPlayersKilled == globalPlayerManager.CurrentAmountOfPlayers - 1)
+        {
+            LoadNextLevel();
+        }
+    }
+
+    private void LoadNextLevel()
+    {
+        DisabelAllPlayers();
+        int amountOfLevels = SceneManager.sceneCountInBuildSettings;
+        int currentLevelIndex = SceneManager.GetActiveScene().buildIndex;
+
+        int lextLevelIndex = UnityEngine.Random.Range(1, amountOfLevels);
+        while(lextLevelIndex == currentLevelIndex)
+        {
+            lextLevelIndex = UnityEngine.Random.Range(1, amountOfLevels);
+        }
+        
+        SceneManager.LoadScene(lextLevelIndex);
+    }
+
+    private void DisabelAllPlayers()
+    {
+        for (int i = 0; i < playerInputs.Count; i++)
+        {
+            playerInputs[i].gameObject.GetComponent<PlayerTurretController>().SetToDefaultTurret();
+            playerInputs[i].gameObject.SetActive(false);
         }
     }
 }

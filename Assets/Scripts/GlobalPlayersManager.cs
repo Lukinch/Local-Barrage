@@ -16,6 +16,13 @@ public class GlobalPlayersManager : MonoBehaviour
     private PlayerInputManager playerInputManager;
     private GlobalPlayersManager Instance;
 
+    public int MaxNumberOfPlayers { get => maxNumerOfPlayers; }
+    public int CurrentAmountOfPlayers
+    {
+        get;
+        set;
+    }
+
     private void Awake()
     {
         if (Instance != null)
@@ -40,5 +47,25 @@ public class GlobalPlayersManager : MonoBehaviour
         players.Add(playerInput);
 
         OnNewPlayerAdded?.Invoke(playerInput);
+    }
+
+    public void EnablePlayersJoin() => playerInputManager.EnableJoining();
+
+    public void DisablePlayersJoin() => playerInputManager.DisableJoining();
+
+    public void EnablePlayerInput()
+    {
+        for (int i = 0; i < players.Count; i++)
+        {
+            players[i].gameObject.SetActive(true);
+        }
+    }
+
+    public void DisablePlayerInput()
+    {
+        for (int i = 0; i < players.Count; i++)
+        {
+            players[i].gameObject.SetActive(false);
+        }
     }
 }
