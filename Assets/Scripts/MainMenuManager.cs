@@ -5,12 +5,14 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System;
 
 public class MainMenuManager : MonoBehaviour
 {
     [SerializeField] private int nextLevelCountDown = 5;
     [SerializeField] private TextMeshProUGUI countDownText;
 
+    private GlobalPlayersManager globalPlayersManager;
     private LevelPlayersManager levelManager;
     private List<PlayerInput> players;
     private List<PlayerMoveController> playerMoveControllers;
@@ -30,14 +32,12 @@ public class MainMenuManager : MonoBehaviour
     private void Awake()
     {
         InitializeLists();
-
+        globalPlayersManager = FindObjectOfType<GlobalPlayersManager>();
         levelManager = FindObjectOfType<LevelPlayersManager>();
-
         levelManager.OnPlayerAdded += ManageNewPlayer;
-
         UIUnitMainMenuManager.IsPlayerReady += PlayerReady;
-
         currentTimer = nextLevelCountDown;
+        globalPlayersManager.EnablePlayersJoin();
     }
 
     private void OnDisable()
@@ -93,7 +93,6 @@ public class MainMenuManager : MonoBehaviour
     {
         for (var i = 0; i < players.Count; i++)
         {
-            players[i].SwitchCurrentActionMap("Player");
             playerMoveControllers[i].enabled = true;
             playerRotationControllers[i].enabled = true;
             playerKeepInPlaceControllers[i].enabled = true;
@@ -158,9 +157,21 @@ public class MainMenuManager : MonoBehaviour
 
     private void LoadNextLevel()
     {
+        globalPlayersManager.DisablePlayersJoin();
+        globalPlayersManager.CurrentAmountOfPlayers = currentAmountOfPlayers;
+        DisabelAllPlayers();
         EnableAllPlayerInncesaryComponents();
         int amountOfLevels = SceneManager.sceneCountInBuildSettings;
         int lextLevelIndex = UnityEngine.Random.Range(1, amountOfLevels);
         SceneManager.LoadScene(lextLevelIndex);
+    }
+
+    private void DisabelAllPlayers()
+    {
+        for (int i = 0; i < players.Count; i++)
+        {
+            players[i].SwitchCurrentActionMap("Player");
+            players[i].gameObject.SetActive(false);
+        }
     }
 }

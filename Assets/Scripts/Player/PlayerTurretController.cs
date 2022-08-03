@@ -41,7 +41,7 @@ public class PlayerTurretController : MonoBehaviour
         SetToDefaultTurret();
     }
 
-    private void SetToDefaultTurret()
+    public void SetToDefaultTurret()
     {
         countdownCoroutine = null;
 
