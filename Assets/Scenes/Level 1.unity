@@ -650,6 +650,21 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3668127363343991725, guid: d4972cfe99e350f49b8e8cfd9b4190b2,
+        type: 3}
+      propertyPath: m_Name
+      value: Turret Pickable 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3668127363473316463, guid: d4972cfe99e350f49b8e8cfd9b4190b2,
+        type: 3}
+      propertyPath: m_Name
+      value: Turret Pickable 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3668127363553320163, guid: d4972cfe99e350f49b8e8cfd9b4190b2,
+        type: 3}
+      propertyPath: m_Name
+      value: Stats Pickable 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3668127364217050388, guid: d4972cfe99e350f49b8e8cfd9b4190b2,
         type: 3}
       propertyPath: m_RootOrder
@@ -709,6 +724,51 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PickablesSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 3668127364513908948, guid: d4972cfe99e350f49b8e8cfd9b4190b2,
+        type: 3}
+      propertyPath: m_Name
+      value: Turret Pickable 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3668127364515337880, guid: d4972cfe99e350f49b8e8cfd9b4190b2,
+        type: 3}
+      propertyPath: m_Name
+      value: Turret Pickable 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3668127364581102710, guid: d4972cfe99e350f49b8e8cfd9b4190b2,
+        type: 3}
+      propertyPath: m_Name
+      value: Turret Pickable 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3668127364592745835, guid: d4972cfe99e350f49b8e8cfd9b4190b2,
+        type: 3}
+      propertyPath: m_Name
+      value: Stats Pickable 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3668127364664102443, guid: d4972cfe99e350f49b8e8cfd9b4190b2,
+        type: 3}
+      propertyPath: m_Name
+      value: Stats Pickable 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3668127365019151973, guid: d4972cfe99e350f49b8e8cfd9b4190b2,
+        type: 3}
+      propertyPath: m_Name
+      value: Stats Pickable 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3668127365124019302, guid: d4972cfe99e350f49b8e8cfd9b4190b2,
+        type: 3}
+      propertyPath: m_Name
+      value: Stats Pickable 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3668127365173030410, guid: d4972cfe99e350f49b8e8cfd9b4190b2,
+        type: 3}
+      propertyPath: m_Name
+      value: Stats Pickable 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3668127365391996250, guid: d4972cfe99e350f49b8e8cfd9b4190b2,
+        type: 3}
+      propertyPath: m_Name
+      value: Stats Pickable 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -5118,6 +5178,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -18.08
       objectReference: {fileID: 0}
+    - target: {fileID: 1758638947138133637, guid: 7dad52ab9b8dc8447b1415e9e5219faf,
+        type: 3}
+      propertyPath: m_Name
+      value: Player Spawn 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2305443746132153614, guid: 7dad52ab9b8dc8447b1415e9e5219faf,
         type: 3}
       propertyPath: m_Name
@@ -5127,6 +5192,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2320448934733457270, guid: 7dad52ab9b8dc8447b1415e9e5219faf,
+        type: 3}
+      propertyPath: m_Name
+      value: Player Spawn 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4523148633754051396, guid: 7dad52ab9b8dc8447b1415e9e5219faf,
+        type: 3}
+      propertyPath: m_Name
+      value: Player Spawn 1
       objectReference: {fileID: 0}
     - target: {fileID: 4968166314711866794, guid: 7dad52ab9b8dc8447b1415e9e5219faf,
         type: 3}
@@ -5182,6 +5257,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5536881470072351143, guid: 7dad52ab9b8dc8447b1415e9e5219faf,
+        type: 3}
+      propertyPath: m_Name
+      value: Player Spawn 4
       objectReference: {fileID: 0}
     - target: {fileID: 6379713306386109916, guid: 7dad52ab9b8dc8447b1415e9e5219faf,
         type: 3}

@@ -4133,7 +4133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 875682618}
   m_Layer: 0
-  m_Name: Turret Pickable (3)
+  m_Name: Turret Pickable 4
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -4261,7 +4261,7 @@ GameObject:
   m_Component:
   - component: {fileID: 972705599}
   m_Layer: 0
-  m_Name: Turret Pickable (1)
+  m_Name: Turret Pickable 2
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -6516,7 +6516,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1859102895}
   m_Layer: 0
-  m_Name: Turret Pickable (2)
+  m_Name: Turret Pickable 3
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -6864,7 +6864,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3668127363365031924}
   m_Layer: 0
-  m_Name: Stats Pickable
+  m_Name: Stats Pickable 1
   m_TagString: Untagged
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -6948,7 +6948,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3668127364426161089}
   m_Layer: 0
-  m_Name: Turret Pickable
+  m_Name: Turret Pickable 1
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -7029,7 +7029,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3668127364812807484}
   m_Layer: 0
-  m_Name: Stats Pickable
+  m_Name: Stats Pickable 3
   m_TagString: Untagged
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -7045,7 +7045,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3668127365137186166}
   m_Layer: 0
-  m_Name: Stats Pickable
+  m_Name: Stats Pickable 2
   m_TagString: Untagged
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -7076,7 +7076,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3668127365360794911}
   m_Layer: 0
-  m_Name: Stats Pickable
+  m_Name: Stats Pickable 4
   m_TagString: Untagged
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0

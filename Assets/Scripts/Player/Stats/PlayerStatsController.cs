@@ -33,17 +33,17 @@ public class PlayerStatsController : MonoBehaviour
     {
         currentHealth = maxHealth;
         currentShield = maxShield;
-
-        hullCollision.gameObject.SetActive(false);
+        DisableHull();
     }
     private void DisableSelf()
     {
         currentHealth = maxHealth;
         OnHullHealthChangedEvent?.Invoke(currentHealth / maxHealth);
+        DisableHull();
 
         currentShield = maxShield;
         OnShieldHealthChangedEvent?.Invoke(currentShield / maxShield);
-        shieldCollision.gameObject.SetActive(true);
+        EnableShield();
 
         gameObject.SetActive(false);
         OnPlayerKilled?.Invoke();
@@ -94,7 +94,11 @@ public class PlayerStatsController : MonoBehaviour
     {
         if (currentShield == maxShield) return;
 
-        if (currentShield == 0) EnableShield();
+        if (currentShield == 0)
+        {
+            DisableHull();
+            EnableShield();
+        }
 
         currentShield += amountToRestore;
         if (currentShield > maxShield) currentShield = maxShield;

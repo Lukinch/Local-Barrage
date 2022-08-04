@@ -31,6 +31,12 @@ public class LevelPlayersManager : MonoBehaviour
         PlayerStatsController.OnPlayerKilled += ManagePlayerKilledEvent;
     }
 
+    private void OnDestroy()
+    {
+        levelObjectiveScreenController.OnObjectiveShown -= InitializePlayerSpawn;
+        PlayerStatsController.OnPlayerKilled -= ManagePlayerKilledEvent;
+    }
+
     private void InitializePlayerSpawn()
     {
         GlobalPlayersManager.Instance.EnableAllPlayers();

@@ -38,6 +38,11 @@ public class MainMenuManager : MonoBehaviour
         GlobalPlayersManager.Instance.ClearPlayersList();
     }
 
+    private void OnDisable()
+    {
+        GlobalPlayersManager.Instance.OnNewPlayerAdded -= ManageNewPlayer;
+    }
+
     private void ManageNewPlayer(PlayerInput playerInput)
     {
         StopCountDownToLoadNextLevel();

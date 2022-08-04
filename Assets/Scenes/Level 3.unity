@@ -555,7 +555,7 @@ GameObject:
   m_Component:
   - component: {fileID: 269687115}
   m_Layer: 0
-  m_Name: Turret Pickable (2)
+  m_Name: Turret Pickable 7
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -2297,7 +2297,7 @@ GameObject:
   m_Component:
   - component: {fileID: 686388137}
   m_Layer: 0
-  m_Name: Stats Pickable (1)
+  m_Name: Stats Pickable 2
   m_TagString: Untagged
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -4610,7 +4610,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1151391313}
   m_Layer: 0
-  m_Name: Turret Pickable (1)
+  m_Name: Turret Pickable 6
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -4806,7 +4806,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1169308339}
   m_Layer: 0
-  m_Name: Stats Pickable (2)
+  m_Name: Stats Pickable 3
   m_TagString: Untagged
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -6280,7 +6280,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1631962890}
   m_Layer: 0
-  m_Name: Turret Pickable (3)
+  m_Name: Turret Pickable 8
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -7685,7 +7685,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3668127363319236984}
   m_Layer: 0
-  m_Name: Turret Pickable
+  m_Name: Turret Pickable 2
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -7716,7 +7716,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3668127363365031924}
   m_Layer: 0
-  m_Name: Stats Pickable
+  m_Name: Stats Pickable 1
   m_TagString: Untagged
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -7766,7 +7766,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3668127363431747774}
   m_Layer: 0
-  m_Name: Turret Pickable
+  m_Name: Turret Pickable 4
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -7830,7 +7830,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3668127364426161089}
   m_Layer: 0
-  m_Name: Turret Pickable
+  m_Name: Turret Pickable 1
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -7861,7 +7861,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3668127364433085837}
   m_Layer: 0
-  m_Name: Turret Pickable
+  m_Name: Turret Pickable 5
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -7931,7 +7931,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3668127364493084515}
   m_Layer: 0
-  m_Name: Turret Pickable
+  m_Name: Turret Pickable 3
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -7968,7 +7968,7 @@ PrefabInstance:
     - target: {fileID: 1286613752789945206, guid: 7dad52ab9b8dc8447b1415e9e5219faf,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -18
+      value: -14.8
       objectReference: {fileID: 0}
     - target: {fileID: 2305443746132153614, guid: 7dad52ab9b8dc8447b1415e9e5219faf,
         type: 3}
@@ -8043,7 +8043,7 @@ PrefabInstance:
     - target: {fileID: 6379713306386109916, guid: 7dad52ab9b8dc8447b1415e9e5219faf,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -18
+      value: -13.6
       objectReference: {fileID: 0}
     - target: {fileID: 6454061015976220083, guid: 7dad52ab9b8dc8447b1415e9e5219faf,
         type: 3}
@@ -8053,7 +8053,7 @@ PrefabInstance:
     - target: {fileID: 6454061015976220083, guid: 7dad52ab9b8dc8447b1415e9e5219faf,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 18
+      value: 13.2
       objectReference: {fileID: 0}
     - target: {fileID: 7698615396674986519, guid: 7dad52ab9b8dc8447b1415e9e5219faf,
         type: 3}
@@ -8063,7 +8063,7 @@ PrefabInstance:
     - target: {fileID: 7698615396674986519, guid: 7dad52ab9b8dc8447b1415e9e5219faf,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 18
+      value: 12.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
