@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class LevelObjectiveScreenController : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class LevelObjectiveScreenController : MonoBehaviour
 
     // (1 / timeToStartMatch) / 50
     private readonly float SUBTRACTION = 0.00666666666666666666666666666667f;
+
+    public event Action OnObjectiveShown;
 
     private void Awake()
     {
@@ -31,7 +34,6 @@ public class LevelObjectiveScreenController : MonoBehaviour
 
     private void Start()
     {
-        globalPlayersManager.DisablePlayerInput();
         StartCoroutine(nameof(WaitForMatchToStart));
         StartCoroutine(nameof(ShrinkBackground));
     }
@@ -45,8 +47,8 @@ public class LevelObjectiveScreenController : MonoBehaviour
             countdown.text = $"{currentTime}";
         }
 
-        globalPlayersManager.EnablePlayerInput();
         DisableGameObject();
+        OnObjectiveShown?.Invoke();
     }
 
     private IEnumerator ShrinkBackground()
