@@ -7,6 +7,7 @@ using Random = UnityEngine.Random;
 
 public class LevelPickablesManager : MonoBehaviour
 {
+    [SerializeField] private LevelObjectiveScreenController levelObjectiveScreenController;
     [Header("Locations")]
     [SerializeField] private Transform[] turretLocations;
     [SerializeField] private Transform[] statsLocations;
@@ -23,8 +24,8 @@ public class LevelPickablesManager : MonoBehaviour
     private Transform[] turretsLocationsBeingUsed;
     private Queue<Processes> queuedStatsProcesses;
     private Queue<Processes> queuedTurretsProcesses;
-    private int currentAmountOfTurrets;
-    private int currentAmountOfStats;
+    [SerializeField] private int currentAmountOfTurrets;
+    [SerializeField] private int currentAmountOfStats;
     private bool isStatSpawningTakingPlace;
     private bool isTurretSpawningTakingPlace;
 
@@ -35,11 +36,8 @@ public class LevelPickablesManager : MonoBehaviour
         HealthPickable.OnHealthDestroyed += OnStatRequested;
         ShieldPickable.OnShieldDestroyed += OnStatRequested;
         TurretPickable.OnTurretDestroyed += OnWeaponRequested;
-    }
 
-    private void Start()
-    {
-        StartCoroutine(nameof(WaitForSpawn));
+        levelObjectiveScreenController.OnObjectiveShown += InitializeSpawn;
     }
 
     private void Update()
@@ -70,6 +68,11 @@ public class LevelPickablesManager : MonoBehaviour
         turretsLocationsBeingUsed = new Transform[turretLocations.Length];
     }
 
+    private void InitializeSpawn()
+    {
+        StartCoroutine(nameof(WaitForSpawn));
+    }
+
     private IEnumerator WaitForSpawn()
     {
         yield return new WaitForSeconds(timeToStartSpawning);
@@ -78,11 +81,11 @@ public class LevelPickablesManager : MonoBehaviour
 
     private void Initialize()
     {
-        SpawnMultiplePrefabs(statsAtATime, statsLocations, statsLocationsBeingUsed, statsPrefabs, currentAmountOfStats);
-        SpawnMultiplePrefabs(turretsAtATime, turretLocations, turretsLocationsBeingUsed, turretPrefabs, currentAmountOfTurrets);
+        SpawnMultiplePrefabs(statsAtATime, statsLocations, statsLocationsBeingUsed, statsPrefabs, ref currentAmountOfStats);
+        SpawnMultiplePrefabs(turretsAtATime, turretLocations, turretsLocationsBeingUsed, turretPrefabs, ref currentAmountOfTurrets);
     }
 
-    private void SpawnSinglePrefab(Transform[] locations, Transform[] locationsUsed, GameObject[] prefabs, int trackAmount)
+    private void SpawnSinglePrefab(Transform[] locations, Transform[] locationsUsed, GameObject[] prefabs, ref int trackAmount)
     {
         int index = Random.Range(0, locations.Length);
         while (locationsUsed[index] != null)
@@ -96,7 +99,7 @@ public class LevelPickablesManager : MonoBehaviour
         trackAmount++;
     }
 
-    private void SpawnMultiplePrefabs(int limitAmount, Transform[] locations, Transform[] locationsUsed, GameObject[] prefabs, int trackAmount)
+    private void SpawnMultiplePrefabs(int limitAmount, Transform[] locations, Transform[] locationsUsed, GameObject[] prefabs, ref int trackAmount)
     {
         for (int i = 0; i < limitAmount; i++)
         {
@@ -142,7 +145,7 @@ public class LevelPickablesManager : MonoBehaviour
         isStatSpawningTakingPlace = true;
         yield return new WaitForSeconds(timeBetweenSpawns);
 
-        SpawnSinglePrefab(statsLocations, statsLocationsBeingUsed, statsPrefabs, currentAmountOfStats);
+        SpawnSinglePrefab(statsLocations, statsLocationsBeingUsed, statsPrefabs, ref currentAmountOfStats);
 
         isStatSpawningTakingPlace = false;
     }
@@ -152,7 +155,7 @@ public class LevelPickablesManager : MonoBehaviour
         isTurretSpawningTakingPlace = true;
         yield return new WaitForSeconds(timeBetweenSpawns);
 
-        SpawnSinglePrefab(turretLocations, turretsLocationsBeingUsed, turretPrefabs, currentAmountOfTurrets);
+        SpawnSinglePrefab(turretLocations, turretsLocationsBeingUsed, turretPrefabs, ref currentAmountOfTurrets);
 
         isTurretSpawningTakingPlace = false;
     }

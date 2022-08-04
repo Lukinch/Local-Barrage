@@ -1949,6 +1949,11 @@ PrefabInstance:
       propertyPath: spawnPoints.Array.data[3]
       value: 
       objectReference: {fileID: 5391953233494024398}
+    - target: {fileID: 861424277405906426, guid: ae70621fa6dcda047a2e1ed4f3c63309,
+        type: 3}
+      propertyPath: levelObjectiveScreenController
+      value: 
+      objectReference: {fileID: 1566043038}
     - target: {fileID: 4726968840784248225, guid: ae70621fa6dcda047a2e1ed4f3c63309,
         type: 3}
       propertyPath: m_Name
@@ -3692,6 +3697,11 @@ PrefabInstance:
       propertyPath: turretLocations.Array.data[4]
       value: 
       objectReference: {fileID: 3668127364433085837}
+    - target: {fileID: 6799449592347568542, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: levelObjectiveScreenController
+      value: 
+      objectReference: {fileID: 1566043038}
     - target: {fileID: 6799449592347568542, guid: 4471842684e00304da44d51186ec79ac,
         type: 3}
       propertyPath: weaponsLocations.Array.data[0]
@@ -6122,6 +6132,18 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 697238fce8aba9842a26bf7608e6f715, type: 3}
+--- !u!114 &1566043038 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3203277274075420548, guid: 697238fce8aba9842a26bf7608e6f715,
+    type: 3}
+  m_PrefabInstance: {fileID: 1566043037}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42d11847ab7278043aa890a86b55c049, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1579107363
 GameObject:
   m_ObjectHideFlags: 0
