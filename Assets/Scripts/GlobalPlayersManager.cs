@@ -8,9 +8,11 @@ public class GlobalPlayersManager : MonoBehaviour
 {
     [SerializeField] private int maxNumerOfPlayers;
     [SerializeField] private PlayerInputManager playerInputManager;
+    [SerializeField] private int maxAmountOfPointsPerPlayer = 50;
 
     private int playersAmount;
     private List<PlayerInput> players = new List<PlayerInput>();
+    private List<PlayerPoints> playersPoints = new List<PlayerPoints>();
     private List<GameObject> playersMenuUI = new List<GameObject>();
     private List<GameObject> playersLiveUI = new List<GameObject>();
     private List<GameObject> playersShield = new List<GameObject>();
@@ -19,8 +21,11 @@ public class GlobalPlayersManager : MonoBehaviour
 
     public static GlobalPlayersManager Instance;
     public int PlayersAmount => playersAmount;
+    public int MaxAmountOfPointsPerPlayer => maxAmountOfPointsPerPlayer;
+    public List<PlayerPoints> PlayersPoints => playersPoints;
     public List<PlayerInput> GetPlayerInputs { get => players; }
     public event Action<PlayerInput> OnNewPlayerAdded;
+    public event Action OnGameStarted;
 
     private void Awake()
     {
@@ -49,6 +54,7 @@ public class GlobalPlayersManager : MonoBehaviour
         playersShield.Add(playerObject.GetComponentInChildren<PlayerShieldCollision>().gameObject);
         playersKeepInPlaceControllers.Add(playerObject.GetComponentInChildren<KeepInPlacePosition>());
         playersTurretControllers.Add(playerObject.GetComponentInChildren<PlayerTurretController>());
+        playersPoints.Add(playerObject.GetComponent<PlayerPoints>());
 
         SwitchPlayerActionMap(playerInput, "UI");
         DisablePlayerGameplayComponents(PlayersAmount);
@@ -108,6 +114,7 @@ public class GlobalPlayersManager : MonoBehaviour
     }
     public void ClearPlayersList()
     {
+        players.ForEach(player => Destroy(player.gameObject));
         players.Clear();
         playersMenuUI.Clear();
         playersLiveUI.Clear();
@@ -131,10 +138,35 @@ public class GlobalPlayersManager : MonoBehaviour
     }
     public void StopPlayersMovement()
     {
-        players.ForEach(player => player.gameObject.GetComponent<PlayerMoveController>().StopMovement());
+        players.ForEach(
+            player => player
+                        .gameObject
+                        .GetComponent<PlayerMoveController>()
+                        .StopMovement()
+        );
+    }
+    public void EnableAllPlayersInput()
+    {
+        players.ForEach(player => player.enabled = true);
+    }
+    public void DisableAllPlayersInput()
+    {
+        players.ForEach(player => player.enabled = false);
+    }
+    public int[] GetPlayerPointsInt()
+    {
+        int[] points = new int[playersAmount];
+        
+        for (int i = 0; i < playersAmount; i++)
+        {
+            points[i] = playersPoints[i].GetPointsInt();
+        }
+
+        return points;
     }
     public void EnablePlayersJoin() => playerInputManager.EnableJoining();
     public void DisablePlayersJoin() => playerInputManager.DisableJoining();
     public void SubscribeToNewPlayersEvent() => playerInputManager.onPlayerJoined += AddPlayer;
     public void UnsubscribeToNewPlayersEvent() => playerInputManager.onPlayerJoined -= AddPlayer;
+    public void GameStarted() => OnGameStarted?.Invoke();
 }

@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using TMPro;
-using System;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -35,6 +34,10 @@ public class MainMenuManager : MonoBehaviour
         if (GlobalPlayersManager.Instance.PlayersAmount < 1) return;
 
         GlobalPlayersManager.Instance.EnablePlayersJoin();
+        GlobalPlayersManager.Instance.ClearPlayersList();
+    }
+    private void Start()
+    {
         GlobalPlayersManager.Instance.ClearPlayersList();
     }
 

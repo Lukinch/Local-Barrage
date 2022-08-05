@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerStatsController : MonoBehaviour
@@ -19,14 +20,18 @@ public class PlayerStatsController : MonoBehaviour
 
     private void OnEnable()
     {
-        hullCollision.HullCollisionEvent += DamageHull;
-        shieldCollision.ShieldCollisionEvent += DamageShield;
+        hullCollision.HullProjectileCollisionEvent += ProjectileDamageHull;
+        hullCollision.HullPickableCollisionEvent += PickableDamageHull;
+        shieldCollision.ShieldProjectileCollisionEvent += ProjectileDamageShield;
+        shieldCollision.ShieldPickableCollisionEvent += PickableDamageShield;
     }
 
     private void OnDisable()
     {
-        hullCollision.HullCollisionEvent -= DamageHull;
-        shieldCollision.ShieldCollisionEvent -= DamageShield;
+        hullCollision.HullProjectileCollisionEvent -= ProjectileDamageHull;
+        hullCollision.HullPickableCollisionEvent -= PickableDamageHull;
+        shieldCollision.ShieldProjectileCollisionEvent -= ProjectileDamageShield;
+        shieldCollision.ShieldPickableCollisionEvent -= PickableDamageShield;
     }
 
     private void Start()
@@ -55,7 +60,21 @@ public class PlayerStatsController : MonoBehaviour
     private void EnableShield() => shieldCollision.gameObject.SetActive(true);
     private void DisableShield() => shieldCollision.gameObject.SetActive(false);
 
-    public void DamageHull(float damage)
+    public void ProjectileDamageHull(float damage, int projectileOwner)
+    {
+        currentHealth -= damage;
+        if (currentHealth <= 0)
+        {
+            currentHealth = 0;
+
+            GlobalPlayersManager.Instance.PlayersPoints[projectileOwner].AddPoints();
+
+            DisableSelf();
+        }
+
+        OnHullHealthChangedEvent?.Invoke(currentHealth / maxHealth);
+    }
+    public void PickableDamageHull(float damage)
     {
         currentHealth -= damage;
         if (currentHealth <= 0)
@@ -67,7 +86,7 @@ public class PlayerStatsController : MonoBehaviour
         OnHullHealthChangedEvent?.Invoke(currentHealth / maxHealth);
     }
 
-    public void DamageShield(float damage)
+    public void ProjectileDamageShield(float damage, int projectileOwner)
     {
         currentShield -= damage;
         if (currentShield <= 0)
@@ -77,6 +96,18 @@ public class PlayerStatsController : MonoBehaviour
             EnableHull();
         }
         
+        OnShieldHealthChangedEvent?.Invoke(currentShield / maxShield);
+    }
+    public void PickableDamageShield(float damage)
+    {
+        currentShield -= damage;
+        if (currentShield <= 0)
+        {
+            currentShield = 0;
+            DisableShield();
+            EnableHull();
+        }
+
         OnShieldHealthChangedEvent?.Invoke(currentShield / maxShield);
     }
 

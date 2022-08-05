@@ -10,11 +10,11 @@ public class HazzardPickable : Pickable
     {
         if (player.PlayerStatsController.IsShieldActive())
         {
-            player.PlayerStatsController.DamageShield(damageAmount);
+            player.PlayerStatsController.PickableDamageShield(damageAmount);
         }
         else
         {
-            player.PlayerStatsController.DamageHull(damageAmount);
+            player.PlayerStatsController.PickableDamageHull(damageAmount);
         }
     }
 

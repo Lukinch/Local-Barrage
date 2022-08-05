@@ -41,7 +41,7 @@ public class Projectile : MonoBehaviour
         {
             if (Owner == unitCollision.OwnerInputId) return;
 
-            unitCollision.TakeDamage(Damage);
+            unitCollision.TakeProjectileDamage(Damage, Owner);
 
             Destroy();
         }

@@ -2,5 +2,6 @@
 public interface IDamageCollision
 {
     int OwnerInputId { get; }
-    void TakeDamage(float damage);
+    void TakeProjectileDamage(float damage, int ownerIndex);
+    void TakePickableDamage(float damage);
 }

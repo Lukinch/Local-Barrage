@@ -14,6 +14,8 @@ public class LevelPlayersManager : MonoBehaviour
     private int amountOfPlayersKilled;
     private int amountOfPlayers;
 
+    public event Action OnLevelEnded;
+
     private void Awake()
     {
         levelCamera = Camera.main;
@@ -56,24 +58,7 @@ public class LevelPlayersManager : MonoBehaviour
         amountOfPlayersKilled++;
         if (amountOfPlayersKilled == amountOfPlayers - 1)
         {
-            LoadNextLevel();
+            OnLevelEnded?.Invoke();
         }
-    }
-
-    private void LoadNextLevel()
-    {
-        GlobalPlayersManager.Instance.SetPlayersDefaultTurret();
-        GlobalPlayersManager.Instance.DisableAllPlayers();
-
-        int amountOfLevels = SceneManager.sceneCountInBuildSettings;
-        int currentLevelIndex = SceneManager.GetActiveScene().buildIndex;
-
-        int lextLevelIndex = UnityEngine.Random.Range(1, amountOfLevels);
-        while(lextLevelIndex == currentLevelIndex)
-        {
-            lextLevelIndex = UnityEngine.Random.Range(1, amountOfLevels);
-        }
-        
-        SceneManager.LoadScene(lextLevelIndex);
     }
 }
