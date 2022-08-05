@@ -49,6 +49,8 @@ public class GlobalPlayersManager : MonoBehaviour
 
         GameObject playerObject = playerInput.gameObject;
 
+        SwitchPlayerActionMap(playerInput, "UI");
+
         playersLiveUI.Add(playerObject.GetComponentInChildren<Billboard>().gameObject);
         playersMenuUI.Add(playerObject.GetComponentInChildren<UIUnitMainMenuManager>().gameObject);
         playersShield.Add(playerObject.GetComponentInChildren<PlayerShieldCollision>().gameObject);
@@ -56,7 +58,6 @@ public class GlobalPlayersManager : MonoBehaviour
         playersTurretControllers.Add(playerObject.GetComponentInChildren<PlayerTurretController>());
         playersPoints.Add(playerObject.GetComponent<PlayerPoints>());
 
-        SwitchPlayerActionMap(playerInput, "UI");
         DisablePlayerGameplayComponents(PlayersAmount);
 
         players.Add(playerInput);
@@ -115,13 +116,16 @@ public class GlobalPlayersManager : MonoBehaviour
     public void ClearPlayersList()
     {
         players.ForEach(player => Destroy(player.gameObject));
+
         players.Clear();
+        playersPoints.Clear();
         playersMenuUI.Clear();
         playersLiveUI.Clear();
         playersShield.Clear();
         playersKeepInPlaceControllers.Clear();
+        playersTurretControllers.Clear();
 
-        playersAmount = 0;
+    playersAmount = 0;
     }
     public void SetPlayersDefaultTurret()
     {

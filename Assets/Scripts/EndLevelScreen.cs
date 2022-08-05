@@ -7,11 +7,17 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using System.Linq;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem.UI;
+using UnityEngine.InputSystem;
 
 public class EndLevelScreen : MonoBehaviour
 {
     [Header("Level Dependencies")]
     [SerializeField] private LevelPlayersManager levelPlayersManager;
+    [SerializeField] private InputSystemUIInputModule inputSystemUI;
+    [SerializeField] private EventSystem eventSystem;
+    [SerializeField] private GameObject defaultSelectedObject;
     [Header("------------------")]
     [Header("UI Dependencies")]
     [Header("Next Level UI")]
@@ -96,8 +102,12 @@ public class EndLevelScreen : MonoBehaviour
         mainMenuButton.onClick.AddListener(LoadMainMenu);
         exitGameButton.onClick.AddListener(ExitGame);
 
-        GlobalPlayersManager.Instance.EnableAllPlayers();
-        GlobalPlayersManager.Instance.SwitchAllPlayersActionMap("UI");
+        PlayerInput winner = GlobalPlayersManager.Instance.GetPlayerInputs[playerIndex];
+
+        winner.enabled = true;
+        eventSystem.SetSelectedGameObject(defaultSelectedObject);
+        GlobalPlayersManager.Instance.SwitchPlayerActionMap(winner,"UI");
+        inputSystemUI.actionsAsset = winner.actions;
 
         playerWonScreenObject.SetActive(true);
     }
