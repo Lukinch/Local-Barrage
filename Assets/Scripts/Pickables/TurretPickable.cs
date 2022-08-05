@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class TurretPickable : Pickable
 {
+    [SerializeField] bool shouldDisappear;
     [SerializeField] private GameObject turretPrefab;
 
     public static event Action<Transform> OnTurretDestroyed;
@@ -18,11 +19,15 @@ public class TurretPickable : Pickable
         if (player.TurretController.ContainsTurret(tBase.TurretName))
         {
             player.TurretController.OnWeaponPickedUp(tBase.TurretName);
+
+            if (!shouldDisappear) return;
             OnPicked();
         }
         else
         {
             player.TurretController.OnNewWeaponPickedUp(turretPrefab);
+
+            if (!shouldDisappear) return;
             OnPicked();
         }
     }

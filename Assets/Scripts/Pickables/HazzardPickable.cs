@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class HazzardPickable : Pickable
 {
+    [SerializeField] bool shouldDisappear;
     [SerializeField] private float damageAmount;
 
     protected override void ImplementEffect(PlayerPickableCollision player)

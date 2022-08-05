@@ -62,6 +62,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickupSfx: {fileID: 0}
   pickupVfx: {fileID: 0}
+  shouldDisappear: 1
   healAmount: 20
 --- !u!1001 &2470464445556013794
 PrefabInstance:
