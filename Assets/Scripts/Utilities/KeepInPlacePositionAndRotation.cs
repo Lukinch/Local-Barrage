@@ -1,7 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Mathematics;
+
 using UnityEngine;
 
 [ExecuteAlways]
@@ -11,9 +8,8 @@ public class KeepInPlacePositionAndRotation : MonoBehaviour
     [SerializeField] private Vector3 positionOffset;
     [SerializeField] private Vector3 rotationOffset;
 
-    private void FixedUpdate()
+    private void Update()
     {
-        transform.position = followObject.position + positionOffset;
-        transform.eulerAngles = rotationOffset;
+        transform.SetPositionAndRotation(followObject.position + positionOffset, Quaternion.Euler(rotationOffset));
     }
 }

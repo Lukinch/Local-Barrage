@@ -85,8 +85,8 @@ public class GlobalPlayersManager : MonoBehaviour
     public void EnablePlayerGameplayComponents(int index)
     {
         PlayerComponentReferences player = players[index].gameObject.GetComponent<PlayerComponentReferences>();
+        player.TurretRotationController.enabled = true;
         player.TurretController.enabled = true;
-        player.KeepInPlacePosition.enabled = true;
         player.LiveUI.SetActive(true);
         player.PlayerColliders.SetActive(true);
     }
@@ -94,8 +94,8 @@ public class GlobalPlayersManager : MonoBehaviour
     public void DisablePlayerGameplayComponents(int index)
     {
         PlayerComponentReferences player = players[index].gameObject.GetComponent<PlayerComponentReferences>();
+        player.TurretRotationController.enabled = false;
         player.TurretController.enabled = false;
-        player.KeepInPlacePosition.enabled = false;
         player.LiveUI.SetActive(false);
         player.PlayerColliders.SetActive(false);
     }

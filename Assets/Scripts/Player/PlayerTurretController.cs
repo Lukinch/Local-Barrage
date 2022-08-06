@@ -29,10 +29,14 @@ public class PlayerTurretController : MonoBehaviour
         availableTurrets.Add(GetComponentInChildren<TurretBase>());
 
         currentEnabledTurret = availableTurrets[0].gameObject;
-        OnHoldTurretPicked?.Invoke(currentEnabledTurret.GetComponent<TurretHoldFire>());
 
         currentTimer = newTurretDuration;
         hasActiveTurret = false;
+    }
+
+    private void Start()
+    {
+        OnHoldTurretPicked?.Invoke(currentEnabledTurret.GetComponent<TurretHoldFire>());
     }
 
     private IEnumerator StartBuffCountDown()
