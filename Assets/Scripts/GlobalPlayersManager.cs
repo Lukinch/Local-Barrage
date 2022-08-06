@@ -12,23 +12,12 @@ public class GlobalPlayersManager : MonoBehaviour
 
     private int playersAmount;
     private List<PlayerInput> players = new List<PlayerInput>();
-    private List<PlayerPoints> playersPoints = new List<PlayerPoints>();
-    private List<GameObject> playersMenuUI = new List<GameObject>();
-    private List<GameObject> playersLiveUI = new List<GameObject>();
-    private List<GameObject> playersVisuals = new List<GameObject>();
-    private List<GameObject> playersCollidersContainer = new List<GameObject>();
-    private List<KeepInPlacePosition> playersKeepInPlaceControllers = new List<KeepInPlacePosition>();
-    private List<PlayerTurretController> playersTurretControllers = new List<PlayerTurretController>();
-    private List<Billboard> playersBillboards = new List<Billboard>();
-    private List<PlayerTurretRotationController> playersTurretRotations = new List<PlayerTurretRotationController>();
 
     public static GlobalPlayersManager Instance;
     public int PlayersAmount => playersAmount;
     public int MaxAmountOfPointsPerPlayer => maxAmountOfPointsPerPlayer;
-    public List<PlayerPoints> PlayersPoints => playersPoints;
     public List<PlayerInput> GetPlayerInputs { get => players; }
     public event Action<PlayerInput> OnNewPlayerAdded;
-    public event Action OnGameStarted;
 
     private void Awake()
     {
@@ -41,6 +30,8 @@ public class GlobalPlayersManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
+
+        playersAmount = 0;
     }
 
     private void OnEnable() => SubscribeToNewPlayersEvent();
@@ -48,134 +39,176 @@ public class GlobalPlayersManager : MonoBehaviour
 
     private void AddPlayer(PlayerInput playerInput)
     {
-        if (players.Count == maxNumerOfPlayers) return;
+        if (playersAmount == maxNumerOfPlayers) return;
 
         GameObject playerObject = playerInput.gameObject;
 
-        SwitchPlayerActionMap(playerInput, "UI");
-
-        playersLiveUI.Add(playerObject.GetComponentInChildren<UIPlayerLiveUI>().gameObject);
-        playersMenuUI.Add(playerObject.GetComponentInChildren<UIUnitMainMenuManager>().gameObject);
-        playersCollidersContainer.Add(playerObject.GetComponentInChildren<PlayerColliders>().gameObject);
-        playersVisuals.Add(playerObject.GetComponentInChildren<PlayerVisuals>().gameObject);
-        playersKeepInPlaceControllers.Add(playerObject.GetComponentInChildren<KeepInPlacePosition>());
-        playersTurretControllers.Add(playerObject.GetComponentInChildren<PlayerTurretController>());
-        playersPoints.Add(playerObject.GetComponent<PlayerPoints>());
-        playersBillboards.Add(playerObject.GetComponentInChildren<Billboard>());
-        playersTurretRotations.Add(playerObject.GetComponentInChildren<PlayerTurretRotationController>());
+        players.Add(playerInput);
 
         DisablePlayerGameplayComponents(PlayersAmount);
+        EnablePlayerMenuUI(PlayersAmount);
 
-
-        players.Add(playerInput);
+        SwitchPlayerActionMap(playerInput, "UI");
 
         playersAmount++;
 
         OnNewPlayerAdded?.Invoke(playerInput);
     }
 
-    public void EnableAllPlayersVisualsAndUI()
+    private void EnableAllPlayersRigidBodies()
     {
-        playersMenuUI.ForEach(ui => ui.gameObject.SetActive(false));
-        playersLiveUI.ForEach(ui => ui.gameObject.SetActive(true));
-        playersVisuals.ForEach(visual => visual.gameObject.SetActive(true));
+        for (int i = 0; i < playersAmount; i++)
+        {
+            players[i].gameObject.GetComponent<PlayerComponentReferences>().MoveController.EnableRigidBody();
+        }
     }
-    public void DisableAllPlayersVisualsAndUI()
+
+    private void DisableAllPlayersRigidBodies()
     {
-        playersMenuUI.ForEach(ui => ui.gameObject.SetActive(false));
-        playersLiveUI.ForEach(ui => ui.gameObject.SetActive(false));
-        playersVisuals.ForEach(visual => visual.gameObject.SetActive(false));
+        for (int i = 0; i < playersAmount; i++)
+        {
+            players[i].gameObject.GetComponent<PlayerComponentReferences>().MoveController.DisableRigidBody();
+        }
     }
+
+    #region Public Methods
     public void SwitchPlayerActionMap(PlayerInput player ,string actionMap)
     {
         player.SwitchCurrentActionMap(actionMap);
     }
+
     public void SwitchAllPlayersActionMap(string actionMap)
     {
         players.ForEach(player => player.SwitchCurrentActionMap(actionMap));
     }
+
     public void EnablePlayerGameplayComponents(int index)
     {
-        playersKeepInPlaceControllers[index].enabled = true;
-        playersTurretControllers[index].enabled = true;
-        playersLiveUI[index].SetActive(true);
-        playersCollidersContainer[index].SetActive(true);
-        playersMenuUI[index].SetActive(false);
+        PlayerComponentReferences player = players[index].gameObject.GetComponent<PlayerComponentReferences>();
+        player.TurretController.enabled = true;
+        player.KeepInPlacePosition.enabled = true;
+        player.LiveUI.SetActive(true);
+        player.PlayerColliders.SetActive(true);
     }
+
     public void DisablePlayerGameplayComponents(int index)
     {
-        playersKeepInPlaceControllers[index].enabled = false;
-        playersTurretControllers[index].enabled = false;
-        playersLiveUI[index].SetActive(false);
-        playersCollidersContainer[index].SetActive(false);
-        playersMenuUI[index].SetActive(true);
+        PlayerComponentReferences player = players[index].gameObject.GetComponent<PlayerComponentReferences>();
+        player.TurretController.enabled = false;
+        player.KeepInPlacePosition.enabled = false;
+        player.LiveUI.SetActive(false);
+        player.PlayerColliders.SetActive(false);
     }
+
+
     public void EnableAllPlayersGameplayComponents()
     {
-        for (int i = 0; i < players.Count; i++)
+        for (int i = 0; i < playersAmount; i++)
         {
             EnablePlayerGameplayComponents(i);
         }
     }
+
     public void DisableAllPlayersGameplayComponents()
     {
-        for (int i = 0; i < players.Count; i++)
+        for (int i = 0; i < playersAmount; i++)
         {
             DisablePlayerGameplayComponents(i);
         }
     }
+
+    public void DisableAllPlayersUIs()
+    {
+        for (int i = 0; i < playersAmount; i++)
+        {
+            PlayerComponentReferences player = players[i].gameObject.GetComponent<PlayerComponentReferences>();
+            player.LiveUI.SetActive(false);
+            player.MenuUI.SetActive(false);
+        }
+    }
+
+    public void EnablePlayerMenuUI(int index)
+    {
+        players[index].gameObject.GetComponent<PlayerComponentReferences>().MenuUI.SetActive(true);
+    }
+
+    public void EnableAllPlayersVisuals()
+    {
+        for (int i = 0; i < playersAmount; i++)
+        {
+            players[i].gameObject.GetComponent<PlayerComponentReferences>().Visuals.SetActive(true);
+        }
+
+        EnableAllPlayersRigidBodies();
+    }
+
+    public void DisableAllPlayersVisuals()
+    {
+        DisableAllPlayersRigidBodies();
+
+        for (int i = 0; i < playersAmount; i++)
+        {
+            players[i].gameObject.GetComponent<PlayerComponentReferences>().Visuals.SetActive(false);
+        }
+    }
+
+    public void DisablePlayerVisuals(int inputIndex)
+    {
+        players[inputIndex].gameObject.GetComponent<PlayerComponentReferences>().Visuals.SetActive(false);
+    }
+
     public void ClearPlayersList()
     {
         players.ForEach(player => Destroy(player.gameObject));
-
         players.Clear();
-        playersPoints.Clear();
-        playersMenuUI.Clear();
-        playersLiveUI.Clear();
-        playersCollidersContainer.Clear();
-        playersVisuals.Clear();
-        playersKeepInPlaceControllers.Clear();
-        playersTurretControllers.Clear();
-        playersBillboards.Clear();
-        playersTurretRotations.Clear();
 
-    playersAmount = 0;
+        playersAmount = 0;
     }
-    public void SetPlayersDefaultTurret()
+
+    public void SetAllPlayersDefaultTurret()
     {
-        playersTurretControllers.ForEach(controller => controller.SetToDefaultTurret());
+        for (int i = 0; i < playersAmount; i++)
+        {
+            players[i].gameObject.GetComponent<PlayerComponentReferences>().TurretController.SetToDefaultTurret();
+        }
     }
+
     public void AssignAllPlayersNewCamera(Camera levelCamera)
     {
         for (int i = 0; i < playersAmount; i++)
         {
-            playersBillboards[i].SetNewCamera(levelCamera);
-            playersTurretRotations[i].SetNewCamera(levelCamera);
+            PlayerComponentReferences player = players[i].gameObject.GetComponent<PlayerComponentReferences>();
+            player.Billboard.SetNewCamera(levelCamera);
+            player.TurretRotationController.SetNewCamera(levelCamera);
         }
     }
-    public void StopPlayersMovement()
-    {
-        players.ForEach(
-            player => player
-                        .gameObject
-                        .GetComponent<PlayerMoveController>()
-                        .StopMovement()
-        );
-    }
+
     public int[] GetPlayerPointsInt()
     {
         int[] points = new int[playersAmount];
         
         for (int i = 0; i < playersAmount; i++)
         {
-            points[i] = playersPoints[i].GetPointsInt();
+            points[i] = players[i].gameObject.GetComponent<PlayerComponentReferences>().Points.GetPointsInt();
         }
 
         return points;
     }
+
+    public void AddPointsToPlayer(int index)
+    {
+        players[index].gameObject.GetComponent<PlayerComponentReferences>().Points.AddPoints();
+    }
+
+    public int GetLastPlayerStandingIndex()
+    {
+        return players.FindIndex(
+            player => player.gameObject.GetComponent<PlayerComponentReferences>().Visuals.activeInHierarchy);
+    }
+
     public void EnablePlayersJoin() => playerInputManager.EnableJoining();
     public void DisablePlayersJoin() => playerInputManager.DisableJoining();
     public void SubscribeToNewPlayersEvent() => playerInputManager.onPlayerJoined += AddPlayer;
     public void UnsubscribeToNewPlayersEvent() => playerInputManager.onPlayerJoined -= AddPlayer;
-    public void GameStarted() => OnGameStarted?.Invoke();
+    #endregion
 }

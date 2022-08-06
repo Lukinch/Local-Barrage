@@ -1833,9 +1833,10 @@ GameObject:
   - component: {fileID: 4365908596991377681}
   - component: {fileID: 1595896662717460703}
   - component: {fileID: 1054963788964794805}
-  - component: {fileID: 4365908596991377682}
   - component: {fileID: -370307971412681411}
   - component: {fileID: 4402276486983947259}
+  - component: {fileID: 5419409111327171965}
+  - component: {fileID: 4365908596991377682}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1932,6 +1933,55 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turretSpawnPosition: {fileID: 3677599325741883569}
   newTurretDuration: 5
+--- !u!114 &-370307971412681411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4365908596991377683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d52ebc5760437346994711d3871f473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointsPerKill: 25
+  playerInput: {fileID: 4365908596991377682}
+--- !u!114 &4402276486983947259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4365908596991377683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9992480bde6a3644ab7f7e19f2a933d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerInput: {fileID: 4365908596991377682}
+--- !u!114 &5419409111327171965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4365908596991377683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18e553bff9c747d458c48cf2f0a484b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuUI: {fileID: 2434575931587322880}
+  liveUI: {fileID: 5714355878804987535}
+  visuals: {fileID: 737680070300017700}
+  playerColliders: {fileID: 4083899312053309317}
+  billboard: {fileID: 3670483752807628276}
+  keepInPlacePosition: {fileID: 694108416308889180}
+  moveController: {fileID: 4365908596991377681}
+  points: {fileID: -370307971412681411}
+  turretController: {fileID: 1054963788964794805}
+  turretRotationController: {fileID: 2762894981470264502}
 --- !u!114 &4365908596991377682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2119,33 +2169,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &-370307971412681411
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4365908596991377683}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d52ebc5760437346994711d3871f473, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointsPerKill: 25
-  playerInput: {fileID: 4365908596991377682}
---- !u!114 &4402276486983947259
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4365908596991377683}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9992480bde6a3644ab7f7e19f2a933d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerInput: {fileID: 4365908596991377682}
 --- !u!1 &4521177904921235121
 GameObject:
   m_ObjectHideFlags: 0

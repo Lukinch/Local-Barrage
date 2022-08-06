@@ -27,6 +27,9 @@ public class PlayerMoveController : MonoBehaviour
         unitRB.angularVelocity = Vector3.zero;
     }
 
+    public void EnableRigidBody() => unitRB.isKinematic = false;
+    public void DisableRigidBody() => unitRB.isKinematic = true;
+
     /// <summary>Called by Player Input Events</summary>
     public void OnMovement(InputAction.CallbackContext context) 
     {

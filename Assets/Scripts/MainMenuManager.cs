@@ -20,29 +20,24 @@ public class MainMenuManager : MonoBehaviour
 
     private void Awake()
     {
-        GlobalPlayersManager.Instance.SubscribeToNewPlayersEvent();
-        UIUnitMainMenuManager.IsPlayerReady += PlayerReady;
         currentTimer = nextLevelCountDown;
         currentAmountOfPlayers = 0;
         amountOfPlayersReady = 0;
     }
 
-    private void OnEnable()
-    {
-        GlobalPlayersManager.Instance.OnNewPlayerAdded += ManageNewPlayer;
-
-        if (GlobalPlayersManager.Instance.PlayersAmount < 1) return;
-
-        GlobalPlayersManager.Instance.EnablePlayersJoin();
-        GlobalPlayersManager.Instance.ClearPlayersList();
-    }
     private void Start()
     {
         GlobalPlayersManager.Instance.ClearPlayersList();
+        GlobalPlayersManager.Instance.EnablePlayersJoin();
+        GlobalPlayersManager.Instance.SubscribeToNewPlayersEvent();
+
+        UIUnitMainMenuManager.IsPlayerReady += PlayerReady;
+        GlobalPlayersManager.Instance.OnNewPlayerAdded += ManageNewPlayer;
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
+        UIUnitMainMenuManager.IsPlayerReady -= PlayerReady;
         GlobalPlayersManager.Instance.OnNewPlayerAdded -= ManageNewPlayer;
     }
 
@@ -63,7 +58,7 @@ public class MainMenuManager : MonoBehaviour
         if (isReady)
         {
             amountOfPlayersReady++;
-            if (amountOfPlayersReady == GlobalPlayersManager.Instance.PlayersAmount)
+            if (amountOfPlayersReady == currentAmountOfPlayers)
             {
                 StartCountDownToLoadNextLevel();
             }
@@ -71,6 +66,7 @@ public class MainMenuManager : MonoBehaviour
         else
         {
             if (amountOfPlayersReady == 0) return;
+
             amountOfPlayersReady--;
             StopCountDownToLoadNextLevel();
             currentTimer = nextLevelCountDown;
@@ -110,8 +106,9 @@ public class MainMenuManager : MonoBehaviour
     {
         GlobalPlayersManager.Instance.DisablePlayersJoin();
         GlobalPlayersManager.Instance.UnsubscribeToNewPlayersEvent();
-        GlobalPlayersManager.Instance.DisableAllPlayersVisualsAndUI();
-        GlobalPlayersManager.Instance.EnableAllPlayersGameplayComponents();
+        GlobalPlayersManager.Instance.DisableAllPlayersGameplayComponents();
+        GlobalPlayersManager.Instance.DisableAllPlayersVisuals();
+        GlobalPlayersManager.Instance.DisableAllPlayersUIs();
 
         int amountOfLevels = SceneManager.sceneCountInBuildSettings;
         int lextLevelIndex = UnityEngine.Random.Range(1, amountOfLevels);
