@@ -31,13 +31,13 @@ public class MainMenuManager : MonoBehaviour
         GlobalPlayersManager.Instance.EnablePlayersJoin();
         GlobalPlayersManager.Instance.SubscribeToNewPlayersEvent();
 
-        UIUnitMainMenuManager.IsPlayerReady += PlayerReady;
+        UIPlayerMainMenu.IsPlayerReady += PlayerReady;
         GlobalPlayersManager.Instance.OnNewPlayerAdded += ManageNewPlayer;
     }
 
     private void OnDestroy()
     {
-        UIUnitMainMenuManager.IsPlayerReady -= PlayerReady;
+        UIPlayerMainMenu.IsPlayerReady -= PlayerReady;
         GlobalPlayersManager.Instance.OnNewPlayerAdded -= ManageNewPlayer;
     }
 

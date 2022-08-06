@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIUnitMainMenuManager : MonoBehaviour
+public class UIPlayerMainMenu : MonoBehaviour
 {
     [SerializeField] Button readyButton;
     [SerializeField] Image background;

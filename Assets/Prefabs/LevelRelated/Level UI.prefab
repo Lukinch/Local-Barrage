@@ -1631,7 +1631,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Resume Game
+  m_text: Main Menu
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2196,8 +2196,8 @@ GameObject:
   - component: {fileID: 7039374591630307304}
   - component: {fileID: 7039374591630307307}
   - component: {fileID: 7039374591630307306}
-  - component: {fileID: 7039374591630307310}
-  - component: {fileID: 7039374591812997679}
+  - component: {fileID: 8759274562028694284}
+  - component: {fileID: 1708862740089621702}
   - component: {fileID: 7039374591812997678}
   - component: {fileID: 7039374591812997677}
   m_Layer: 5
@@ -2293,7 +2293,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &7039374591630307310
+--- !u!114 &8759274562028694284
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2302,7 +2302,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7039374591630307221}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44c332decc672794bb1a527c390f5e4d, type: 3}
+  m_Script: {fileID: 11500000, guid: d9e84a38a53732044b364f085e305797, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   levelPlayersManager: {fileID: 0}
@@ -2327,7 +2327,7 @@ MonoBehaviour:
   mainMenuButton: {fileID: 8772943163347464628}
   exitGameButton: {fileID: 6079557456847766117}
   timeTillNextlevel: 5
---- !u!114 &7039374591812997679
+--- !u!114 &1708862740089621702
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2336,7 +2336,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7039374591630307221}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d4d788e7b153bf4cadd429fa2f8c26d, type: 3}
+  m_Script: {fileID: 11500000, guid: 1d67d349c17c88544ac81d0a9f357193, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   inputSystemUI: {fileID: 7039374591812997677}
@@ -4508,7 +4508,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7039374592980163704}
-  - component: {fileID: 7039374592980163705}
+  - component: {fileID: 6181749629281251450}
   m_Layer: 5
   m_Name: LevelObjective
   m_TagString: Untagged
@@ -4539,7 +4539,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &7039374592980163705
+--- !u!114 &6181749629281251450
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4548,7 +4548,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7039374592980163707}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42d11847ab7278043aa890a86b55c049, type: 3}
+  m_Script: {fileID: 11500000, guid: 1984dccfc1406404a9b843c47e58bdc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   background: {fileID: 7039374593162906166}
@@ -4720,7 +4720,7 @@ GameObject:
   - component: {fileID: 7039374593162906167}
   - component: {fileID: 7039374593162906166}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

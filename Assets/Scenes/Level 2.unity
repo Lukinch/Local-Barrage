@@ -1953,11 +1953,46 @@ PrefabInstance:
         type: 3}
       propertyPath: levelObjectiveScreenController
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1557801752897292913, guid: ae70621fa6dcda047a2e1ed4f3c63309,
+        type: 3}
+      propertyPath: levelCamera
+      value: 
+      objectReference: {fileID: 330074224}
+    - target: {fileID: 1557801752897292913, guid: ae70621fa6dcda047a2e1ed4f3c63309,
+        type: 3}
+      propertyPath: spawnPoints.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1557801752897292913, guid: ae70621fa6dcda047a2e1ed4f3c63309,
+        type: 3}
+      propertyPath: spawnPoints.Array.data[0]
+      value: 
+      objectReference: {fileID: 5391953233494024401}
+    - target: {fileID: 1557801752897292913, guid: ae70621fa6dcda047a2e1ed4f3c63309,
+        type: 3}
+      propertyPath: spawnPoints.Array.data[1]
+      value: 
+      objectReference: {fileID: 5391953233494024400}
+    - target: {fileID: 1557801752897292913, guid: ae70621fa6dcda047a2e1ed4f3c63309,
+        type: 3}
+      propertyPath: spawnPoints.Array.data[2]
+      value: 
+      objectReference: {fileID: 5391953233494024399}
+    - target: {fileID: 1557801752897292913, guid: ae70621fa6dcda047a2e1ed4f3c63309,
+        type: 3}
+      propertyPath: spawnPoints.Array.data[3]
+      value: 
+      objectReference: {fileID: 5391953233494024398}
+    - target: {fileID: 1557801752897292913, guid: ae70621fa6dcda047a2e1ed4f3c63309,
+        type: 3}
+      propertyPath: levelObjectiveScreenController
+      value: 
       objectReference: {fileID: 1639248104}
     - target: {fileID: 4726968840784248225, guid: ae70621fa6dcda047a2e1ed4f3c63309,
         type: 3}
       propertyPath: m_Name
-      value: LevelManager
+      value: LevelPlayerManager
       objectReference: {fileID: 0}
     - target: {fileID: 4726968840784248225, guid: ae70621fa6dcda047a2e1ed4f3c63309,
         type: 3}
@@ -1967,7 +2002,7 @@ PrefabInstance:
     - target: {fileID: 8035566030596607081, guid: ae70621fa6dcda047a2e1ed4f3c63309,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8035566030596607081, guid: ae70621fa6dcda047a2e1ed4f3c63309,
         type: 3}
@@ -2024,14 +2059,14 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: ae70621fa6dcda047a2e1ed4f3c63309, type: 3}
 --- !u!114 &414153645 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 861424277405906426, guid: ae70621fa6dcda047a2e1ed4f3c63309,
+  m_CorrespondingSourceObject: {fileID: 1557801752897292913, guid: ae70621fa6dcda047a2e1ed4f3c63309,
     type: 3}
   m_PrefabInstance: {fileID: 414153644}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e39027819c47904bb5b24cb9d367708, type: 3}
+  m_Script: {fileID: 11500000, guid: 29ca7d4c8ce7ed14f9e1bcf0a326c518, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &450535548
@@ -3528,7 +3563,7 @@ PrefabInstance:
     - target: {fileID: 6799449592347568541, guid: 4471842684e00304da44d51186ec79ac,
         type: 3}
       propertyPath: m_Name
-      value: PickablesManager
+      value: LevelPickablesManager
       objectReference: {fileID: 0}
     - target: {fileID: 6799449592347568542, guid: 4471842684e00304da44d51186ec79ac,
         type: 3}
@@ -3701,7 +3736,7 @@ PrefabInstance:
         type: 3}
       propertyPath: levelObjectiveScreenController
       value: 
-      objectReference: {fileID: 1639248104}
+      objectReference: {fileID: 0}
     - target: {fileID: 6799449592347568542, guid: 4471842684e00304da44d51186ec79ac,
         type: 3}
       propertyPath: weaponsLocations.Array.data[0]
@@ -3782,6 +3817,96 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: statsAtATime
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: turretsAtATime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: statsLocations.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: turretLocations.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: statsLocations.Array.data[0]
+      value: 
+      objectReference: {fileID: 3668127363365031924}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: statsLocations.Array.data[1]
+      value: 
+      objectReference: {fileID: 3668127365137186166}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: statsLocations.Array.data[2]
+      value: 
+      objectReference: {fileID: 3668127364812807484}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: statsLocations.Array.data[3]
+      value: 
+      objectReference: {fileID: 3668127365360794911}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: statsLocations.Array.data[4]
+      value: 
+      objectReference: {fileID: 3668127365276059215}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: statsLocations.Array.data[5]
+      value: 
+      objectReference: {fileID: 3668127364473138812}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: statsLocations.Array.data[6]
+      value: 
+      objectReference: {fileID: 3668127365007165299}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: statsLocations.Array.data[7]
+      value: 
+      objectReference: {fileID: 1487733806}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: turretLocations.Array.data[0]
+      value: 
+      objectReference: {fileID: 3668127364426161089}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: turretLocations.Array.data[1]
+      value: 
+      objectReference: {fileID: 3668127363319236984}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: turretLocations.Array.data[2]
+      value: 
+      objectReference: {fileID: 3668127364493084515}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: turretLocations.Array.data[3]
+      value: 
+      objectReference: {fileID: 3668127363431747774}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: turretLocations.Array.data[4]
+      value: 
+      objectReference: {fileID: 3668127364433085837}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: levelObjectiveScreenController
+      value: 
+      objectReference: {fileID: 1639248104}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 4471842684e00304da44d51186ec79ac, type: 3}
@@ -6150,7 +6275,7 @@ PrefabInstance:
         type: 3}
       propertyPath: levelPlayersManager
       value: 
-      objectReference: {fileID: 414153645}
+      objectReference: {fileID: 0}
     - target: {fileID: 7039374592799271961, guid: a1bcd393479be644e91ab67f04e62e9b,
         type: 3}
       propertyPath: m_Name
@@ -6211,19 +6336,24 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8759274562028694284, guid: a1bcd393479be644e91ab67f04e62e9b,
+        type: 3}
+      propertyPath: levelPlayersManager
+      value: 
+      objectReference: {fileID: 414153645}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: a1bcd393479be644e91ab67f04e62e9b, type: 3}
 --- !u!114 &1639248104 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7039374592980163705, guid: a1bcd393479be644e91ab67f04e62e9b,
+  m_CorrespondingSourceObject: {fileID: 6181749629281251450, guid: a1bcd393479be644e91ab67f04e62e9b,
     type: 3}
   m_PrefabInstance: {fileID: 1639248103}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42d11847ab7278043aa890a86b55c049, type: 3}
+  m_Script: {fileID: 11500000, guid: 1984dccfc1406404a9b843c47e58bdc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1686919677
@@ -7354,7 +7484,7 @@ Transform:
   - {fileID: 3668127363375598501}
   - {fileID: 3668127364446262387}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3668127364303488515
 GameObject:
@@ -7366,7 +7496,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3668127364303488512}
   m_Layer: 0
-  m_Name: PickablesSpawnPoints
+  m_Name: LevelPickablesSpawnPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7708,7 +7838,7 @@ PrefabInstance:
     - target: {fileID: 2305443746132153614, guid: 7dad52ab9b8dc8447b1415e9e5219faf,
         type: 3}
       propertyPath: m_Name
-      value: PlayerSpawnPoints
+      value: LevelPlayerSpawnPoints
       objectReference: {fileID: 0}
     - target: {fileID: 2305443746132153614, guid: 7dad52ab9b8dc8447b1415e9e5219faf,
         type: 3}
@@ -7718,7 +7848,7 @@ PrefabInstance:
     - target: {fileID: 4968166314711866794, guid: 7dad52ab9b8dc8447b1415e9e5219faf,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4968166314711866794, guid: 7dad52ab9b8dc8447b1415e9e5219faf,
         type: 3}

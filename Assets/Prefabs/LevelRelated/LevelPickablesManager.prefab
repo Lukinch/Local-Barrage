@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6799449592347568543}
-  - component: {fileID: 6799449592347568542}
+  - component: {fileID: 7418105298278929031}
   m_Layer: 0
-  m_Name: PickablesManager
+  m_Name: LevelPickablesManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,9 +30,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6799449592347568542
+--- !u!114 &7418105298278929031
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,14 +41,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 6799449592347568541}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd40108a7fb6d7f4bb64d664aa98a95f, type: 3}
+  m_Script: {fileID: 11500000, guid: 7f079f2575d97c444b82feb0d3fa31f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelObjectiveScreenController: {fileID: 0}
   turretLocations: []
   statsLocations: []
-  turretPrefabs: []
-  statsPrefabs: []
-  turretsAtATime: 0
-  statsAtATime: 0
-  timeToStartSpawning: 0
-  timeBetweenSpawns: 0
+  turretPrefabs:
+  - {fileID: 9133766778344861817, guid: d73c196826b67194ca2c774f1f6e3590, type: 3}
+  - {fileID: 4194117361899475175, guid: 45f2000a4791ec2408a0a45c9f4a9970, type: 3}
+  - {fileID: 7154769062472445367, guid: 3d3c4d83f0fcd78409a36542df4e9130, type: 3}
+  - {fileID: 580643058534415703, guid: 18fe9de8cd0bc3348951c5242f151047, type: 3}
+  - {fileID: 4474970650804320779, guid: 1fabbd2d7ed7398498dc57fe87ebee2e, type: 3}
+  statsPrefabs:
+  - {fileID: 2738120147838669608, guid: adb40afbdea721b42917bff031214c99, type: 3}
+  - {fileID: 5535891344323122135, guid: 4cc0b9456d69e764bb3ae3f943d365cf, type: 3}
+  turretsAtATime: 2
+  statsAtATime: 2
+  timeToStartSpawning: 3
+  timeBetweenSpawns: 3

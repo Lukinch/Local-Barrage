@@ -668,7 +668,7 @@ PrefabInstance:
     - target: {fileID: 3668127364217050388, guid: d4972cfe99e350f49b8e8cfd9b4190b2,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3668127364217050388, guid: d4972cfe99e350f49b8e8cfd9b4190b2,
         type: 3}
@@ -723,7 +723,7 @@ PrefabInstance:
     - target: {fileID: 3668127364217050391, guid: d4972cfe99e350f49b8e8cfd9b4190b2,
         type: 3}
       propertyPath: m_Name
-      value: PickablesSpawnPoints
+      value: LevelPickablesSpawnPoints
       objectReference: {fileID: 0}
     - target: {fileID: 3668127364513908948, guid: d4972cfe99e350f49b8e8cfd9b4190b2,
         type: 3}
@@ -1695,11 +1695,46 @@ PrefabInstance:
         type: 3}
       propertyPath: levelObjectiveScreenController
       value: 
-      objectReference: {fileID: 1184009811}
+      objectReference: {fileID: 0}
+    - target: {fileID: 1557801752897292913, guid: ae70621fa6dcda047a2e1ed4f3c63309,
+        type: 3}
+      propertyPath: levelCamera
+      value: 
+      objectReference: {fileID: 330074224}
+    - target: {fileID: 1557801752897292913, guid: ae70621fa6dcda047a2e1ed4f3c63309,
+        type: 3}
+      propertyPath: spawnPoints.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1557801752897292913, guid: ae70621fa6dcda047a2e1ed4f3c63309,
+        type: 3}
+      propertyPath: spawnPoints.Array.data[0]
+      value: 
+      objectReference: {fileID: 5391953233494024401}
+    - target: {fileID: 1557801752897292913, guid: ae70621fa6dcda047a2e1ed4f3c63309,
+        type: 3}
+      propertyPath: spawnPoints.Array.data[1]
+      value: 
+      objectReference: {fileID: 5391953233494024400}
+    - target: {fileID: 1557801752897292913, guid: ae70621fa6dcda047a2e1ed4f3c63309,
+        type: 3}
+      propertyPath: spawnPoints.Array.data[2]
+      value: 
+      objectReference: {fileID: 5391953233494024399}
+    - target: {fileID: 1557801752897292913, guid: ae70621fa6dcda047a2e1ed4f3c63309,
+        type: 3}
+      propertyPath: spawnPoints.Array.data[3]
+      value: 
+      objectReference: {fileID: 5391953233494024398}
+    - target: {fileID: 1557801752897292913, guid: ae70621fa6dcda047a2e1ed4f3c63309,
+        type: 3}
+      propertyPath: levelObjectiveScreenController
+      value: 
+      objectReference: {fileID: 7039374591812997675}
     - target: {fileID: 4726968840784248225, guid: ae70621fa6dcda047a2e1ed4f3c63309,
         type: 3}
       propertyPath: m_Name
-      value: LevelManager
+      value: LevelPlayersManager
       objectReference: {fileID: 0}
     - target: {fileID: 4726968840784248225, guid: ae70621fa6dcda047a2e1ed4f3c63309,
         type: 3}
@@ -1709,7 +1744,7 @@ PrefabInstance:
     - target: {fileID: 8035566030596607081, guid: ae70621fa6dcda047a2e1ed4f3c63309,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8035566030596607081, guid: ae70621fa6dcda047a2e1ed4f3c63309,
         type: 3}
@@ -1766,14 +1801,14 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: ae70621fa6dcda047a2e1ed4f3c63309, type: 3}
 --- !u!114 &414153645 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 861424277405906426, guid: ae70621fa6dcda047a2e1ed4f3c63309,
+  m_CorrespondingSourceObject: {fileID: 1557801752897292913, guid: ae70621fa6dcda047a2e1ed4f3c63309,
     type: 3}
   m_PrefabInstance: {fileID: 414153644}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e39027819c47904bb5b24cb9d367708, type: 3}
+  m_Script: {fileID: 11500000, guid: 29ca7d4c8ce7ed14f9e1bcf0a326c518, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &465992882
@@ -2521,7 +2556,7 @@ PrefabInstance:
     - target: {fileID: 6799449592347568541, guid: 4471842684e00304da44d51186ec79ac,
         type: 3}
       propertyPath: m_Name
-      value: PickablesManager
+      value: LevelPickablesManager
       objectReference: {fileID: 0}
     - target: {fileID: 6799449592347568542, guid: 4471842684e00304da44d51186ec79ac,
         type: 3}
@@ -2675,11 +2710,11 @@ PrefabInstance:
         type: 3}
       propertyPath: levelObjectiveScreenController
       value: 
-      objectReference: {fileID: 1184009811}
+      objectReference: {fileID: 0}
     - target: {fileID: 6799449592347568543, guid: 4471842684e00304da44d51186ec79ac,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6799449592347568543, guid: 4471842684e00304da44d51186ec79ac,
         type: 3}
@@ -2731,6 +2766,81 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: statsLocations.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: turretLocations.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: statsLocations.Array.data[0]
+      value: 
+      objectReference: {fileID: 188683035}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: statsLocations.Array.data[1]
+      value: 
+      objectReference: {fileID: 188683034}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: statsLocations.Array.data[2]
+      value: 
+      objectReference: {fileID: 188683033}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: statsLocations.Array.data[3]
+      value: 
+      objectReference: {fileID: 188683032}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: statsLocations.Array.data[4]
+      value: 
+      objectReference: {fileID: 188683031}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: statsLocations.Array.data[5]
+      value: 
+      objectReference: {fileID: 188683030}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: statsLocations.Array.data[6]
+      value: 
+      objectReference: {fileID: 188683029}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: turretLocations.Array.data[0]
+      value: 
+      objectReference: {fileID: 188683040}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: turretLocations.Array.data[1]
+      value: 
+      objectReference: {fileID: 188683039}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: turretLocations.Array.data[2]
+      value: 
+      objectReference: {fileID: 188683038}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: turretLocations.Array.data[3]
+      value: 
+      objectReference: {fileID: 188683037}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: turretLocations.Array.data[4]
+      value: 
+      objectReference: {fileID: 188683036}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: levelObjectiveScreenController
+      value: 
+      objectReference: {fileID: 7039374591812997675}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 4471842684e00304da44d51186ec79ac, type: 3}
@@ -3219,18 +3329,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1137648363}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1184009811 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7039374592980163705, guid: a1bcd393479be644e91ab67f04e62e9b,
-    type: 3}
-  m_PrefabInstance: {fileID: 7039374591812997674}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42d11847ab7278043aa890a86b55c049, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1216405791
 GameObject:
   m_ObjectHideFlags: 0
@@ -4665,7 +4763,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh39548
+  m_Name: pb_Mesh55238
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -4830,7 +4928,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh39480
+  m_Name: pb_Mesh55170
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -5060,7 +5158,7 @@ PrefabInstance:
     - target: {fileID: 2305443746132153614, guid: 7dad52ab9b8dc8447b1415e9e5219faf,
         type: 3}
       propertyPath: m_Name
-      value: PlayerSpawnPoints
+      value: LevelPlayerSpawnPoints
       objectReference: {fileID: 0}
     - target: {fileID: 2305443746132153614, guid: 7dad52ab9b8dc8447b1415e9e5219faf,
         type: 3}
@@ -5080,7 +5178,7 @@ PrefabInstance:
     - target: {fileID: 4968166314711866794, guid: 7dad52ab9b8dc8447b1415e9e5219faf,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4968166314711866794, guid: 7dad52ab9b8dc8447b1415e9e5219faf,
         type: 3}
@@ -5206,7 +5304,7 @@ PrefabInstance:
         type: 3}
       propertyPath: levelPlayersManager
       value: 
-      objectReference: {fileID: 414153645}
+      objectReference: {fileID: 0}
     - target: {fileID: 7039374592799271961, guid: a1bcd393479be644e91ab67f04e62e9b,
         type: 3}
       propertyPath: m_Name
@@ -5267,6 +5365,23 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8759274562028694284, guid: a1bcd393479be644e91ab67f04e62e9b,
+        type: 3}
+      propertyPath: levelPlayersManager
+      value: 
+      objectReference: {fileID: 414153645}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: a1bcd393479be644e91ab67f04e62e9b, type: 3}
+--- !u!114 &7039374591812997675 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6181749629281251450, guid: a1bcd393479be644e91ab67f04e62e9b,
+    type: 3}
+  m_PrefabInstance: {fileID: 7039374591812997674}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1984dccfc1406404a9b843c47e58bdc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

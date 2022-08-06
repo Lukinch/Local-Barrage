@@ -15,14 +15,17 @@ public class LevelObjectiveScreenController : MonoBehaviour
     private Vector3 imageSize;
     private GlobalPlayersManager globalPlayersManager;
 
-    // (1 / timeToStartMatch) / 50
-    private readonly float SUBTRACTION = 0.00666666666666666666666666666667f;
+    private float amountToSubstract;
 
     public event Action OnObjectiveShown;
 
     private void Awake()
     {
         globalPlayersManager = FindObjectOfType<GlobalPlayersManager>();
+
+        /// 1 - Full image fill amount
+        /// 50 - WaitForFixedUpdate calls per second
+        amountToSubstract = (1f / (float)timeToStartMatch) / 50f;
     }
 
     private void OnEnable()
@@ -55,7 +58,7 @@ public class LevelObjectiveScreenController : MonoBehaviour
     {
         while (currentTime > 0)
         {
-            imageSize.y -= SUBTRACTION;
+            imageSize.y -= amountToSubstract;
             background.rectTransform.localScale = imageSize;
             yield return new WaitForFixedUpdate();
         }
