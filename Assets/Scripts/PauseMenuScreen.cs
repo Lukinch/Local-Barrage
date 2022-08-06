@@ -74,7 +74,6 @@ public class PauseMenuScreen : MonoBehaviour
     private void UnPauseGame(PlayerInput playerInput)
     {
         GlobalPlayersManager.Instance.SwitchPlayerActionMap(playerInput, "Player");
-        GlobalPlayersManager.Instance.EnableAllPlayersInput();
         pauseMenuObject.SetActive(false);
         Time.timeScale = 1.0f;
         isGamePaused = false;
@@ -83,7 +82,6 @@ public class PauseMenuScreen : MonoBehaviour
     private void PauseGame(PlayerInput playerInput)
     {
         Time.timeScale = 0.0f;
-        GlobalPlayersManager.Instance.DisableAllPlayersInput();
         playerInput.enabled = true;
         eventSystem.SetSelectedGameObject(defaultSelectedObject);
         GlobalPlayersManager.Instance.SwitchPlayerActionMap(playerInput, "UI");

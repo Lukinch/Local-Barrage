@@ -41,7 +41,7 @@ public class LevelPlayersManager : MonoBehaviour
 
     private void InitializePlayerSpawn()
     {
-        GlobalPlayersManager.Instance.EnableAllPlayers();
+        GlobalPlayersManager.Instance.EnableAllPlayersVisualsAndUI();
     }
 
     private void SetPlayersInitialPositions()

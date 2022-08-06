@@ -15,9 +15,12 @@ public class GlobalPlayersManager : MonoBehaviour
     private List<PlayerPoints> playersPoints = new List<PlayerPoints>();
     private List<GameObject> playersMenuUI = new List<GameObject>();
     private List<GameObject> playersLiveUI = new List<GameObject>();
-    private List<GameObject> playersShield = new List<GameObject>();
+    private List<GameObject> playersVisuals = new List<GameObject>();
+    private List<GameObject> playersCollidersContainer = new List<GameObject>();
     private List<KeepInPlacePosition> playersKeepInPlaceControllers = new List<KeepInPlacePosition>();
     private List<PlayerTurretController> playersTurretControllers = new List<PlayerTurretController>();
+    private List<Billboard> playersBillboards = new List<Billboard>();
+    private List<PlayerTurretRotationController> playersTurretRotations = new List<PlayerTurretRotationController>();
 
     public static GlobalPlayersManager Instance;
     public int PlayersAmount => playersAmount;
@@ -51,14 +54,18 @@ public class GlobalPlayersManager : MonoBehaviour
 
         SwitchPlayerActionMap(playerInput, "UI");
 
-        playersLiveUI.Add(playerObject.GetComponentInChildren<Billboard>().gameObject);
+        playersLiveUI.Add(playerObject.GetComponentInChildren<UIPlayerLiveUI>().gameObject);
         playersMenuUI.Add(playerObject.GetComponentInChildren<UIUnitMainMenuManager>().gameObject);
-        playersShield.Add(playerObject.GetComponentInChildren<PlayerShieldCollision>().gameObject);
+        playersCollidersContainer.Add(playerObject.GetComponentInChildren<PlayerColliders>().gameObject);
+        playersVisuals.Add(playerObject.GetComponentInChildren<PlayerVisuals>().gameObject);
         playersKeepInPlaceControllers.Add(playerObject.GetComponentInChildren<KeepInPlacePosition>());
         playersTurretControllers.Add(playerObject.GetComponentInChildren<PlayerTurretController>());
         playersPoints.Add(playerObject.GetComponent<PlayerPoints>());
+        playersBillboards.Add(playerObject.GetComponentInChildren<Billboard>());
+        playersTurretRotations.Add(playerObject.GetComponentInChildren<PlayerTurretRotationController>());
 
         DisablePlayerGameplayComponents(PlayersAmount);
+
 
         players.Add(playerInput);
 
@@ -67,13 +74,17 @@ public class GlobalPlayersManager : MonoBehaviour
         OnNewPlayerAdded?.Invoke(playerInput);
     }
 
-    public void EnableAllPlayers()
+    public void EnableAllPlayersVisualsAndUI()
     {
-        players.ForEach(player => player.gameObject.SetActive(true));
+        playersMenuUI.ForEach(ui => ui.gameObject.SetActive(false));
+        playersLiveUI.ForEach(ui => ui.gameObject.SetActive(true));
+        playersVisuals.ForEach(visual => visual.gameObject.SetActive(true));
     }
-    public void DisableAllPlayers()
+    public void DisableAllPlayersVisualsAndUI()
     {
-        players.ForEach(player => player.gameObject.SetActive(false));
+        playersMenuUI.ForEach(ui => ui.gameObject.SetActive(false));
+        playersLiveUI.ForEach(ui => ui.gameObject.SetActive(false));
+        playersVisuals.ForEach(visual => visual.gameObject.SetActive(false));
     }
     public void SwitchPlayerActionMap(PlayerInput player ,string actionMap)
     {
@@ -88,7 +99,7 @@ public class GlobalPlayersManager : MonoBehaviour
         playersKeepInPlaceControllers[index].enabled = true;
         playersTurretControllers[index].enabled = true;
         playersLiveUI[index].SetActive(true);
-        playersShield[index].SetActive(true);
+        playersCollidersContainer[index].SetActive(true);
         playersMenuUI[index].SetActive(false);
     }
     public void DisablePlayerGameplayComponents(int index)
@@ -96,7 +107,7 @@ public class GlobalPlayersManager : MonoBehaviour
         playersKeepInPlaceControllers[index].enabled = false;
         playersTurretControllers[index].enabled = false;
         playersLiveUI[index].SetActive(false);
-        playersShield[index].SetActive(false);
+        playersCollidersContainer[index].SetActive(false);
         playersMenuUI[index].SetActive(true);
     }
     public void EnableAllPlayersGameplayComponents()
@@ -121,9 +132,12 @@ public class GlobalPlayersManager : MonoBehaviour
         playersPoints.Clear();
         playersMenuUI.Clear();
         playersLiveUI.Clear();
-        playersShield.Clear();
+        playersCollidersContainer.Clear();
+        playersVisuals.Clear();
         playersKeepInPlaceControllers.Clear();
         playersTurretControllers.Clear();
+        playersBillboards.Clear();
+        playersTurretRotations.Clear();
 
     playersAmount = 0;
     }
@@ -135,9 +149,8 @@ public class GlobalPlayersManager : MonoBehaviour
     {
         for (int i = 0; i < playersAmount; i++)
         {
-            players[i].gameObject.GetComponentInChildren<PlayerTurretRotationController>().SetNewCamera(levelCamera);
-            players[i].gameObject.GetComponentInChildren<Billboard>().SetNewCamera(levelCamera);
-            players[i].gameObject.GetComponentInChildren<TurretBase>().GetComponentInChildren<Billboard>().SetNewCamera(levelCamera);
+            playersBillboards[i].SetNewCamera(levelCamera);
+            playersTurretRotations[i].SetNewCamera(levelCamera);
         }
     }
     public void StopPlayersMovement()
@@ -148,14 +161,6 @@ public class GlobalPlayersManager : MonoBehaviour
                         .GetComponent<PlayerMoveController>()
                         .StopMovement()
         );
-    }
-    public void EnableAllPlayersInput()
-    {
-        players.ForEach(player => player.enabled = true);
-    }
-    public void DisableAllPlayersInput()
-    {
-        players.ForEach(player => player.enabled = false);
     }
     public int[] GetPlayerPointsInt()
     {

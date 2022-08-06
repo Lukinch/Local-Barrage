@@ -84,7 +84,7 @@ public class EndLevelScreen : MonoBehaviour
         nextLevelScreenObject.SetActive(true);
 
         GlobalPlayersManager.Instance.SetPlayersDefaultTurret();
-        GlobalPlayersManager.Instance.DisableAllPlayers();
+        GlobalPlayersManager.Instance.DisableAllPlayersVisualsAndUI();
 
         StartCoroutine(nameof(NextLevelCountdown));
     }

@@ -110,7 +110,7 @@ public class MainMenuManager : MonoBehaviour
     {
         GlobalPlayersManager.Instance.DisablePlayersJoin();
         GlobalPlayersManager.Instance.UnsubscribeToNewPlayersEvent();
-        GlobalPlayersManager.Instance.DisableAllPlayers();
+        GlobalPlayersManager.Instance.DisableAllPlayersVisualsAndUI();
         GlobalPlayersManager.Instance.EnableAllPlayersGameplayComponents();
 
         int amountOfLevels = SceneManager.sceneCountInBuildSettings;
