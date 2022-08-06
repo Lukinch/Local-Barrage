@@ -12,7 +12,7 @@ public class PlayerComponentReferences : MonoBehaviour
 
     [Header("Scripts")]
     [SerializeField] private Billboard billboard;
-    [SerializeField] private KeepInPlacePosition keepInPlacePosition;
+    [SerializeField] private KeepInPlacePositionAndRotation keepInPlacePositionAndRotation;
     [SerializeField] private PlayerMoveController moveController;
     [SerializeField] private PlayerPoints points;
     [SerializeField] private PlayerTurretController turretController;
@@ -24,7 +24,7 @@ public class PlayerComponentReferences : MonoBehaviour
     public GameObject PlayerColliders { get => playerColliders; }
 
     public Billboard Billboard { get => billboard; }
-    public KeepInPlacePosition KeepInPlacePosition { get => keepInPlacePosition; }
+    public KeepInPlacePositionAndRotation KeepInPlacePositionAndRotation { get => keepInPlacePositionAndRotation; }
     public PlayerMoveController MoveController { get => moveController; }
     public PlayerPoints Points { get => points; }
     public PlayerTurretController TurretController { get => turretController; }
