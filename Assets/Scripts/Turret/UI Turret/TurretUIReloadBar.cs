@@ -1,11 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class TurretUIReloadBar : MonoBehaviour
 {
-    [SerializeField] private TurretTapFire turretTapScript;
-
     [Space(10)]
     [Tooltip("Charge image to be filled")]
     [SerializeField] private Image reloadImage;
@@ -14,15 +13,34 @@ public class TurretUIReloadBar : MonoBehaviour
 
     private float currentChargeAmount;
 
-    private void OnEnable()
+    [SerializeField] private TurretTapFire turretTapFire;
+    public TurretTapFire TurretTapScript
     {
-        turretTapScript.OnReloadTimeChanged += OnTimeAmountChanged;
+        get => turretTapFire;
+        set
+        {
+            UnSubscribeFromTurret();
+            turretTapFire = value;
+            SubscribeToTurret();
+        }
+    }
+
+    private void SubscribeToTurret()
+    {
+        turretTapFire.OnReloadTimeChanged += OnTimeAmountChanged;
+    }
+
+    private void UnSubscribeFromTurret()
+    {
+        if (turretTapFire == null) return;
+
+        turretTapFire.OnReloadTimeChanged -= OnTimeAmountChanged;
     }
 
     private void OnDisable()
     {
         ResetUIComponentes();
-        turretTapScript.OnReloadTimeChanged -= OnTimeAmountChanged;
+        UnSubscribeFromTurret();
     }
 
     private void Update()

@@ -19,11 +19,17 @@ public class PlayerTurretController : MonoBehaviour
     public float CurrentTimer { get => currentTimer; }
     public event Action OnBuffStarted;
 
+    public event Action<TurretHoldFire> OnHoldTurretPicked;
+    public event Action<TurretChargeFire> OnChargeTurretPicked;
+    public event Action<TurretTapFire> OnTapTurretPicked;
+
     private void Awake()
     {
         availableTurrets = new List<TurretBase>();
         availableTurrets.Add(GetComponentInChildren<TurretBase>());
+
         currentEnabledTurret = availableTurrets[0].gameObject;
+        OnHoldTurretPicked?.Invoke(currentEnabledTurret.GetComponent<TurretHoldFire>());
 
         currentTimer = newTurretDuration;
         hasActiveTurret = false;
@@ -46,7 +52,10 @@ public class PlayerTurretController : MonoBehaviour
         countdownCoroutine = null;
 
         currentEnabledTurret.SetActive(false);
+
         currentEnabledTurret = availableTurrets[0].gameObject;
+        OnHoldTurretPicked?.Invoke(currentEnabledTurret.GetComponent<TurretHoldFire>());
+
         currentEnabledTurret.SetActive(true);
 
         hasActiveTurret = false;
@@ -62,7 +71,22 @@ public class PlayerTurretController : MonoBehaviour
         GameObject newTurret = availableTurrets.Find(x => x.TurretName == turretName).gameObject;
 
         currentEnabledTurret.SetActive(false);
+
         currentEnabledTurret = newTurret;
+
+        TurretType type = newTurret.GetComponent<TurretBase>().TurretType;
+        switch (type)
+        {
+            case TurretType.Hold:
+                OnHoldTurretPicked?.Invoke(newTurret.GetComponent<TurretHoldFire>());
+                break;
+            case TurretType.Charge:
+                OnChargeTurretPicked?.Invoke(newTurret.GetComponent<TurretChargeFire>());
+                break;
+            case TurretType.Tap:
+                OnTapTurretPicked?.Invoke(newTurret.GetComponent<TurretTapFire>());
+                break;
+        }
         currentEnabledTurret.SetActive(true);
 
         countdownCoroutine = StartCoroutine(nameof(StartBuffCountDown));
@@ -79,7 +103,23 @@ public class PlayerTurretController : MonoBehaviour
         availableTurrets.Add(newTurret.GetComponent<TurretBase>());
 
         currentEnabledTurret.SetActive(false);
+
         currentEnabledTurret = newTurret;
+
+        TurretType type = newTurret.GetComponent<TurretBase>().TurretType;
+        switch (type)
+        {
+            case TurretType.Hold:
+                OnHoldTurretPicked?.Invoke(newTurret.GetComponent<TurretHoldFire>());
+                break;
+            case TurretType.Charge:
+                OnChargeTurretPicked?.Invoke(newTurret.GetComponent<TurretChargeFire>());
+                break;
+            case TurretType.Tap:
+                OnTapTurretPicked?.Invoke(newTurret.GetComponent<TurretTapFire>());
+                break;
+        }
+
         currentEnabledTurret.SetActive(true);
 
         countdownCoroutine = StartCoroutine(nameof(StartBuffCountDown));

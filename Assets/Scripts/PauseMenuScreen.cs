@@ -10,8 +10,11 @@ using UnityEngine.EventSystems;
 
 public class PauseMenuScreen : MonoBehaviour
 {
+    [Header("Systems Dependencies")]
     [SerializeField] private InputSystemUIInputModule inputSystemUI;
     [SerializeField] private EventSystem eventSystem;
+    [Header("UI Dependencies")]
+    [Header("Objects")]
     [SerializeField] private GameObject pauseMenuObject;
     [SerializeField] private GameObject defaultSelectedObject;
     [Header("Buttons")]
@@ -58,12 +61,12 @@ public class PauseMenuScreen : MonoBehaviour
     }
     private void LoadMainMenu()
     {
-        GlobalPlayersManager.Instance.SetPlayersDefaultTurret();
+        GlobalPlayersManager.Instance.SetAllPlayersDefaultTurret();
         SceneManager.LoadScene(0);
     }
     private void ExitGame()
     {
-        GlobalPlayersManager.Instance.SetPlayersDefaultTurret();
+        GlobalPlayersManager.Instance.SetAllPlayersDefaultTurret();
         #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
         #else
@@ -74,7 +77,6 @@ public class PauseMenuScreen : MonoBehaviour
     private void UnPauseGame(PlayerInput playerInput)
     {
         GlobalPlayersManager.Instance.SwitchPlayerActionMap(playerInput, "Player");
-        GlobalPlayersManager.Instance.EnableAllPlayersInput();
         pauseMenuObject.SetActive(false);
         Time.timeScale = 1.0f;
         isGamePaused = false;
@@ -83,7 +85,6 @@ public class PauseMenuScreen : MonoBehaviour
     private void PauseGame(PlayerInput playerInput)
     {
         Time.timeScale = 0.0f;
-        GlobalPlayersManager.Instance.DisableAllPlayersInput();
         playerInput.enabled = true;
         eventSystem.SetSelectedGameObject(defaultSelectedObject);
         GlobalPlayersManager.Instance.SwitchPlayerActionMap(playerInput, "UI");

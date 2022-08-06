@@ -4,8 +4,6 @@ using UnityEngine.UI;
 
 public class TurretUIChargeBar : MonoBehaviour
 {
-    [SerializeField] private TurretChargeFire turretChargeScript;
-
     [Space(10)]
     [Tooltip("Charge image to be filled")]
     [SerializeField] private Image chargeImage;
@@ -14,15 +12,34 @@ public class TurretUIChargeBar : MonoBehaviour
 
     private float currentChargeAmount;
 
-    private void OnEnable()
+    [SerializeField] private TurretChargeFire turretChargeScript;
+    public TurretChargeFire TurretChargeScript
+    {
+        get => turretChargeScript;
+        set
+        {
+            UnSubscribeFromTurret();
+            turretChargeScript = value;
+            SubscribeToTurret();
+        }
+    }
+
+    private void SubscribeToTurret()
     {
         turretChargeScript.OnChargeAmountChanged += OnChargeAmountChanged;
+    }
+
+    private void UnSubscribeFromTurret()
+    {
+        if (turretChargeScript == null) return;
+
+        turretChargeScript.OnChargeAmountChanged -= OnChargeAmountChanged;
     }
 
     private void OnDisable()
     {
         ResetUIComponentes();
-        turretChargeScript.OnChargeAmountChanged -= OnChargeAmountChanged;
+        UnSubscribeFromTurret();
     }
 
     private void Update()

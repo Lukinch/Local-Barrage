@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class ShieldPickable : Pickable
 {
+    [SerializeField] bool shouldDisappear;
     [SerializeField] private float shieldAmount;
 
     public static event Action<Transform> OnShieldDestroyed;
@@ -14,6 +15,8 @@ public class ShieldPickable : Pickable
         if (!player.PlayerStatsController.ShieldCanBeHealed()) return;
 
         player.PlayerStatsController.RestoreShield(shieldAmount);
+
+        if (!shouldDisappear) return;
         OnPicked();
     }
 

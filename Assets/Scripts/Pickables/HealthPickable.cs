@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class HealthPickable : Pickable
 {
+    [SerializeField] bool shouldDisappear;
     [SerializeField] private float healAmount;
 
     public static event Action<Transform> OnHealthDestroyed;
@@ -14,6 +15,8 @@ public class HealthPickable : Pickable
         if (!player.PlayerStatsController.HealthCanBeHealed()) return;
 
         player.PlayerStatsController.RestoreHealth(healAmount);
+
+        if (!shouldDisappear) return;
         OnPicked();
     }
 

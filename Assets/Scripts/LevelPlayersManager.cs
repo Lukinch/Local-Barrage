@@ -24,24 +24,25 @@ public class LevelPlayersManager : MonoBehaviour
     private void Start()
     {
         GlobalPlayersManager.Instance.AssignAllPlayersNewCamera(levelCamera);
-        GlobalPlayersManager.Instance.StopPlayersMovement();
         amountOfPlayers = GlobalPlayersManager.Instance.PlayersAmount;
 
         SetPlayersInitialPositions();
 
-        levelObjectiveScreenController.OnObjectiveShown += InitializePlayerSpawn;
+        levelObjectiveScreenController.OnObjectiveShown += EnableAllPlayersVisualsAndGameplayComponents;
         PlayerStatsController.OnPlayerKilled += ManagePlayerKilledEvent;
     }
 
     private void OnDestroy()
     {
-        levelObjectiveScreenController.OnObjectiveShown -= InitializePlayerSpawn;
+        levelObjectiveScreenController.OnObjectiveShown -= EnableAllPlayersVisualsAndGameplayComponents;
         PlayerStatsController.OnPlayerKilled -= ManagePlayerKilledEvent;
     }
 
-    private void InitializePlayerSpawn()
+    private void EnableAllPlayersVisualsAndGameplayComponents()
     {
-        GlobalPlayersManager.Instance.EnableAllPlayers();
+        GlobalPlayersManager.Instance.EnableAllPlayersVisuals();
+        GlobalPlayersManager.Instance.EnableAllPlayersGameplayComponents();
+        GlobalPlayersManager.Instance.SwitchAllPlayersActionMap("Player");
     }
 
     private void SetPlayersInitialPositions()

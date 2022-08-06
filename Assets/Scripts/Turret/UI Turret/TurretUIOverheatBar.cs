@@ -4,8 +4,6 @@ using UnityEngine.UI;
 
 public class TurretUIOverheatBar : MonoBehaviour
 {
-    [SerializeField] private TurretHoldFire turretHoldScript;
-
     [Space(10)]
     [Tooltip("Overeat image to be filled")]
     [SerializeField] private Image overHeatImage;
@@ -14,15 +12,34 @@ public class TurretUIOverheatBar : MonoBehaviour
 
     private float currentOverheatAmount;
 
-    private void OnEnable()
+    [SerializeField] private TurretHoldFire turretHoldScript;
+    public TurretHoldFire TurretHoldScript
+    {
+        get => turretHoldScript;
+        set
+        {
+            UnSubscribeFromTurret();
+            turretHoldScript = value;
+            SubscribeToTurret();
+        }
+    }
+
+    private void SubscribeToTurret()
     {
         turretHoldScript.OnOverheatAmountChanged += OnOverheatAmountChanged;
+    }
+
+    private void UnSubscribeFromTurret()
+    {
+        if (turretHoldScript == null) return;
+
+        turretHoldScript.OnOverheatAmountChanged -= OnOverheatAmountChanged;
     }
 
     private void OnDisable()
     {
         ResetUIComponentes();
-        turretHoldScript.OnOverheatAmountChanged -= OnOverheatAmountChanged;
+        UnSubscribeFromTurret();
     }
 
     private void Update()

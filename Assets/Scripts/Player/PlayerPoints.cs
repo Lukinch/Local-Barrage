@@ -12,16 +12,12 @@ public class PlayerPoints : MonoBehaviour
 
     public int Points { get => points; }
 
-    public static event Action<int> OnPlayerMaxPointsAchieved;
-
     public void AddPoints()
     {
         points += pointsPerKill;
         if (points >= GlobalPlayersManager.Instance.MaxAmountOfPointsPerPlayer)
         {
             points = 50;
-
-            OnPlayerMaxPointsAchieved?.Invoke(playerInput.playerIndex);
         }
     }
     public int GetPointsInt() => points;

@@ -50,7 +50,9 @@ public class PlayerStatsController : MonoBehaviour
         OnShieldHealthChangedEvent?.Invoke(currentShield / maxShield);
         EnableShield();
 
-        gameObject.SetActive(false);
+        int inputIndex = gameObject.GetComponent<UnityEngine.InputSystem.PlayerInput>().playerIndex;
+        GlobalPlayersManager.Instance.DisablePlayerGameplayComponents(inputIndex);
+        GlobalPlayersManager.Instance.DisablePlayerVisuals(inputIndex);
         OnPlayerKilled?.Invoke();
     }
 
@@ -67,7 +69,7 @@ public class PlayerStatsController : MonoBehaviour
         {
             currentHealth = 0;
 
-            GlobalPlayersManager.Instance.PlayersPoints[projectileOwner].AddPoints();
+            GlobalPlayersManager.Instance.AddPointsToPlayer(projectileOwner);
 
             DisableSelf();
         }

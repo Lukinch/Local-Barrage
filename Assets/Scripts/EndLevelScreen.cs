@@ -76,15 +76,15 @@ public class EndLevelScreen : MonoBehaviour
             nextLevelPlayersScoreTexts[i].gameObject.SetActive(true);
         }
 
-        int lastPlayerIndex = GlobalPlayersManager.Instance.GetPlayerInputs.FindIndex(
-            player => player.gameObject.activeInHierarchy);
+        int lastPlayerIndex = GlobalPlayersManager.Instance.GetLastPlayerStandingIndex();
+
+        GlobalPlayersManager.Instance.SetAllPlayersDefaultTurret();
+        GlobalPlayersManager.Instance.DisableAllPlayersGameplayComponents();
+        GlobalPlayersManager.Instance.DisableAllPlayersVisuals();
 
         nextLevelTitleText.text = $"Player {lastPlayerIndex + 1} Won This Round";
 
         nextLevelScreenObject.SetActive(true);
-
-        GlobalPlayersManager.Instance.SetPlayersDefaultTurret();
-        GlobalPlayersManager.Instance.DisableAllPlayers();
 
         StartCoroutine(nameof(NextLevelCountdown));
     }
@@ -96,6 +96,10 @@ public class EndLevelScreen : MonoBehaviour
             playerWonPlayersScoreTexts[i].text = $"Player {i + 1} Points: {playersPoints[i]}";
             playerWonPlayersScoreTexts[i].gameObject.SetActive(true);
         }
+
+        GlobalPlayersManager.Instance.SetAllPlayersDefaultTurret();
+        GlobalPlayersManager.Instance.DisableAllPlayersGameplayComponents();
+        GlobalPlayersManager.Instance.DisableAllPlayersVisuals();
 
         playerWonTitleText.text = $"Player {playerIndex + 1} Won The Game!";
 
