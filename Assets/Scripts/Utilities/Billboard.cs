@@ -6,20 +6,20 @@ using UnityEngine;
 
 public class Billboard : MonoBehaviour
 {
-    private Transform cameraTransform;
+    private Transform _cameraTransform;
 
     private void Awake()
     {
-        cameraTransform = Camera.main.transform;
+        _cameraTransform = Camera.main.transform;
     }
 
     public void SetNewCamera(Camera newCamera)
     {
-        cameraTransform = newCamera.transform;
+        _cameraTransform = newCamera.transform;
     }
 
     private void LateUpdate()
     {
-        transform.LookAt(transform.position + cameraTransform.forward);
+        transform.LookAt(transform.position + _cameraTransform.forward);
     }
 }

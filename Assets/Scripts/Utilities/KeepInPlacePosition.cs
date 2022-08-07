@@ -4,11 +4,11 @@ using UnityEngine;
 [ExecuteAlways]
 public class KeepInPlacePosition : MonoBehaviour
 {
-    [SerializeField] private Transform followObject;
-    [SerializeField] private Vector3 offset;
+    [SerializeField] private Transform _followObject;
+    [SerializeField] private Vector3 _offset;
 
-    private void Update()
+    private void FixedUpdate()
     {
-        transform.position = followObject.position + offset;
+        transform.position = _followObject.position + _offset;
     }
 }

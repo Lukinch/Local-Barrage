@@ -1703,7 +1703,17 @@ PrefabInstance:
       objectReference: {fileID: 330074224}
     - target: {fileID: 1557801752897292913, guid: ae70621fa6dcda047a2e1ed4f3c63309,
         type: 3}
+      propertyPath: _levelCamera
+      value: 
+      objectReference: {fileID: 330074224}
+    - target: {fileID: 1557801752897292913, guid: ae70621fa6dcda047a2e1ed4f3c63309,
+        type: 3}
       propertyPath: spawnPoints.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1557801752897292913, guid: ae70621fa6dcda047a2e1ed4f3c63309,
+        type: 3}
+      propertyPath: _spawnPoints.Array.size
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1557801752897292913, guid: ae70621fa6dcda047a2e1ed4f3c63309,
@@ -1728,7 +1738,32 @@ PrefabInstance:
       objectReference: {fileID: 5391953233494024398}
     - target: {fileID: 1557801752897292913, guid: ae70621fa6dcda047a2e1ed4f3c63309,
         type: 3}
+      propertyPath: _spawnPoints.Array.data[0]
+      value: 
+      objectReference: {fileID: 5391953233494024401}
+    - target: {fileID: 1557801752897292913, guid: ae70621fa6dcda047a2e1ed4f3c63309,
+        type: 3}
+      propertyPath: _spawnPoints.Array.data[1]
+      value: 
+      objectReference: {fileID: 5391953233494024400}
+    - target: {fileID: 1557801752897292913, guid: ae70621fa6dcda047a2e1ed4f3c63309,
+        type: 3}
+      propertyPath: _spawnPoints.Array.data[2]
+      value: 
+      objectReference: {fileID: 5391953233494024399}
+    - target: {fileID: 1557801752897292913, guid: ae70621fa6dcda047a2e1ed4f3c63309,
+        type: 3}
+      propertyPath: _spawnPoints.Array.data[3]
+      value: 
+      objectReference: {fileID: 5391953233494024398}
+    - target: {fileID: 1557801752897292913, guid: ae70621fa6dcda047a2e1ed4f3c63309,
+        type: 3}
       propertyPath: levelObjectiveScreenController
+      value: 
+      objectReference: {fileID: 7039374591812997675}
+    - target: {fileID: 1557801752897292913, guid: ae70621fa6dcda047a2e1ed4f3c63309,
+        type: 3}
+      propertyPath: _levelObjectiveScreenController
       value: 
       objectReference: {fileID: 7039374591812997675}
     - target: {fileID: 4726968840784248225, guid: ae70621fa6dcda047a2e1ed4f3c63309,
@@ -2768,12 +2803,32 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
         type: 3}
+      propertyPath: _statsAtATime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: _turretsAtATime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
       propertyPath: statsLocations.Array.size
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
         type: 3}
+      propertyPath: _statsLocations.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
       propertyPath: turretLocations.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: _turretLocations.Array.size
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
@@ -2813,6 +2868,41 @@ PrefabInstance:
       objectReference: {fileID: 188683029}
     - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
         type: 3}
+      propertyPath: _statsLocations.Array.data[0]
+      value: 
+      objectReference: {fileID: 188683035}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: _statsLocations.Array.data[1]
+      value: 
+      objectReference: {fileID: 188683034}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: _statsLocations.Array.data[2]
+      value: 
+      objectReference: {fileID: 188683033}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: _statsLocations.Array.data[3]
+      value: 
+      objectReference: {fileID: 188683032}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: _statsLocations.Array.data[4]
+      value: 
+      objectReference: {fileID: 188683031}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: _statsLocations.Array.data[5]
+      value: 
+      objectReference: {fileID: 188683030}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: _statsLocations.Array.data[6]
+      value: 
+      objectReference: {fileID: 188683029}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
       propertyPath: turretLocations.Array.data[0]
       value: 
       objectReference: {fileID: 188683040}
@@ -2838,7 +2928,37 @@ PrefabInstance:
       objectReference: {fileID: 188683036}
     - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
         type: 3}
+      propertyPath: _turretLocations.Array.data[0]
+      value: 
+      objectReference: {fileID: 188683040}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: _turretLocations.Array.data[1]
+      value: 
+      objectReference: {fileID: 188683039}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: _turretLocations.Array.data[2]
+      value: 
+      objectReference: {fileID: 188683038}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: _turretLocations.Array.data[3]
+      value: 
+      objectReference: {fileID: 188683037}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: _turretLocations.Array.data[4]
+      value: 
+      objectReference: {fileID: 188683036}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
       propertyPath: levelObjectiveScreenController
+      value: 
+      objectReference: {fileID: 7039374591812997675}
+    - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
+        type: 3}
+      propertyPath: _levelObjectiveScreenController
       value: 
       objectReference: {fileID: 7039374591812997675}
     m_RemovedComponents: []
@@ -5368,6 +5488,11 @@ PrefabInstance:
     - target: {fileID: 8759274562028694284, guid: a1bcd393479be644e91ab67f04e62e9b,
         type: 3}
       propertyPath: levelPlayersManager
+      value: 
+      objectReference: {fileID: 414153645}
+    - target: {fileID: 8759274562028694284, guid: a1bcd393479be644e91ab67f04e62e9b,
+        type: 3}
+      propertyPath: _levelPlayersManager
       value: 
       objectReference: {fileID: 414153645}
     m_RemovedComponents: []

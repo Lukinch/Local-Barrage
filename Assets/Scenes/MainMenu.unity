@@ -2623,9 +2623,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06b392696a710cf4488a068b58e9827c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextLevelCountDown: 3
-  countDownText: {fileID: 373631248}
-  spawnPoints:
+  _nextLevelCountDown: 5
+  _countDownText: {fileID: 373631248}
+  _spawnPoints:
   - {fileID: 468766330}
   - {fileID: 39371292}
   - {fileID: 495692344}

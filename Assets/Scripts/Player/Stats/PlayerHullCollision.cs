@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class PlayerHullCollision : MonoBehaviour, IDamageCollision
 {
+    [SerializeField] private UnityEngine.InputSystem.PlayerInput _owner;
+
     public Action<float, int> HullProjectileCollisionEvent;
     public Action<float> HullPickableCollisionEvent;
 
-    [SerializeField] private UnityEngine.InputSystem.PlayerInput owner;
-    public int OwnerInputId { get => owner.playerIndex; }
+    public int OwnerInputId { get => _owner.playerIndex; }
 
     public void TakeProjectileDamage(float damage, int projectileOwner)
     {

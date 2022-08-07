@@ -3,16 +3,16 @@ using UnityEngine;
 
 public class PlayerPickableCollision : MonoBehaviour
 {
-    [SerializeField] private PlayerTurretController playerTurretController;
-    [SerializeField] private PlayerStatsController playerStatsController;
+    [SerializeField] private PlayerTurretController _playerTurretController;
+    [SerializeField] private PlayerStatsController _playerStatsController;
 
     public PlayerTurretController TurretController
     {
-        get => playerTurretController;
+        get => _playerTurretController;
     }
 
     public PlayerStatsController PlayerStatsController
     {
-        get => playerStatsController;
+        get => _playerStatsController;
     }
 }

@@ -4,12 +4,12 @@ using UnityEngine;
 public abstract class TurretBase : MonoBehaviour
 {
     [Header("Base Fields")]
-    [SerializeField] private string turretName;
-    [SerializeField] private TurretType turretType;
-    [SerializeField] protected GameObject projectilePrefab;
+    [SerializeField] private string _turretName;
+    [SerializeField] private TurretType _turretType;
+    [SerializeField] protected GameObject _projectilePrefab;
 
-    public TurretType TurretType { get => turretType; }
-    public string TurretName { get => turretName; }
+    public TurretType TurretType { get => _turretType; }
+    public string TurretName { get => _turretName; }
 
     protected TurretFiringController turretFiringController;
 
@@ -19,7 +19,7 @@ public abstract class TurretBase : MonoBehaviour
     protected virtual void FireProjectile(Transform firingPoint, float damagePerShot, float projectileForce)
     {
         GameObject projectile = Instantiate(
-            projectilePrefab,
+            _projectilePrefab,
             firingPoint.position,
             firingPoint.rotation);
 

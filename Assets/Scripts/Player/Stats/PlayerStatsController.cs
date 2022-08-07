@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class PlayerStatsController : MonoBehaviour
 {
-    [SerializeField] private PlayerHullCollision hullCollision;
-    [SerializeField] private PlayerShieldCollision shieldCollision;
+    [SerializeField] private PlayerHullCollision _hullCollision;
+    [SerializeField] private PlayerShieldCollision _shieldCollision;
 
-    [SerializeField] private float maxHealth;
-    [SerializeField] private float maxShield;
+    [SerializeField] private float _maxHealth;
+    [SerializeField] private float _maxShield;
 
-    private float currentHealth;
-    private float currentShield;
+    private float _currentHealth;
+    private float _currentShield;
 
     public event Action<float> OnHullHealthChangedEvent;
     public event Action<float> OnShieldHealthChangedEvent;
@@ -20,34 +20,34 @@ public class PlayerStatsController : MonoBehaviour
 
     private void OnEnable()
     {
-        hullCollision.HullProjectileCollisionEvent += ProjectileDamageHull;
-        hullCollision.HullPickableCollisionEvent += PickableDamageHull;
-        shieldCollision.ShieldProjectileCollisionEvent += ProjectileDamageShield;
-        shieldCollision.ShieldPickableCollisionEvent += PickableDamageShield;
+        _hullCollision.HullProjectileCollisionEvent += ProjectileDamageHull;
+        _hullCollision.HullPickableCollisionEvent += PickableDamageHull;
+        _shieldCollision.ShieldProjectileCollisionEvent += ProjectileDamageShield;
+        _shieldCollision.ShieldPickableCollisionEvent += PickableDamageShield;
     }
 
     private void OnDisable()
     {
-        hullCollision.HullProjectileCollisionEvent -= ProjectileDamageHull;
-        hullCollision.HullPickableCollisionEvent -= PickableDamageHull;
-        shieldCollision.ShieldProjectileCollisionEvent -= ProjectileDamageShield;
-        shieldCollision.ShieldPickableCollisionEvent -= PickableDamageShield;
+        _hullCollision.HullProjectileCollisionEvent -= ProjectileDamageHull;
+        _hullCollision.HullPickableCollisionEvent -= PickableDamageHull;
+        _shieldCollision.ShieldProjectileCollisionEvent -= ProjectileDamageShield;
+        _shieldCollision.ShieldPickableCollisionEvent -= PickableDamageShield;
     }
 
     private void Start()
     {
-        currentHealth = maxHealth;
-        currentShield = maxShield;
+        _currentHealth = _maxHealth;
+        _currentShield = _maxShield;
         DisableHull();
     }
     private void DisableSelf()
     {
-        currentHealth = maxHealth;
-        OnHullHealthChangedEvent?.Invoke(currentHealth / maxHealth);
+        _currentHealth = _maxHealth;
+        OnHullHealthChangedEvent?.Invoke(_currentHealth / _maxHealth);
         DisableHull();
 
-        currentShield = maxShield;
-        OnShieldHealthChangedEvent?.Invoke(currentShield / maxShield);
+        _currentShield = _maxShield;
+        OnShieldHealthChangedEvent?.Invoke(_currentShield / _maxShield);
         EnableShield();
 
         int inputIndex = gameObject.GetComponent<UnityEngine.InputSystem.PlayerInput>().playerIndex;
@@ -56,101 +56,101 @@ public class PlayerStatsController : MonoBehaviour
         OnPlayerKilled?.Invoke();
     }
 
-    private void EnableHull() => hullCollision.gameObject.SetActive(true);    
-    private void DisableHull() => hullCollision.gameObject.SetActive(false);
+    private void EnableHull() => _hullCollision.gameObject.SetActive(true);    
+    private void DisableHull() => _hullCollision.gameObject.SetActive(false);
 
-    private void EnableShield() => shieldCollision.gameObject.SetActive(true);
-    private void DisableShield() => shieldCollision.gameObject.SetActive(false);
+    private void EnableShield() => _shieldCollision.gameObject.SetActive(true);
+    private void DisableShield() => _shieldCollision.gameObject.SetActive(false);
 
     public void ProjectileDamageHull(float damage, int projectileOwner)
     {
-        currentHealth -= damage;
-        if (currentHealth <= 0)
+        _currentHealth -= damage;
+        if (_currentHealth <= 0)
         {
-            currentHealth = 0;
+            _currentHealth = 0;
 
             GlobalPlayersManager.Instance.AddPointsToPlayer(projectileOwner);
 
             DisableSelf();
         }
 
-        OnHullHealthChangedEvent?.Invoke(currentHealth / maxHealth);
+        OnHullHealthChangedEvent?.Invoke(_currentHealth / _maxHealth);
     }
     public void PickableDamageHull(float damage)
     {
-        currentHealth -= damage;
-        if (currentHealth <= 0)
+        _currentHealth -= damage;
+        if (_currentHealth <= 0)
         {
-            currentHealth = 0;
+            _currentHealth = 0;
             DisableSelf();
         }
 
-        OnHullHealthChangedEvent?.Invoke(currentHealth / maxHealth);
+        OnHullHealthChangedEvent?.Invoke(_currentHealth / _maxHealth);
     }
 
     public void ProjectileDamageShield(float damage, int projectileOwner)
     {
-        currentShield -= damage;
-        if (currentShield <= 0)
+        _currentShield -= damage;
+        if (_currentShield <= 0)
         {
-            currentShield = 0;
+            _currentShield = 0;
             DisableShield();
             EnableHull();
         }
         
-        OnShieldHealthChangedEvent?.Invoke(currentShield / maxShield);
+        OnShieldHealthChangedEvent?.Invoke(_currentShield / _maxShield);
     }
     public void PickableDamageShield(float damage)
     {
-        currentShield -= damage;
-        if (currentShield <= 0)
+        _currentShield -= damage;
+        if (_currentShield <= 0)
         {
-            currentShield = 0;
+            _currentShield = 0;
             DisableShield();
             EnableHull();
         }
 
-        OnShieldHealthChangedEvent?.Invoke(currentShield / maxShield);
+        OnShieldHealthChangedEvent?.Invoke(_currentShield / _maxShield);
     }
 
     public void RestoreHealth(float amountToRestore)
     {
-        if (currentHealth == maxHealth) return;
+        if (_currentHealth == _maxHealth) return;
 
-        currentHealth += amountToRestore;
-        if (currentHealth > maxHealth) currentHealth = maxHealth;
+        _currentHealth += amountToRestore;
+        if (_currentHealth > _maxHealth) _currentHealth = _maxHealth;
 
-        OnHullHealthChangedEvent?.Invoke(currentHealth / maxHealth);
+        OnHullHealthChangedEvent?.Invoke(_currentHealth / _maxHealth);
     }
 
     public void RestoreShield(float amountToRestore)
     {
-        if (currentShield == maxShield) return;
+        if (_currentShield == _maxShield) return;
 
-        if (currentShield == 0)
+        if (_currentShield == 0)
         {
             DisableHull();
             EnableShield();
         }
 
-        currentShield += amountToRestore;
-        if (currentShield > maxShield) currentShield = maxShield;
+        _currentShield += amountToRestore;
+        if (_currentShield > _maxShield) _currentShield = _maxShield;
 
-        OnShieldHealthChangedEvent?.Invoke(currentShield / maxShield);
+        OnShieldHealthChangedEvent?.Invoke(_currentShield / _maxShield);
     }
 
     public bool HealthCanBeHealed()
     {
-        return currentHealth < maxHealth;
+        return _currentHealth < _maxHealth;
     }
 
     public bool ShieldCanBeHealed()
     {
-        return currentShield < maxShield;
+        return _currentShield < _maxShield;
     }
 
     public bool IsShieldActive()
     {
-        return shieldCollision.gameObject.activeSelf;
+        return _shieldCollision.gameObject.activeSelf;
     }
 }

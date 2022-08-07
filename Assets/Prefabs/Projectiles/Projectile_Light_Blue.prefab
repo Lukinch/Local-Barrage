@@ -271,8 +271,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b76fd9d05ad7c8f4b8b3bd1dd2b8640a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  impactParticles: {fileID: 2148755788377579214, guid: a253099bee64f4c4280438a2e1baa6fc,
+  _impactParticles: {fileID: 2148755788377579214, guid: a253099bee64f4c4280438a2e1baa6fc,
     type: 3}
-  timeToDestroy: 3
+  _timeToDestroy: 3
   Owner: 0
   Damage: 0

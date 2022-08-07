@@ -6,17 +6,17 @@ using UnityEngine.InputSystem;
 
 public class GlobalPlayersManager : MonoBehaviour
 {
-    [SerializeField] private int maxNumerOfPlayers;
-    [SerializeField] private PlayerInputManager playerInputManager;
-    [SerializeField] private int maxAmountOfPointsPerPlayer = 50;
+    [SerializeField] private int _maxNumerOfPlayers;
+    [SerializeField] private PlayerInputManager _playerInputManager;
+    [SerializeField] private int _maxAmountOfPointsPerPlayer = 50;
 
-    private int playersAmount;
-    private List<PlayerInput> players = new List<PlayerInput>();
+    private int _playersAmount;
+    private List<PlayerInput> _players = new List<PlayerInput>();
 
     public static GlobalPlayersManager Instance;
-    public int PlayersAmount => playersAmount;
-    public int MaxAmountOfPointsPerPlayer => maxAmountOfPointsPerPlayer;
-    public List<PlayerInput> GetPlayerInputs { get => players; }
+    public int PlayersAmount => _playersAmount;
+    public int MaxAmountOfPointsPerPlayer => _maxAmountOfPointsPerPlayer;
+    public List<PlayerInput> GetPlayerInputs { get => _players; }
     public event Action<PlayerInput> OnNewPlayerAdded;
 
     private void Awake()
@@ -31,7 +31,7 @@ public class GlobalPlayersManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
 
-        playersAmount = 0;
+        _playersAmount = 0;
     }
 
     private void OnEnable() => SubscribeToNewPlayersEvent();
@@ -39,35 +39,35 @@ public class GlobalPlayersManager : MonoBehaviour
 
     private void AddPlayer(PlayerInput playerInput)
     {
-        if (playersAmount == maxNumerOfPlayers) return;
+        if (_playersAmount == _maxNumerOfPlayers) return;
 
         GameObject playerObject = playerInput.gameObject;
 
-        players.Add(playerInput);
+        _players.Add(playerInput);
 
         DisablePlayerGameplayComponents(PlayersAmount);
         EnablePlayerMenuUI(PlayersAmount);
 
         SwitchPlayerActionMap(playerInput, "UI");
 
-        playersAmount++;
+        _playersAmount++;
 
         OnNewPlayerAdded?.Invoke(playerInput);
     }
 
     private void EnableAllPlayersRigidBodies()
     {
-        for (int i = 0; i < playersAmount; i++)
+        for (int i = 0; i < _playersAmount; i++)
         {
-            players[i].gameObject.GetComponent<PlayerComponentReferences>().MoveController.EnableRigidBody();
+            _players[i].gameObject.GetComponent<PlayerComponentReferences>().MoveController.EnableRigidBody();
         }
     }
 
     private void DisableAllPlayersRigidBodies()
     {
-        for (int i = 0; i < playersAmount; i++)
+        for (int i = 0; i < _playersAmount; i++)
         {
-            players[i].gameObject.GetComponent<PlayerComponentReferences>().MoveController.DisableRigidBody();
+            _players[i].gameObject.GetComponent<PlayerComponentReferences>().MoveController.DisableRigidBody();
         }
     }
 
@@ -79,12 +79,12 @@ public class GlobalPlayersManager : MonoBehaviour
 
     public void SwitchAllPlayersActionMap(string actionMap)
     {
-        players.ForEach(player => player.SwitchCurrentActionMap(actionMap));
+        _players.ForEach(player => player.SwitchCurrentActionMap(actionMap));
     }
 
     public void EnablePlayerGameplayComponents(int index)
     {
-        PlayerComponentReferences player = players[index].gameObject.GetComponent<PlayerComponentReferences>();
+        PlayerComponentReferences player = _players[index].gameObject.GetComponent<PlayerComponentReferences>();
         player.TurretRotationController.enabled = true;
         player.TurretController.enabled = true;
         player.LiveUI.SetActive(true);
@@ -93,7 +93,7 @@ public class GlobalPlayersManager : MonoBehaviour
 
     public void DisablePlayerGameplayComponents(int index)
     {
-        PlayerComponentReferences player = players[index].gameObject.GetComponent<PlayerComponentReferences>();
+        PlayerComponentReferences player = _players[index].gameObject.GetComponent<PlayerComponentReferences>();
         player.TurretRotationController.enabled = false;
         player.TurretController.enabled = false;
         player.LiveUI.SetActive(false);
@@ -103,7 +103,7 @@ public class GlobalPlayersManager : MonoBehaviour
 
     public void EnableAllPlayersGameplayComponents()
     {
-        for (int i = 0; i < playersAmount; i++)
+        for (int i = 0; i < _playersAmount; i++)
         {
             EnablePlayerGameplayComponents(i);
         }
@@ -111,7 +111,7 @@ public class GlobalPlayersManager : MonoBehaviour
 
     public void DisableAllPlayersGameplayComponents()
     {
-        for (int i = 0; i < playersAmount; i++)
+        for (int i = 0; i < _playersAmount; i++)
         {
             DisablePlayerGameplayComponents(i);
         }
@@ -119,9 +119,9 @@ public class GlobalPlayersManager : MonoBehaviour
 
     public void DisableAllPlayersUIs()
     {
-        for (int i = 0; i < playersAmount; i++)
+        for (int i = 0; i < _playersAmount; i++)
         {
-            PlayerComponentReferences player = players[i].gameObject.GetComponent<PlayerComponentReferences>();
+            PlayerComponentReferences player = _players[i].gameObject.GetComponent<PlayerComponentReferences>();
             player.LiveUI.SetActive(false);
             player.MenuUI.SetActive(false);
         }
@@ -129,14 +129,16 @@ public class GlobalPlayersManager : MonoBehaviour
 
     public void EnablePlayerMenuUI(int index)
     {
-        players[index].gameObject.GetComponent<PlayerComponentReferences>().MenuUI.SetActive(true);
+        _players[index].gameObject.GetComponent<PlayerComponentReferences>().MenuUI.SetActive(true);
     }
 
     public void EnableAllPlayersVisuals()
     {
-        for (int i = 0; i < playersAmount; i++)
+        for (int i = 0; i < _playersAmount; i++)
         {
-            players[i].gameObject.GetComponent<PlayerComponentReferences>().Visuals.SetActive(true);
+            PlayerComponentReferences player = _players[i].gameObject.GetComponent<PlayerComponentReferences>();
+            player.TurretPosition.SetActive(true);
+            player.SphereRenderer.enabled = true;
         }
 
         EnableAllPlayersRigidBodies();
@@ -146,38 +148,42 @@ public class GlobalPlayersManager : MonoBehaviour
     {
         DisableAllPlayersRigidBodies();
 
-        for (int i = 0; i < playersAmount; i++)
+        for (int i = 0; i < _playersAmount; i++)
         {
-            players[i].gameObject.GetComponent<PlayerComponentReferences>().Visuals.SetActive(false);
+            PlayerComponentReferences player = _players[i].gameObject.GetComponent<PlayerComponentReferences>();
+            player.TurretPosition.SetActive(false);
+            player.SphereRenderer.enabled = false;
         }
     }
 
     public void DisablePlayerVisuals(int inputIndex)
     {
-        players[inputIndex].gameObject.GetComponent<PlayerComponentReferences>().Visuals.SetActive(false);
+        PlayerComponentReferences player = _players[inputIndex].gameObject.GetComponent<PlayerComponentReferences>();
+        player.TurretPosition.SetActive(false);
+        player.SphereRenderer.enabled = false;
     }
 
     public void ClearPlayersList()
     {
-        players.ForEach(player => Destroy(player.gameObject));
-        players.Clear();
+        _players.ForEach(player => Destroy(player.gameObject));
+        _players.Clear();
 
-        playersAmount = 0;
+        _playersAmount = 0;
     }
 
     public void SetAllPlayersDefaultTurret()
     {
-        for (int i = 0; i < playersAmount; i++)
+        for (int i = 0; i < _playersAmount; i++)
         {
-            players[i].gameObject.GetComponent<PlayerComponentReferences>().TurretController.SetToDefaultTurret();
+            _players[i].gameObject.GetComponent<PlayerComponentReferences>().TurretController.SetToDefaultTurret();
         }
     }
 
     public void AssignAllPlayersNewCamera(Camera levelCamera)
     {
-        for (int i = 0; i < playersAmount; i++)
+        for (int i = 0; i < _playersAmount; i++)
         {
-            PlayerComponentReferences player = players[i].gameObject.GetComponent<PlayerComponentReferences>();
+            PlayerComponentReferences player = _players[i].gameObject.GetComponent<PlayerComponentReferences>();
             player.Billboard.SetNewCamera(levelCamera);
             player.TurretRotationController.SetNewCamera(levelCamera);
         }
@@ -185,11 +191,11 @@ public class GlobalPlayersManager : MonoBehaviour
 
     public int[] GetPlayerPointsInt()
     {
-        int[] points = new int[playersAmount];
+        int[] points = new int[_playersAmount];
         
-        for (int i = 0; i < playersAmount; i++)
+        for (int i = 0; i < _playersAmount; i++)
         {
-            points[i] = players[i].gameObject.GetComponent<PlayerComponentReferences>().Points.GetPointsInt();
+            points[i] = _players[i].gameObject.GetComponent<PlayerComponentReferences>().Points.GetPointsInt();
         }
 
         return points;
@@ -197,18 +203,18 @@ public class GlobalPlayersManager : MonoBehaviour
 
     public void AddPointsToPlayer(int index)
     {
-        players[index].gameObject.GetComponent<PlayerComponentReferences>().Points.AddPoints();
+        _players[index].gameObject.GetComponent<PlayerComponentReferences>().Points.AddPoints();
     }
 
     public int GetLastPlayerStandingIndex()
     {
-        return players.FindIndex(
-            player => player.gameObject.GetComponent<PlayerComponentReferences>().Visuals.activeInHierarchy);
+        return _players.FindIndex(
+            player => player.gameObject.GetComponent<PlayerComponentReferences>().TurretPosition.activeInHierarchy);
     }
 
-    public void EnablePlayersJoin() => playerInputManager.EnableJoining();
-    public void DisablePlayersJoin() => playerInputManager.DisableJoining();
-    public void SubscribeToNewPlayersEvent() => playerInputManager.onPlayerJoined += AddPlayer;
-    public void UnsubscribeToNewPlayersEvent() => playerInputManager.onPlayerJoined -= AddPlayer;
+    public void EnablePlayersJoin() => _playerInputManager.EnableJoining();
+    public void DisablePlayersJoin() => _playerInputManager.DisableJoining();
+    public void SubscribeToNewPlayersEvent() => _playerInputManager.onPlayerJoined += AddPlayer;
+    public void UnsubscribeToNewPlayersEvent() => _playerInputManager.onPlayerJoined -= AddPlayer;
     #endregion
 }

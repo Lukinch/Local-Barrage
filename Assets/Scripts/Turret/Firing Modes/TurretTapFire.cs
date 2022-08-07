@@ -6,13 +6,13 @@ using UnityEngine;
 public class TurretTapFire : TurretBase
 {
     [Header("This turret specific")]
-    [SerializeField] private List<Transform> firingPoints;
+    [SerializeField] private List<Transform> _firingPoints;
     [Space(10)]
     [Tooltip("Scriptable Object containing the turret stats")]
-    [SerializeField] private TurretTapFireStatsSO turretTapFireStatsSO;
+    [SerializeField] private TurretTapFireStatsSO _turretTapFireStatsSO;
 
-    private bool isReloading;
-    private float currentReloadTime;
+    private bool _isReloading;
+    private float _currentReloadTime;
 
     public event Action<float> OnReloadTimeChanged;
     
@@ -28,30 +28,30 @@ public class TurretTapFire : TurretBase
     
     private void OnDisable()
     {
-        isReloading = false;
-        currentReloadTime = 0;
+        _isReloading = false;
+        _currentReloadTime = 0;
         
         turretFiringController.OnFireInstantPerformed -= Fire;
     }
 
     protected override void Fire()
     {
-        if (isReloading) return;
+        if (_isReloading) return;
 
-        isReloading = true;
+        _isReloading = true;
         StartCoroutine(nameof(FireFromFirginPoints));
     }
 
     private IEnumerator FireFromFirginPoints()
     {
-        foreach (Transform firingPoint in firingPoints)
+        foreach (Transform firingPoint in _firingPoints)
         {
             FireProjectile(
                 firingPoint,
-                turretTapFireStatsSO.damagePerShot,
-                turretTapFireStatsSO.projectileForce);
+                _turretTapFireStatsSO.damagePerShot,
+                _turretTapFireStatsSO.projectileForce);
             
-            yield return new WaitForSeconds(turretTapFireStatsSO.timeBetweenShots);
+            yield return new WaitForSeconds(_turretTapFireStatsSO.timeBetweenShots);
         }
 
         StartCoroutine(nameof(WaitForRealod));
@@ -59,17 +59,17 @@ public class TurretTapFire : TurretBase
 
     private IEnumerator WaitForRealod()
     {
-        while (isReloading && currentReloadTime <= turretTapFireStatsSO.reloadTime)
+        while (_isReloading && _currentReloadTime <= _turretTapFireStatsSO.reloadTime)
         {
-            currentReloadTime += 0.02f;
+            _currentReloadTime += 0.02f;
 
-            OnReloadTimeChanged?.Invoke(currentReloadTime / turretTapFireStatsSO.reloadTime);
+            OnReloadTimeChanged?.Invoke(_currentReloadTime / _turretTapFireStatsSO.reloadTime);
 
-            if (currentReloadTime >= turretTapFireStatsSO.reloadTime)
+            if (_currentReloadTime >= _turretTapFireStatsSO.reloadTime)
             {
-                currentReloadTime = 0;
+                _currentReloadTime = 0;
                 OnReloadTimeChanged?.Invoke(0);
-                isReloading = false;
+                _isReloading = false;
             }
 
             yield return new WaitForFixedUpdate();

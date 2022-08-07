@@ -129,7 +129,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-212872
+  m_Name: pb_Mesh53016
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -294,7 +294,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-215942
+  m_Name: pb_Mesh53040
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -1073,7 +1073,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh35608
+  m_Name: pb_Mesh53054
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -1967,7 +1967,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-215402
+  m_Name: pb_Mesh53168
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -2601,7 +2601,17 @@ PrefabInstance:
       objectReference: {fileID: 330074224}
     - target: {fileID: 1557801752897292913, guid: ae70621fa6dcda047a2e1ed4f3c63309,
         type: 3}
+      propertyPath: _levelCamera
+      value: 
+      objectReference: {fileID: 330074224}
+    - target: {fileID: 1557801752897292913, guid: ae70621fa6dcda047a2e1ed4f3c63309,
+        type: 3}
       propertyPath: spawnPoints.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1557801752897292913, guid: ae70621fa6dcda047a2e1ed4f3c63309,
+        type: 3}
+      propertyPath: _spawnPoints.Array.size
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1557801752897292913, guid: ae70621fa6dcda047a2e1ed4f3c63309,
@@ -2626,7 +2636,32 @@ PrefabInstance:
       objectReference: {fileID: 5391953233494024398}
     - target: {fileID: 1557801752897292913, guid: ae70621fa6dcda047a2e1ed4f3c63309,
         type: 3}
+      propertyPath: _spawnPoints.Array.data[0]
+      value: 
+      objectReference: {fileID: 5391953233494024401}
+    - target: {fileID: 1557801752897292913, guid: ae70621fa6dcda047a2e1ed4f3c63309,
+        type: 3}
+      propertyPath: _spawnPoints.Array.data[1]
+      value: 
+      objectReference: {fileID: 5391953233494024400}
+    - target: {fileID: 1557801752897292913, guid: ae70621fa6dcda047a2e1ed4f3c63309,
+        type: 3}
+      propertyPath: _spawnPoints.Array.data[2]
+      value: 
+      objectReference: {fileID: 5391953233494024399}
+    - target: {fileID: 1557801752897292913, guid: ae70621fa6dcda047a2e1ed4f3c63309,
+        type: 3}
+      propertyPath: _spawnPoints.Array.data[3]
+      value: 
+      objectReference: {fileID: 5391953233494024398}
+    - target: {fileID: 1557801752897292913, guid: ae70621fa6dcda047a2e1ed4f3c63309,
+        type: 3}
       propertyPath: levelObjectiveScreenController
+      value: 
+      objectReference: {fileID: 1716015049}
+    - target: {fileID: 1557801752897292913, guid: ae70621fa6dcda047a2e1ed4f3c63309,
+        type: 3}
+      propertyPath: _levelObjectiveScreenController
       value: 
       objectReference: {fileID: 1716015049}
     - target: {fileID: 4726968840784248225, guid: ae70621fa6dcda047a2e1ed4f3c63309,
@@ -2857,7 +2892,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-213678
+  m_Name: pb_Mesh53002
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -3519,183 +3554,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelPickablesManager
       objectReference: {fileID: 0}
-    - target: {fileID: 6799449592347568542, guid: 4471842684e00304da44d51186ec79ac,
-        type: 3}
-      propertyPath: statsAtATime
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6799449592347568542, guid: 4471842684e00304da44d51186ec79ac,
-        type: 3}
-      propertyPath: turretsAtATime
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6799449592347568542, guid: 4471842684e00304da44d51186ec79ac,
-        type: 3}
-      propertyPath: weaponsAtATime
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6799449592347568542, guid: 4471842684e00304da44d51186ec79ac,
-        type: 3}
-      propertyPath: timeBetweenSpawns
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6799449592347568542, guid: 4471842684e00304da44d51186ec79ac,
-        type: 3}
-      propertyPath: timeToStartSpawning
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6799449592347568542, guid: 4471842684e00304da44d51186ec79ac,
-        type: 3}
-      propertyPath: statsPrefabs.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6799449592347568542, guid: 4471842684e00304da44d51186ec79ac,
-        type: 3}
-      propertyPath: turretPrefabs.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6799449592347568542, guid: 4471842684e00304da44d51186ec79ac,
-        type: 3}
-      propertyPath: statsLocations.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6799449592347568542, guid: 4471842684e00304da44d51186ec79ac,
-        type: 3}
-      propertyPath: statsPrefabs.Array.data[0]
-      value: 
-      objectReference: {fileID: 2738120147838669608, guid: adb40afbdea721b42917bff031214c99,
-        type: 3}
-    - target: {fileID: 6799449592347568542, guid: 4471842684e00304da44d51186ec79ac,
-        type: 3}
-      propertyPath: statsPrefabs.Array.data[1]
-      value: 
-      objectReference: {fileID: 5535891344323122135, guid: 4cc0b9456d69e764bb3ae3f943d365cf,
-        type: 3}
-    - target: {fileID: 6799449592347568542, guid: 4471842684e00304da44d51186ec79ac,
-        type: 3}
-      propertyPath: turretLocations.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6799449592347568542, guid: 4471842684e00304da44d51186ec79ac,
-        type: 3}
-      propertyPath: turretPrefabs.Array.data[0]
-      value: 
-      objectReference: {fileID: 9133766778344861817, guid: d73c196826b67194ca2c774f1f6e3590,
-        type: 3}
-    - target: {fileID: 6799449592347568542, guid: 4471842684e00304da44d51186ec79ac,
-        type: 3}
-      propertyPath: turretPrefabs.Array.data[1]
-      value: 
-      objectReference: {fileID: 4194117361899475175, guid: 45f2000a4791ec2408a0a45c9f4a9970,
-        type: 3}
-    - target: {fileID: 6799449592347568542, guid: 4471842684e00304da44d51186ec79ac,
-        type: 3}
-      propertyPath: turretPrefabs.Array.data[2]
-      value: 
-      objectReference: {fileID: 7154769062472445367, guid: 3d3c4d83f0fcd78409a36542df4e9130,
-        type: 3}
-    - target: {fileID: 6799449592347568542, guid: 4471842684e00304da44d51186ec79ac,
-        type: 3}
-      propertyPath: turretPrefabs.Array.data[3]
-      value: 
-      objectReference: {fileID: 580643058534415703, guid: 18fe9de8cd0bc3348951c5242f151047,
-        type: 3}
-    - target: {fileID: 6799449592347568542, guid: 4471842684e00304da44d51186ec79ac,
-        type: 3}
-      propertyPath: turretPrefabs.Array.data[4]
-      value: 
-      objectReference: {fileID: 4474970650804320779, guid: 1fabbd2d7ed7398498dc57fe87ebee2e,
-        type: 3}
-    - target: {fileID: 6799449592347568542, guid: 4471842684e00304da44d51186ec79ac,
-        type: 3}
-      propertyPath: weaponsLocations.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6799449592347568542, guid: 4471842684e00304da44d51186ec79ac,
-        type: 3}
-      propertyPath: statsLocations.Array.data[0]
-      value: 
-      objectReference: {fileID: 3668127363365031924}
-    - target: {fileID: 6799449592347568542, guid: 4471842684e00304da44d51186ec79ac,
-        type: 3}
-      propertyPath: statsLocations.Array.data[1]
-      value: 
-      objectReference: {fileID: 3668127365137186166}
-    - target: {fileID: 6799449592347568542, guid: 4471842684e00304da44d51186ec79ac,
-        type: 3}
-      propertyPath: statsLocations.Array.data[2]
-      value: 
-      objectReference: {fileID: 3668127364812807484}
-    - target: {fileID: 6799449592347568542, guid: 4471842684e00304da44d51186ec79ac,
-        type: 3}
-      propertyPath: statsLocations.Array.data[3]
-      value: 
-      objectReference: {fileID: 3668127365360794911}
-    - target: {fileID: 6799449592347568542, guid: 4471842684e00304da44d51186ec79ac,
-        type: 3}
-      propertyPath: statsLocations.Array.data[4]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6799449592347568542, guid: 4471842684e00304da44d51186ec79ac,
-        type: 3}
-      propertyPath: statsLocations.Array.data[5]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6799449592347568542, guid: 4471842684e00304da44d51186ec79ac,
-        type: 3}
-      propertyPath: statsLocations.Array.data[6]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6799449592347568542, guid: 4471842684e00304da44d51186ec79ac,
-        type: 3}
-      propertyPath: turretLocations.Array.data[0]
-      value: 
-      objectReference: {fileID: 3668127364426161089}
-    - target: {fileID: 6799449592347568542, guid: 4471842684e00304da44d51186ec79ac,
-        type: 3}
-      propertyPath: turretLocations.Array.data[1]
-      value: 
-      objectReference: {fileID: 972705599}
-    - target: {fileID: 6799449592347568542, guid: 4471842684e00304da44d51186ec79ac,
-        type: 3}
-      propertyPath: turretLocations.Array.data[2]
-      value: 
-      objectReference: {fileID: 1859102895}
-    - target: {fileID: 6799449592347568542, guid: 4471842684e00304da44d51186ec79ac,
-        type: 3}
-      propertyPath: turretLocations.Array.data[3]
-      value: 
-      objectReference: {fileID: 875682618}
-    - target: {fileID: 6799449592347568542, guid: 4471842684e00304da44d51186ec79ac,
-        type: 3}
-      propertyPath: levelObjectiveScreenController
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6799449592347568542, guid: 4471842684e00304da44d51186ec79ac,
-        type: 3}
-      propertyPath: weaponsLocations.Array.data[0]
-      value: 
-      objectReference: {fileID: 3668127364426161089}
-    - target: {fileID: 6799449592347568542, guid: 4471842684e00304da44d51186ec79ac,
-        type: 3}
-      propertyPath: weaponsLocations.Array.data[1]
-      value: 
-      objectReference: {fileID: 972705599}
-    - target: {fileID: 6799449592347568542, guid: 4471842684e00304da44d51186ec79ac,
-        type: 3}
-      propertyPath: weaponsLocations.Array.data[2]
-      value: 
-      objectReference: {fileID: 1859102895}
-    - target: {fileID: 6799449592347568542, guid: 4471842684e00304da44d51186ec79ac,
-        type: 3}
-      propertyPath: weaponsLocations.Array.data[3]
-      value: 
-      objectReference: {fileID: 875682618}
-    - target: {fileID: 6799449592347568542, guid: 4471842684e00304da44d51186ec79ac,
-        type: 3}
-      propertyPath: weaponsLocations.Array.data[4]
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 6799449592347568543, guid: 4471842684e00304da44d51186ec79ac,
         type: 3}
       propertyPath: m_RootOrder
@@ -3753,67 +3611,67 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
         type: 3}
-      propertyPath: statsAtATime
+      propertyPath: _statsAtATime
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
         type: 3}
-      propertyPath: turretsAtATime
+      propertyPath: _turretsAtATime
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
         type: 3}
-      propertyPath: statsLocations.Array.size
+      propertyPath: _statsLocations.Array.size
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
         type: 3}
-      propertyPath: turretLocations.Array.size
+      propertyPath: _turretLocations.Array.size
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
         type: 3}
-      propertyPath: statsLocations.Array.data[0]
+      propertyPath: _statsLocations.Array.data[0]
       value: 
       objectReference: {fileID: 3668127363365031924}
     - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
         type: 3}
-      propertyPath: statsLocations.Array.data[1]
+      propertyPath: _statsLocations.Array.data[1]
       value: 
       objectReference: {fileID: 3668127365137186166}
     - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
         type: 3}
-      propertyPath: statsLocations.Array.data[2]
+      propertyPath: _statsLocations.Array.data[2]
       value: 
       objectReference: {fileID: 3668127364812807484}
     - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
         type: 3}
-      propertyPath: statsLocations.Array.data[3]
+      propertyPath: _statsLocations.Array.data[3]
       value: 
       objectReference: {fileID: 3668127365360794911}
     - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
         type: 3}
-      propertyPath: turretLocations.Array.data[0]
+      propertyPath: _turretLocations.Array.data[0]
       value: 
       objectReference: {fileID: 3668127364426161089}
     - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
         type: 3}
-      propertyPath: turretLocations.Array.data[1]
+      propertyPath: _turretLocations.Array.data[1]
       value: 
       objectReference: {fileID: 972705599}
     - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
         type: 3}
-      propertyPath: turretLocations.Array.data[2]
+      propertyPath: _turretLocations.Array.data[2]
       value: 
       objectReference: {fileID: 1859102895}
     - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
         type: 3}
-      propertyPath: turretLocations.Array.data[3]
+      propertyPath: _turretLocations.Array.data[3]
       value: 
       objectReference: {fileID: 875682618}
     - target: {fileID: 7418105298278929031, guid: 4471842684e00304da44d51186ec79ac,
         type: 3}
-      propertyPath: levelObjectiveScreenController
+      propertyPath: _levelObjectiveScreenController
       value: 
       objectReference: {fileID: 1716015049}
     m_RemovedComponents: []
@@ -5196,7 +5054,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-208914
+  m_Name: pb_Mesh53244
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -5361,7 +5219,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-217584
+  m_Name: pb_Mesh53070
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -6004,7 +5862,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-209802
+  m_Name: pb_Mesh53210
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -6544,6 +6402,11 @@ PrefabInstance:
     - target: {fileID: 8759274562028694284, guid: a1bcd393479be644e91ab67f04e62e9b,
         type: 3}
       propertyPath: levelPlayersManager
+      value: 
+      objectReference: {fileID: 414153645}
+    - target: {fileID: 8759274562028694284, guid: a1bcd393479be644e91ab67f04e62e9b,
+        type: 3}
+      propertyPath: _levelPlayersManager
       value: 
       objectReference: {fileID: 414153645}
     m_RemovedComponents: []

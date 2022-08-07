@@ -6,25 +6,25 @@ using UnityEngine;
 public class TurretHoldFire : TurretBase
 {
     [Header("This turret specific")]
-    [SerializeField] private List<Transform> firingPoints;
+    [SerializeField] private List<Transform> _firingPoints;
     [Space(10)]
     [Tooltip("Scriptable Object containing the turret stats")]
-    [SerializeField] private TurretHoldFireStatsSO turretHoldFireStatsSO;
+    [SerializeField] private TurretHoldFireStatsSO _turretHoldFireStatsSO;
     
     /// <summary>Minimum value to no overshoot below zero, to avoid zero divisions</summary>
     private static readonly float MIN_VALUE_AMOUNT = 0.001f;
     private static readonly float FIXED_UPDATE_CALLS_PER_SECOND = 50f;
 
-    private float currentOverheatAmount = MIN_VALUE_AMOUNT;
+    private float _currentOverheatAmount = MIN_VALUE_AMOUNT;
 
-    private float coolOffValue;
+    private float _coolOffValue;
 
-    private bool isHoldActive;
-    private bool isFiring;
-    private bool isOverheated;
-    private bool isFireActionTakingPlace;
+    private bool _isHoldActive;
+    private bool _isFiring;
+    private bool _isOverheated;
+    private bool _isFireActionTakingPlace;
 
-    private Coroutine holdCoroutine;
+    private Coroutine _holdCoroutine;
 
     
     public event Action<float> OnOverheatAmountChanged;
@@ -43,10 +43,10 @@ public class TurretHoldFire : TurretBase
     
     private void OnDisable()
     {
-        isHoldActive = false;
-        isFireActionTakingPlace = false;
-        isFiring = false;
-        currentOverheatAmount = 0;
+        _isHoldActive = false;
+        _isFireActionTakingPlace = false;
+        _isFiring = false;
+        _currentOverheatAmount = 0;
 
         turretFiringController.OnFireHoldStarted -= StartHoldEvent;
         turretFiringController.OnFireHoldCanceled -= StopHoldEvent;
@@ -55,51 +55,51 @@ public class TurretHoldFire : TurretBase
 
     private void FixedUpdate()
     {
-        if (isHoldActive) return;
-        if (isFireActionTakingPlace) return;
-        if (isFiring) return;
+        if (_isHoldActive) return;
+        if (_isFireActionTakingPlace) return;
+        if (_isFiring) return;
         
-        if (currentOverheatAmount > MIN_VALUE_AMOUNT)
+        if (_currentOverheatAmount > MIN_VALUE_AMOUNT)
         {
-            currentOverheatAmount -= coolOffValue;
-            if (currentOverheatAmount < 0) currentOverheatAmount = MIN_VALUE_AMOUNT;
+            _currentOverheatAmount -= _coolOffValue;
+            if (_currentOverheatAmount < 0) _currentOverheatAmount = MIN_VALUE_AMOUNT;
 
-            OnOverheatAmountChanged?.Invoke(currentOverheatAmount / turretHoldFireStatsSO.overheatTime);
+            OnOverheatAmountChanged?.Invoke(_currentOverheatAmount / _turretHoldFireStatsSO.overheatTime);
 
-            if (isOverheated && currentOverheatAmount <= MIN_VALUE_AMOUNT)
+            if (_isOverheated && _currentOverheatAmount <= MIN_VALUE_AMOUNT)
             {
-                isOverheated = false;
+                _isOverheated = false;
             }
         }
     }
     
     private void StartHoldEvent()
     {
-        if (isOverheated) return;
+        if (_isOverheated) return;
 
-        isHoldActive = true;
-        holdCoroutine = StartCoroutine(nameof(FireHold));
+        _isHoldActive = true;
+        _holdCoroutine = StartCoroutine(nameof(FireHold));
     }
 
     private void StopHoldEvent()
     {
-        if (isOverheated) return;
+        if (_isOverheated) return;
 
-        isHoldActive = false;
-        StopCoroutine(holdCoroutine);
+        _isHoldActive = false;
+        StopCoroutine(_holdCoroutine);
 
-        if (currentOverheatAmount > 0)
+        if (_currentOverheatAmount > 0)
         {
-            coolOffValue = 
-                (turretHoldFireStatsSO.overheatTime /
-                turretHoldFireStatsSO.coolingTime) /
+            _coolOffValue = 
+                (_turretHoldFireStatsSO.overheatTime /
+                _turretHoldFireStatsSO.coolingTime) /
                 FIXED_UPDATE_CALLS_PER_SECOND;
         }
     }
 
     private IEnumerator FireHold()
     {
-        while (isHoldActive)
+        while (_isHoldActive)
         {
             Fire();
             yield return new WaitForFixedUpdate();
@@ -108,50 +108,50 @@ public class TurretHoldFire : TurretBase
 
     protected override void Fire()
     {
-        if (isFireActionTakingPlace) return;
-        if (isFiring) return;
+        if (_isFireActionTakingPlace) return;
+        if (_isFiring) return;
 
-        isFireActionTakingPlace = true;
-        isFiring = true;
+        _isFireActionTakingPlace = true;
+        _isFiring = true;
         StartCoroutine(nameof(FireFromFirginPoints));
     }
 
     private IEnumerator FireFromFirginPoints()
     {
-        foreach (Transform firingPoint in firingPoints)
+        foreach (Transform firingPoint in _firingPoints)
         {
             FireProjectile(
                 firingPoint,
-                turretHoldFireStatsSO.damagePerShot,
-                turretHoldFireStatsSO.projectileForce);
+                _turretHoldFireStatsSO.damagePerShot,
+                _turretHoldFireStatsSO.projectileForce);
             
             IncreaseOverheatPerShot();
-            yield return new WaitForSeconds(turretHoldFireStatsSO.timeBetweenShots);
+            yield return new WaitForSeconds(_turretHoldFireStatsSO.timeBetweenShots);
         }
 
         StartCoroutine(nameof(WaitForNextFireAction));
-        isFiring = false;
+        _isFiring = false;
     }
 
     private void IncreaseOverheatPerShot()
     {
-        currentOverheatAmount += turretHoldFireStatsSO.overheatPerShot;
-        if (currentOverheatAmount > turretHoldFireStatsSO.overheatTime)
-            currentOverheatAmount = turretHoldFireStatsSO.overheatTime;
+        _currentOverheatAmount += _turretHoldFireStatsSO.overheatPerShot;
+        if (_currentOverheatAmount > _turretHoldFireStatsSO.overheatTime)
+            _currentOverheatAmount = _turretHoldFireStatsSO.overheatTime;
 
         OnOverheatAmountChanged?.Invoke(
-            currentOverheatAmount / turretHoldFireStatsSO.overheatTime);
+            _currentOverheatAmount / _turretHoldFireStatsSO.overheatTime);
 
-        if (currentOverheatAmount >= turretHoldFireStatsSO.overheatTime)
+        if (_currentOverheatAmount >= _turretHoldFireStatsSO.overheatTime)
         {
             StopHoldEvent();
-            isOverheated = true;
+            _isOverheated = true;
         }
     }
 
     private IEnumerator WaitForNextFireAction()
     {
-        yield return new WaitForSeconds(turretHoldFireStatsSO.timeBetweenFireActions);
-        isFireActionTakingPlace = false;
+        yield return new WaitForSeconds(_turretHoldFireStatsSO.timeBetweenFireActions);
+        _isFireActionTakingPlace = false;
     }
 }

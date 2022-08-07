@@ -97,13 +97,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b26dfcc99d65ed14cbd1bc6114a1dafa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turretName: Heavy Railgun
-  turretType: 1
-  projectilePrefab: {fileID: 7516791745877141054, guid: 05c900abef257a44182bdddb66502797,
+  _turretName: Heavy Railgun
+  _turretType: 1
+  _projectilePrefab: {fileID: 7516791745877141054, guid: 05c900abef257a44182bdddb66502797,
     type: 3}
-  firingPoints:
+  _firingPoints:
   - {fileID: 1238030221264375290}
-  turretChargeFireStatsSO: {fileID: 11400000, guid: a1d6bcb8e391dae4ca2d99e0fbe3b953,
+  _turretChargeFireStatsSO: {fileID: 11400000, guid: a1d6bcb8e391dae4ca2d99e0fbe3b953,
     type: 2}
 --- !u!1 &7090842874683001880
 GameObject:
