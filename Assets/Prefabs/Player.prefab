@@ -276,7 +276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4748a1ca393ad54f96d09018ac03a0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseWorldLayerMask:
+  _mouseWorldLayerMask:
     serializedVersion: 2
     m_Bits: 448
 --- !u!114 &4250510189242333970
@@ -511,21 +511,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2856b3d5c8de30248b8451cbba955e45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gradient:
+  _gradient:
     serializedVersion: 2
     key0: {r: 1, g: 1, b: 1, a: 1}
     key1: {r: 0, g: 0.6177581, b: 0.6226415, a: 1}
-    key2: {r: 0, g: 1, b: 0.37265134, a: 0}
-    key3: {r: 0, g: 1, b: 0.32743883, a: 0}
-    key4: {r: 0.12440181, g: 1, b: 0, a: 0}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
     ctime0: 0
     ctime1: 65535
-    ctime2: 39321
-    ctime3: 52428
-    ctime4: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
     ctime5: 0
     ctime6: 0
     ctime7: 0
@@ -540,7 +540,7 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  fillIamge: {fileID: 3459695502882300357}
+  _fillIamge: {fileID: 3459695502882300357}
 --- !u!1 &1522150771533646612
 GameObject:
   m_ObjectHideFlags: 0
@@ -619,14 +619,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1530841645300594612}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d63eb3e31edcc534fa7e61a5680a8569, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  followObject: {fileID: 3803859458815128084}
-  positionOffset: {x: 0, y: 0, z: 0}
-  rotationOffset: {x: 0, y: 0, z: 0}
+  _updateType: 1
+  _followObject: {fileID: 3803859458815128084}
+  _positionOffset: {x: 0, y: 0, z: 0}
+  _rotationOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &1598461307852245496
 GameObject:
   m_ObjectHideFlags: 0
@@ -716,7 +717,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2856b3d5c8de30248b8451cbba955e45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gradient:
+  _gradient:
     serializedVersion: 2
     key0: {r: 0, g: 1, b: 0.8708036, a: 1}
     key1: {r: 0, g: 1, b: 0.57949996, a: 1}
@@ -745,7 +746,7 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 5
     m_NumAlphaKeys: 2
-  fillIamge: {fileID: 2497822042867176271}
+  _fillIamge: {fileID: 2497822042867176271}
 --- !u!1 &1658246935337578392
 GameObject:
   m_ObjectHideFlags: 0
@@ -771,7 +772,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1658246935337578392}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.7, z: 0}
+  m_LocalPosition: {x: 0, y: 0.70000005, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -792,9 +793,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d63eb3e31edcc534fa7e61a5680a8569, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  followObject: {fileID: 6533888015364882989}
-  positionOffset: {x: 0, y: 0.7, z: 0}
-  rotationOffset: {x: 0, y: 0, z: 0}
+  _updateType: 2
+  _followObject: {fileID: 6533888015364882989}
+  _positionOffset: {x: 0, y: 0.7, z: 0}
+  _rotationOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &1781645705143173287
 GameObject:
   m_ObjectHideFlags: 0
@@ -1230,8 +1232,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f5ee00930bed6f4181c68bc8810c433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  readyButton: {fileID: 1440265564239169362}
-  background: {fileID: 3908735518303155545}
+  _readyButton: {fileID: 1440265564239169362}
+  _background: {fileID: 3908735518303155545}
 --- !u!1 &2788726584972215744
 GameObject:
   m_ObjectHideFlags: 0
@@ -1383,7 +1385,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f73967950144f3d45a10cf75ac0e02b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  owner: {fileID: 4365908596991377682}
+  _owner: {fileID: 4365908596991377682}
 --- !u!1 &2965258907306472878
 GameObject:
   m_ObjectHideFlags: 0
@@ -1494,7 +1496,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4daa53117091224b9d13ce968440cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  owner: {fileID: 4365908596991377682}
+  _owner: {fileID: 4365908596991377682}
 --- !u!1 &3117133038397004662
 GameObject:
   m_ObjectHideFlags: 0
@@ -1548,9 +1550,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da1b1255f61a5c54496b85e9db5ab89a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerDamageController: {fileID: 1595896662717460703}
-  healthBar: {fileID: 2956784950278329685}
-  easeSpeed: 2
+  _playerDamageController: {fileID: 1595896662717460703}
+  _healthBar: {fileID: 2956784950278329685}
+  _easeSpeed: 2
 --- !u!114 &5604177677376371513
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1563,9 +1565,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a045259d7e9de0743a802baf1139c9d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerDamageController: {fileID: 1595896662717460703}
-  shieldBar: {fileID: 7916685697944405925}
-  easeSpeed: 2
+  _playerDamageController: {fileID: 1595896662717460703}
+  _shieldBar: {fileID: 7916685697944405925}
+  _easeSpeed: 2
 --- !u!1 &3361269490156491557
 GameObject:
   m_ObjectHideFlags: 0
@@ -1861,8 +1863,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6dbddebe672511478b67b4eca52858f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceStrenght: 10
-  unitRB: {fileID: 4365908596991377680}
+  _forceStrenght: 10
+  _unitRB: {fileID: 4365908596991377680}
 --- !u!114 &1595896662717460703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1875,10 +1877,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e77f0c7c47ca9254ea4f844598093f60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hullCollision: {fileID: 6203960348740284084}
-  shieldCollision: {fileID: 8002198440199755457}
-  maxHealth: 100
-  maxShield: 100
+  _hullCollision: {fileID: 6203960348740284084}
+  _shieldCollision: {fileID: 8002198440199755457}
+  _maxHealth: 100
+  _maxShield: 100
 --- !u!114 &1054963788964794805
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1891,8 +1893,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9368b0e29842a6244ae8df7f4e47a5c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turretSpawnPosition: {fileID: 3677599325741883569}
-  newTurretDuration: 5
+  _turretSpawnPosition: {fileID: 3677599325741883569}
+  _newTurretDuration: 5
 --- !u!114 &-370307971412681411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1905,8 +1907,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d52ebc5760437346994711d3871f473, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointsPerKill: 25
-  playerInput: {fileID: 4365908596991377682}
+  _pointsPerKill: 25
+  _playerInput: {fileID: 4365908596991377682}
 --- !u!114 &4402276486983947259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1919,7 +1921,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9992480bde6a3644ab7f7e19f2a933d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInput: {fileID: 4365908596991377682}
+  _playerInput: {fileID: 4365908596991377682}
 --- !u!114 &5419409111327171965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1932,16 +1934,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18e553bff9c747d458c48cf2f0a484b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuUI: {fileID: 2434575931587322880}
-  liveUI: {fileID: 5714355878804987535}
-  visuals: {fileID: 737680070300017700}
-  playerColliders: {fileID: 4083899312053309317}
-  billboard: {fileID: 3670483752807628276}
-  keepInPlacePositionAndRotation: {fileID: 6251826115761994373}
-  moveController: {fileID: 4365908596991377681}
-  points: {fileID: -370307971412681411}
-  turretController: {fileID: 1054963788964794805}
-  turretRotationController: {fileID: 2762894981470264502}
+  _menuUI: {fileID: 2434575931587322880}
+  _liveUI: {fileID: 5714355878804987535}
+  _playerColliders: {fileID: 4083899312053309317}
+  _turretPosition: {fileID: 504410234683134090}
+  _sphereRenderer: {fileID: 2925236342545116705}
+  _billboard: {fileID: 3670483752807628276}
+  _keepInPlacePositionAndRotation: {fileID: 6251826115761994373}
+  _moveController: {fileID: 4365908596991377681}
+  _points: {fileID: -370307971412681411}
+  _turretController: {fileID: 1054963788964794805}
+  _turretRotationController: {fileID: 2762894981470264502}
 --- !u!114 &4365908596991377682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2647,8 +2650,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df01da935ede6a344b08efa1255a07ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turretController: {fileID: 1054963788964794805}
-  fillImage: {fileID: 4417204301498306107}
+  _turretController: {fileID: 1054963788964794805}
+  _fillImage: {fileID: 4417204301498306107}
 --- !u!1 &6401082086223570302
 GameObject:
   m_ObjectHideFlags: 0
@@ -2762,8 +2765,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e53ea690dff9b944eb91ac5269d4d2f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTurretController: {fileID: 1054963788964794805}
-  playerStatsController: {fileID: 1595896662717460703}
+  _playerTurretController: {fileID: 1054963788964794805}
+  _playerStatsController: {fileID: 1595896662717460703}
 --- !u!1 &7187063977113540177
 GameObject:
   m_ObjectHideFlags: 0
@@ -2816,10 +2819,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73d195d4cdf9230498b4473bf9c816de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turretController: {fileID: 1054963788964794805}
-  holdUI: {fileID: 3157846530682146614}
-  chargeUI: {fileID: 3395457291981181401}
-  reloadUI: {fileID: 2007140410233365915}
+  _turretController: {fileID: 1054963788964794805}
+  _holdUI: {fileID: 3157846530682146614}
+  _chargeUI: {fileID: 3395457291981181401}
+  _reloadUI: {fileID: 2007140410233365915}
 --- !u!1 &7471575534874647847
 GameObject:
   m_ObjectHideFlags: 0
@@ -2997,7 +3000,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2856b3d5c8de30248b8451cbba955e45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gradient:
+  _gradient:
     serializedVersion: 2
     key0: {r: 0.23113209, g: 1, b: 0.24124874, a: 1}
     key1: {r: 0.55640876, g: 1, b: 0, a: 1}
@@ -3026,7 +3029,7 @@ MonoBehaviour:
     m_Mode: 1
     m_NumColorKeys: 5
     m_NumAlphaKeys: 2
-  fillIamge: {fileID: 2130703300915974087}
+  _fillIamge: {fileID: 2130703300915974087}
 --- !u!1001 &4287056169186952789
 PrefabInstance:
   m_ObjectHideFlags: 0

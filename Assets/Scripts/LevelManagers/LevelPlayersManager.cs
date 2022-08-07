@@ -7,34 +7,34 @@ using UnityEngine.SceneManagement;
 
 public class LevelPlayersManager : MonoBehaviour
 {
-    [SerializeField] private Camera levelCamera;
-    [SerializeField] private LevelObjectiveScreenController levelObjectiveScreenController;
-    [SerializeField] private List<Transform> spawnPoints;
+    [SerializeField] private Camera _levelCamera;
+    [SerializeField] private LevelObjectiveScreenController _levelObjectiveScreenController;
+    [SerializeField] private List<Transform> _spawnPoints;
 
-    private int amountOfPlayersKilled;
-    private int amountOfPlayers;
+    private int _amountOfPlayersKilled;
+    private int _amountOfPlayers;
 
     public event Action OnLevelEnded;
 
     private void Awake()
     {
-        levelCamera = Camera.main;
+        _levelCamera = Camera.main;
     }
 
     private void Start()
     {
-        GlobalPlayersManager.Instance.AssignAllPlayersNewCamera(levelCamera);
-        amountOfPlayers = GlobalPlayersManager.Instance.PlayersAmount;
+        GlobalPlayersManager.Instance.AssignAllPlayersNewCamera(_levelCamera);
+        _amountOfPlayers = GlobalPlayersManager.Instance.PlayersAmount;
 
         SetPlayersInitialPositions();
 
-        levelObjectiveScreenController.OnObjectiveShown += EnableAllPlayersVisualsAndGameplayComponents;
+        _levelObjectiveScreenController.OnObjectiveShown += EnableAllPlayersVisualsAndGameplayComponents;
         PlayerStatsController.OnPlayerKilled += ManagePlayerKilledEvent;
     }
 
     private void OnDestroy()
     {
-        levelObjectiveScreenController.OnObjectiveShown -= EnableAllPlayersVisualsAndGameplayComponents;
+        _levelObjectiveScreenController.OnObjectiveShown -= EnableAllPlayersVisualsAndGameplayComponents;
         PlayerStatsController.OnPlayerKilled -= ManagePlayerKilledEvent;
     }
 
@@ -48,16 +48,16 @@ public class LevelPlayersManager : MonoBehaviour
     private void SetPlayersInitialPositions()
     {
         List<PlayerInput> players = GlobalPlayersManager.Instance.GetPlayerInputs;
-        for (int i = 0; i < amountOfPlayers; i++)
+        for (int i = 0; i < _amountOfPlayers; i++)
         {
-            players[i].gameObject.transform.position = spawnPoints[i].position;
+            players[i].gameObject.transform.position = _spawnPoints[i].position;
         }
     }
 
     private void ManagePlayerKilledEvent()
     {
-        amountOfPlayersKilled++;
-        if (amountOfPlayersKilled == amountOfPlayers - 1)
+        _amountOfPlayersKilled++;
+        if (_amountOfPlayersKilled == _amountOfPlayers - 1)
         {
             OnLevelEnded?.Invoke();
         }

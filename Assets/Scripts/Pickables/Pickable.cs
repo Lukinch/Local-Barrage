@@ -5,8 +5,8 @@ using UnityEngine.InputSystem;
 
 public abstract class Pickable : MonoBehaviour
 {
-    [SerializeField] protected AudioClip pickupSfx;
-    [SerializeField] protected ParticleSystem pickupVfx;
+    [SerializeField] protected AudioClip _pickupSfx;
+    [SerializeField] protected ParticleSystem _pickupVfx;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -20,15 +20,15 @@ public abstract class Pickable : MonoBehaviour
 
     protected virtual void OnPicked()
     {
-        if (pickupVfx)
+        if (_pickupVfx)
         {
-            Instantiate(pickupVfx, transform.position, Quaternion.identity);
+            Instantiate(_pickupVfx, transform.position, Quaternion.identity);
         }
 
-        if (pickupSfx)
+        if (_pickupSfx)
         {
-            CreateSFX(pickupSfx, transform.position, 3f, 0f);
-            StartCoroutine(nameof(WaitForSfxEnd), pickupSfx.length);
+            CreateSFX(_pickupSfx, transform.position, 3f, 0f);
+            StartCoroutine(nameof(WaitForSfxEnd), _pickupSfx.length);
         }
         else
         {

@@ -130,15 +130,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb2888c637879cc4eaf136ebab89118a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turretName: Medium Multi Cannon
-  turretType: 0
-  projectilePrefab: {fileID: 7516791745877141054, guid: 05c900abef257a44182bdddb66502797,
+  _turretName: Medium Multi Cannon
+  _turretType: 0
+  _projectilePrefab: {fileID: 7516791745877141054, guid: 05c900abef257a44182bdddb66502797,
     type: 3}
-  firingPoints:
+  _firingPoints:
   - {fileID: 6674453338858959480}
   - {fileID: 1037248557897714534}
   - {fileID: 7533148605414548594}
-  turretHoldFireStatsSO: {fileID: 11400000, guid: f5ba99b4e7fd34246b34a2be3644d705,
+  _turretHoldFireStatsSO: {fileID: 11400000, guid: f5ba99b4e7fd34246b34a2be3644d705,
     type: 2}
 --- !u!1 &6662238906477852298
 GameObject:

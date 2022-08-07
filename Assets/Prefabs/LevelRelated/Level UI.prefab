@@ -2305,28 +2305,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9e84a38a53732044b364f085e305797, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelPlayersManager: {fileID: 0}
-  inputSystemUI: {fileID: 7039374591812997677}
-  eventSystem: {fileID: 7039374591812997678}
-  defaultSelectedObject: {fileID: 6005250151000335549}
-  nextLevelScreenObject: {fileID: 7039374591820058074}
-  nextLevelTitleText: {fileID: 7039374593168553414}
-  nextLevelPlayersScoreTexts:
+  _levelPlayersManager: {fileID: 0}
+  _inputSystemUI: {fileID: 7039374591812997677}
+  _eventSystem: {fileID: 7039374591812997678}
+  _defaultSelectedObject: {fileID: 6005250151000335549}
+  _nextLevelScreenObject: {fileID: 7039374591820058074}
+  _nextLevelTitleText: {fileID: 7039374593168553414}
+  _nextLevelPlayersScoreTexts:
   - {fileID: 7039374593342755897}
   - {fileID: 7039374591937905654}
   - {fileID: 7039374591956673239}
   - {fileID: 7039374593207581458}
-  countdownText: {fileID: 7039374592713409843}
-  playerWonScreenObject: {fileID: 7039374592786411522}
-  playerWonTitleText: {fileID: 7039374592247431314}
-  playerWonPlayersScoreTexts:
+  _countdownText: {fileID: 7039374592713409843}
+  _playerWonScreenObject: {fileID: 7039374592786411522}
+  _playerWonTitleText: {fileID: 7039374592247431314}
+  _playerWonPlayersScoreTexts:
   - {fileID: 7039374592191829853}
   - {fileID: 7039374592156931708}
   - {fileID: 7039374591254005470}
   - {fileID: 7039374592521971332}
-  mainMenuButton: {fileID: 8772943163347464628}
-  exitGameButton: {fileID: 6079557456847766117}
-  timeTillNextlevel: 5
+  _mainMenuButton: {fileID: 8772943163347464628}
+  _exitGameButton: {fileID: 6079557456847766117}
+  _timeTillNextlevel: 5
 --- !u!114 &1708862740089621702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2339,14 +2339,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d67d349c17c88544ac81d0a9f357193, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputSystemUI: {fileID: 7039374591812997677}
-  eventSystem: {fileID: 7039374591812997678}
-  pauseMenuObject: {fileID: 153912745}
-  defaultSelectedObject: {fileID: 1186661089}
-  resumeButton: {fileID: 1186661091}
-  settingsButton: {fileID: 511288218}
-  mainMenuButton: {fileID: 1774678112}
-  exitGameButton: {fileID: 2035928773}
+  _inputSystemUI: {fileID: 7039374591812997677}
+  _eventSystem: {fileID: 7039374591812997678}
+  _pauseMenuObject: {fileID: 153912745}
+  _defaultSelectedObject: {fileID: 1186661089}
+  _resumeButton: {fileID: 1186661091}
+  _settingsButton: {fileID: 511288218}
+  _mainMenuButton: {fileID: 1774678112}
+  _exitGameButton: {fileID: 2035928773}
 --- !u!114 &7039374591812997678
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4551,9 +4551,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1984dccfc1406404a9b843c47e58bdc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  background: {fileID: 7039374593162906166}
-  countdown: {fileID: 7039374591434304053}
-  timeToStartMatch: 3
+  _background: {fileID: 7039374593162906166}
+  _countdown: {fileID: 7039374591434304053}
+  _timeToStartMatch: 3
 --- !u!1 &7039374592998681326
 GameObject:
   m_ObjectHideFlags: 0

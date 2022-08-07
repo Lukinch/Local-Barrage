@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public class GradientFillBar : MonoBehaviour
 {
-    [SerializeField] private Gradient gradient;
-    [SerializeField] private Image fillIamge;
+    [SerializeField] private Gradient _gradient;
+    [SerializeField] private Image _fillIamge;
 
     private void Update()
     {
-        fillIamge.color = gradient.Evaluate(fillIamge.fillAmount);
+        _fillIamge.color = _gradient.Evaluate(_fillIamge.fillAmount);
     }
 }

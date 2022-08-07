@@ -8,21 +8,21 @@ using TMPro;
 
 public class MainMenuManager : MonoBehaviour
 {
-    [SerializeField] private int nextLevelCountDown = 5;
-    [SerializeField] private TextMeshProUGUI countDownText;
-    [SerializeField] private List<Transform> spawnPoints;
+    [SerializeField] private int _nextLevelCountDown = 5;
+    [SerializeField] private TextMeshProUGUI _countDownText;
+    [SerializeField] private List<Transform> _spawnPoints;
 
-    private int currentAmountOfPlayers;
-    private int amountOfPlayersReady;
-    private int currentTimer;
+    private int _currentAmountOfPlayers;
+    private int _amountOfPlayersReady;
+    private int _currentTimer;
 
-    private Coroutine countDown;
+    private Coroutine _countDown;
 
     private void Awake()
     {
-        currentTimer = nextLevelCountDown;
-        currentAmountOfPlayers = 0;
-        amountOfPlayersReady = 0;
+        _currentTimer = _nextLevelCountDown;
+        _currentAmountOfPlayers = 0;
+        _amountOfPlayersReady = 0;
     }
 
     private void Start()
@@ -45,62 +45,62 @@ public class MainMenuManager : MonoBehaviour
     {
         StopCountDownToLoadNextLevel();
         SpawnPlayerIntoPosition(playerInput.gameObject);
-        currentAmountOfPlayers++;
+        _currentAmountOfPlayers++;
     }
 
     private void SpawnPlayerIntoPosition(GameObject player)
     {
-        player.transform.position = spawnPoints[currentAmountOfPlayers].position;
+        player.transform.position = _spawnPoints[_currentAmountOfPlayers].position;
     }
 
     private void PlayerReady(bool isReady)
     {
         if (isReady)
         {
-            amountOfPlayersReady++;
-            if (amountOfPlayersReady == currentAmountOfPlayers)
+            _amountOfPlayersReady++;
+            if (_amountOfPlayersReady == _currentAmountOfPlayers)
             {
                 StartCountDownToLoadNextLevel();
             }
         }
         else
         {
-            if (amountOfPlayersReady == 0) return;
+            if (_amountOfPlayersReady == 0) return;
 
-            amountOfPlayersReady--;
+            _amountOfPlayersReady--;
             StopCountDownToLoadNextLevel();
-            currentTimer = nextLevelCountDown;
+            _currentTimer = _nextLevelCountDown;
         }
     }
 
     private void StartCountDownToLoadNextLevel()
     {
-        countDown = StartCoroutine(nameof(StartContDown));
+        _countDown = StartCoroutine(nameof(StartContDown));
         EnableCountDownText();
         UpdateCountDownText();
     }
     private void StopCountDownToLoadNextLevel()
     {
-        if (countDown != null) StopCoroutine(countDown);
-        currentTimer = nextLevelCountDown;
+        if (_countDown != null) StopCoroutine(_countDown);
+        _currentTimer = _nextLevelCountDown;
         UpdateCountDownText();
         DisableCountDownText();
     }
 
     private IEnumerator StartContDown()
     {
-        while (currentTimer > 0)
+        while (_currentTimer > 0)
         {
             yield return new WaitForSeconds(1);
-            currentTimer--;
+            _currentTimer--;
             UpdateCountDownText();
         }
         LoadNextLevel();
     }
 
-    private void EnableCountDownText() => countDownText.enabled = true;
-    private void DisableCountDownText() => countDownText.enabled = false;
-    private void UpdateCountDownText() => countDownText.text = $"Start in: {currentTimer}";
+    private void EnableCountDownText() => _countDownText.enabled = true;
+    private void DisableCountDownText() => _countDownText.enabled = false;
+    private void UpdateCountDownText() => _countDownText.text = $"Start in: {_currentTimer}";
 
     private void LoadNextLevel()
     {

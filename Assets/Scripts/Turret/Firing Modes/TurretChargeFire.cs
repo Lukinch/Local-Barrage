@@ -6,19 +6,20 @@ using UnityEngine;
 public class TurretChargeFire : TurretBase
 {
     [Header("This turret specific")]
-    [SerializeField] private List<Transform> firingPoints;
+    [SerializeField] private List<Transform> _firingPoints;
+
     [Space(10)]
     [Tooltip("Scriptable Object containing the turret stats")]
-    [SerializeField] private TurretChargeFireStatsSO turretChargeFireStatsSO;
+    [SerializeField] private TurretChargeFireStatsSO _turretChargeFireStatsSO;
     
     /// <summary>Minimum value to no overshoot below zero, to avoid zero divisions</summary>
     private static readonly float MIN_VALUE_AMOUNT = 0.001f;
 
-    private float currentChargeAmount = MIN_VALUE_AMOUNT;
+    private float _currentChargeAmount = MIN_VALUE_AMOUNT;
 
-    private bool isChargeActive;
+    private bool _isChargeActive;
 
-    private Coroutine chargeCoroutine;
+    private Coroutine _chargeCoroutine;
     
     public event Action<float> OnChargeAmountChanged;
     
@@ -36,8 +37,8 @@ public class TurretChargeFire : TurretBase
     
     private void OnDisable()
     {
-        isChargeActive = false;
-        currentChargeAmount = 0;
+        _isChargeActive = false;
+        _currentChargeAmount = 0;
         
         turretFiringController.OnFireChargeStarted -= StartChargeEvent;
         turretFiringController.OnFireChargeCanceled -= StopChargeEvent;
@@ -46,32 +47,32 @@ public class TurretChargeFire : TurretBase
     
     private void StartChargeEvent()
     {
-        isChargeActive = true;
+        _isChargeActive = true;
 
-        chargeCoroutine = StartCoroutine(nameof(FireCharge));
+        _chargeCoroutine = StartCoroutine(nameof(FireCharge));
     }
 
     private void StopChargeEvent()
     {
-        isChargeActive = false;
-        StopCoroutine(chargeCoroutine);
+        _isChargeActive = false;
+        StopCoroutine(_chargeCoroutine);
 
-        currentChargeAmount = MIN_VALUE_AMOUNT;
+        _currentChargeAmount = MIN_VALUE_AMOUNT;
 
         OnChargeAmountChanged?.Invoke(
-            currentChargeAmount / turretChargeFireStatsSO.chargeTime);
+            _currentChargeAmount / _turretChargeFireStatsSO.chargeTime);
     }
 
     private IEnumerator FireCharge()
     {
-        while (isChargeActive && currentChargeAmount <= turretChargeFireStatsSO.chargeTime)
+        while (_isChargeActive && _currentChargeAmount <= _turretChargeFireStatsSO.chargeTime)
         {
-            currentChargeAmount += 0.02f;
+            _currentChargeAmount += 0.02f;
 
             OnChargeAmountChanged?.Invoke(
-                currentChargeAmount / turretChargeFireStatsSO.chargeTime);
+                _currentChargeAmount / _turretChargeFireStatsSO.chargeTime);
 
-            if (currentChargeAmount >= turretChargeFireStatsSO.chargeTime)
+            if (_currentChargeAmount >= _turretChargeFireStatsSO.chargeTime)
             {
                 Fire();
                 StopChargeEvent();
@@ -88,14 +89,14 @@ public class TurretChargeFire : TurretBase
 
     private IEnumerator FireFromFiringPoints()
     {
-        foreach (Transform firingPoint in firingPoints)
+        foreach (Transform firingPoint in _firingPoints)
         {
             FireProjectile(
                 firingPoint,
-                turretChargeFireStatsSO.damagePerShot,
-                turretChargeFireStatsSO.projectileForce);
+                _turretChargeFireStatsSO.damagePerShot,
+                _turretChargeFireStatsSO.projectileForce);
             
-            yield return new WaitForSeconds(turretChargeFireStatsSO.timeBetweenShots);
+            yield return new WaitForSeconds(_turretChargeFireStatsSO.timeBetweenShots);
         }
     }
 }

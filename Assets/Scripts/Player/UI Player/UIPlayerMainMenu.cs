@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class UIPlayerMainMenu : MonoBehaviour
 {
-    [SerializeField] Button readyButton;
-    [SerializeField] Image background;
+    [SerializeField] private Button _readyButton;
+    [SerializeField] private Image _background;
 
     public static event Action<bool> IsPlayerReady;
 
@@ -14,11 +14,11 @@ public class UIPlayerMainMenu : MonoBehaviour
 
     private void OnEnable()
     {
-        readyButton.onClick.AddListener(TogglePlayerReady);
+        _readyButton.onClick.AddListener(TogglePlayerReady);
     }
     private void OnDisable()
     {
-        readyButton.onClick.RemoveListener(TogglePlayerReady);
+        _readyButton.onClick.RemoveListener(TogglePlayerReady);
     }
 
     private void TogglePlayerReady()
@@ -30,6 +30,6 @@ public class UIPlayerMainMenu : MonoBehaviour
 
     private void UpdateReadyVisuals()
     {
-        background.color = isReady ? Color.green : Color.white;
+        _background.color = isReady ? Color.green : Color.white;
     }
 }

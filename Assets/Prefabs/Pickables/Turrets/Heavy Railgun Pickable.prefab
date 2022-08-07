@@ -60,10 +60,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3865867787f9424da8f21b9f20250bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupSfx: {fileID: 0}
-  pickupVfx: {fileID: 0}
-  shouldDisappear: 1
-  turretPrefab: {fileID: 1085560254760441047, guid: 9a6a840b704c1904d8621b9797399935,
+  _pickupSfx: {fileID: 0}
+  _pickupVfx: {fileID: 0}
+  _shouldDisappear: 1
+  _turretPrefab: {fileID: 1085560254760441047, guid: 9a6a840b704c1904d8621b9797399935,
     type: 3}
 --- !u!1001 &7154769062921302950
 PrefabInstance:

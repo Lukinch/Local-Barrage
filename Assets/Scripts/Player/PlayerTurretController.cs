@@ -6,17 +6,17 @@ using UnityEngine;
 
 public class PlayerTurretController : MonoBehaviour
 {
-    [SerializeField] private Transform turretSpawnPosition;
-    [SerializeField] private float newTurretDuration = 5f;
+    [SerializeField] private Transform _turretSpawnPosition;
+    [SerializeField] private float _newTurretDuration = 5f;
 
-    private List<TurretBase> availableTurrets;
-    private GameObject currentEnabledTurret;
-    private Coroutine countdownCoroutine;
-    private bool hasActiveTurret;
-    private float currentTimer;
+    private List<TurretBase> _availableTurrets;
+    private GameObject _currentEnabledTurret;
+    private Coroutine _countdownCoroutine;
+    private bool _hasActiveTurret;
+    private float _currentTimer;
 
-    public float BuffDuration { get => newTurretDuration; }
-    public float CurrentTimer { get => currentTimer; }
+    public float BuffDuration { get => _newTurretDuration; }
+    public float CurrentTimer { get => _currentTimer; }
     public event Action OnBuffStarted;
 
     public event Action<TurretHoldFire> OnHoldTurretPicked;
@@ -25,27 +25,27 @@ public class PlayerTurretController : MonoBehaviour
 
     private void Awake()
     {
-        availableTurrets = new List<TurretBase>();
-        availableTurrets.Add(GetComponentInChildren<TurretBase>());
+        _availableTurrets = new List<TurretBase>();
+        _availableTurrets.Add(GetComponentInChildren<TurretBase>());
 
-        currentEnabledTurret = availableTurrets[0].gameObject;
+        _currentEnabledTurret = _availableTurrets[0].gameObject;
 
-        currentTimer = newTurretDuration;
-        hasActiveTurret = false;
+        _currentTimer = _newTurretDuration;
+        _hasActiveTurret = false;
     }
 
     private void Start()
     {
-        OnHoldTurretPicked?.Invoke(currentEnabledTurret.GetComponent<TurretHoldFire>());
+        OnHoldTurretPicked?.Invoke(_currentEnabledTurret.GetComponent<TurretHoldFire>());
     }
 
     private IEnumerator StartBuffCountDown()
     {
         OnBuffStarted?.Invoke();
-        while (currentTimer > 0)
+        while (_currentTimer > 0)
         {
-            yield return new WaitForSeconds(newTurretDuration);
-            currentTimer = 0;
+            yield return new WaitForSeconds(_newTurretDuration);
+            _currentTimer = 0;
         }
 
         SetToDefaultTurret();
@@ -53,30 +53,30 @@ public class PlayerTurretController : MonoBehaviour
 
     public void SetToDefaultTurret()
     {
-        countdownCoroutine = null;
+        _countdownCoroutine = null;
 
-        currentEnabledTurret.SetActive(false);
+        _currentEnabledTurret.SetActive(false);
 
-        currentEnabledTurret = availableTurrets[0].gameObject;
-        OnHoldTurretPicked?.Invoke(currentEnabledTurret.GetComponent<TurretHoldFire>());
+        _currentEnabledTurret = _availableTurrets[0].gameObject;
+        OnHoldTurretPicked?.Invoke(_currentEnabledTurret.GetComponent<TurretHoldFire>());
 
-        currentEnabledTurret.SetActive(true);
+        _currentEnabledTurret.SetActive(true);
 
-        hasActiveTurret = false;
-        currentTimer = newTurretDuration;
+        _hasActiveTurret = false;
+        _currentTimer = _newTurretDuration;
     }
 
     public void OnWeaponPickedUp(string turretName)
     {
-        if (hasActiveTurret) return;
+        if (_hasActiveTurret) return;
 
-        hasActiveTurret = true;
+        _hasActiveTurret = true;
 
-        GameObject newTurret = availableTurrets.Find(x => x.TurretName == turretName).gameObject;
+        GameObject newTurret = _availableTurrets.Find(x => x.TurretName == turretName).gameObject;
 
-        currentEnabledTurret.SetActive(false);
+        _currentEnabledTurret.SetActive(false);
 
-        currentEnabledTurret = newTurret;
+        _currentEnabledTurret = newTurret;
 
         TurretType type = newTurret.GetComponent<TurretBase>().TurretType;
         switch (type)
@@ -91,24 +91,24 @@ public class PlayerTurretController : MonoBehaviour
                 OnTapTurretPicked?.Invoke(newTurret.GetComponent<TurretTapFire>());
                 break;
         }
-        currentEnabledTurret.SetActive(true);
+        _currentEnabledTurret.SetActive(true);
 
-        countdownCoroutine = StartCoroutine(nameof(StartBuffCountDown));
+        _countdownCoroutine = StartCoroutine(nameof(StartBuffCountDown));
     }
 
     public void OnNewWeaponPickedUp(GameObject turret)
     {
-        if (hasActiveTurret) return;
+        if (_hasActiveTurret) return;
         
-        hasActiveTurret = true;
+        _hasActiveTurret = true;
 
-        GameObject newTurret = Instantiate(turret, turretSpawnPosition);
+        GameObject newTurret = Instantiate(turret, _turretSpawnPosition);
 
-        availableTurrets.Add(newTurret.GetComponent<TurretBase>());
+        _availableTurrets.Add(newTurret.GetComponent<TurretBase>());
 
-        currentEnabledTurret.SetActive(false);
+        _currentEnabledTurret.SetActive(false);
 
-        currentEnabledTurret = newTurret;
+        _currentEnabledTurret = newTurret;
 
         TurretType type = newTurret.GetComponent<TurretBase>().TurretType;
         switch (type)
@@ -124,14 +124,14 @@ public class PlayerTurretController : MonoBehaviour
                 break;
         }
 
-        currentEnabledTurret.SetActive(true);
+        _currentEnabledTurret.SetActive(true);
 
-        countdownCoroutine = StartCoroutine(nameof(StartBuffCountDown));
+        _countdownCoroutine = StartCoroutine(nameof(StartBuffCountDown));
     }
 
     public bool ContainsTurret(string turretName)
     {
-        foreach (TurretBase turretBase in availableTurrets)
+        foreach (TurretBase turretBase in _availableTurrets)
         {
             if (turretBase.TurretName.Equals(turretName)) return true;
         }
@@ -141,6 +141,6 @@ public class PlayerTurretController : MonoBehaviour
 
     public bool HasActiveTurret()
     {
-        return hasActiveTurret;
+        return _hasActiveTurret;
     }
 }

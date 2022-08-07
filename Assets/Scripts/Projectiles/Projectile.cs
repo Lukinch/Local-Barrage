@@ -5,25 +5,25 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Projectile : MonoBehaviour
 {
-    [SerializeField] private GameObject impactParticles;
-    [SerializeField] private int timeToDestroy = 3;
-    private int currentTime;
+    [SerializeField] private GameObject _impactParticles;
+    [SerializeField] private int _timeToDestroy = 3;
+    private int _currentTime;
 
     [HideInInspector] public int Owner;
     [HideInInspector] public float Damage;
 
     private void Start()
     {
-        currentTime = timeToDestroy;
+        _currentTime = _timeToDestroy;
         StartCoroutine(nameof(DeathCountDown));
     }
 
     private IEnumerator DeathCountDown()
     {
-        while (currentTime > 0)
+        while (_currentTime > 0)
         {
             yield return new WaitForSeconds(1);
-            currentTime--;
+            _currentTime--;
         }
         DestroySelf();
     }
@@ -53,7 +53,7 @@ public class Projectile : MonoBehaviour
 
     private void Destroy()
     {
-        Instantiate(impactParticles, transform.position, transform.rotation);
+        Instantiate(_impactParticles, transform.position, transform.rotation);
         Destroy(gameObject);
     }
 }

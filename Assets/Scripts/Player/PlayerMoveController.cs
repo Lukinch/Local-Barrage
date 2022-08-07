@@ -5,11 +5,11 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMoveController : MonoBehaviour
 {
-    [SerializeField] private float forceStrenght;
+    [SerializeField] private float _forceStrenght;
 
-    [SerializeField] private Rigidbody unitRB;
+    [SerializeField] private Rigidbody _unitRB;
 
-    private Vector2 movement;
+    private Vector2 _movement;
 
     private void FixedUpdate()
     {
@@ -18,21 +18,21 @@ public class PlayerMoveController : MonoBehaviour
 
     private void MoveUnit()
     {
-        unitRB.AddForce(new Vector3(movement.x, 0, movement.y) * forceStrenght);
+        _unitRB.AddForce(new Vector3(_movement.x, 0, _movement.y) * _forceStrenght);
     }
 
     public void StopMovement()
     {
-        unitRB.velocity = Vector3.zero;
-        unitRB.angularVelocity = Vector3.zero;
+        _unitRB.velocity = Vector3.zero;
+        _unitRB.angularVelocity = Vector3.zero;
     }
 
-    public void EnableRigidBody() => unitRB.isKinematic = false;
-    public void DisableRigidBody() => unitRB.isKinematic = true;
+    public void EnableRigidBody() => _unitRB.isKinematic = false;
+    public void DisableRigidBody() => _unitRB.isKinematic = true;
 
     /// <summary>Called by Player Input Events</summary>
     public void OnMovement(InputAction.CallbackContext context) 
     {
-        movement = context.ReadValue<Vector2>();
+        _movement = context.ReadValue<Vector2>();
     }
 }

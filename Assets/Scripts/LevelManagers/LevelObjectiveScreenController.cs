@@ -7,32 +7,32 @@ using System;
 
 public class LevelObjectiveScreenController : MonoBehaviour
 {
-    [SerializeField] private Image background;
-    [SerializeField] private TextMeshProUGUI countdown;
-    [SerializeField] private int timeToStartMatch;
+    [SerializeField] private Image _background;
+    [SerializeField] private TextMeshProUGUI _countdown;
+    [SerializeField] private int _timeToStartMatch;
 
-    private int currentTime;
-    private Vector3 imageSize;
-    private GlobalPlayersManager globalPlayersManager;
+    private int _currentTime;
+    private Vector3 _imageSize;
+    private GlobalPlayersManager _globalPlayersManager;
 
-    private float amountToSubstract;
+    private float _amountToSubstract;
 
     public event Action OnObjectiveShown;
 
     private void Awake()
     {
-        globalPlayersManager = FindObjectOfType<GlobalPlayersManager>();
+        _globalPlayersManager = FindObjectOfType<GlobalPlayersManager>();
 
         /// 1 - Full image fill amount
         /// 50 - WaitForFixedUpdate calls per second
-        amountToSubstract = (1f / (float)timeToStartMatch) / 50f;
+        _amountToSubstract = (1f / (float)_timeToStartMatch) / 50f;
     }
 
     private void OnEnable()
     {
-        currentTime = timeToStartMatch;
-        countdown.text = $"{currentTime}";
-        imageSize = background.rectTransform.localScale;
+        _currentTime = _timeToStartMatch;
+        _countdown.text = $"{_currentTime}";
+        _imageSize = _background.rectTransform.localScale;
     }
 
     private void Start()
@@ -43,11 +43,11 @@ public class LevelObjectiveScreenController : MonoBehaviour
 
     private IEnumerator WaitForMatchToStart()
     {
-        while (currentTime > 0)
+        while (_currentTime > 0)
         {
             yield return new WaitForSeconds(1);
-            currentTime--;
-            countdown.text = $"{currentTime}";
+            _currentTime--;
+            _countdown.text = $"{_currentTime}";
         }
 
         DisableGameObject();
@@ -56,10 +56,10 @@ public class LevelObjectiveScreenController : MonoBehaviour
 
     private IEnumerator ShrinkBackground()
     {
-        while (currentTime > 0)
+        while (_currentTime > 0)
         {
-            imageSize.y -= amountToSubstract;
-            background.rectTransform.localScale = imageSize;
+            _imageSize.y -= _amountToSubstract;
+            _background.rectTransform.localScale = _imageSize;
             yield return new WaitForFixedUpdate();
         }
     }

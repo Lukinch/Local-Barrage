@@ -5,7 +5,6 @@ using TMPro;
 using Random = UnityEngine.Random;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEngine.Events;
 using System.Linq;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.UI;
@@ -14,42 +13,42 @@ using UnityEngine.InputSystem;
 public class EndLevelScreen : MonoBehaviour
 {
     [Header("Level Dependencies")]
-    [SerializeField] private LevelPlayersManager levelPlayersManager;
-    [SerializeField] private InputSystemUIInputModule inputSystemUI;
-    [SerializeField] private EventSystem eventSystem;
-    [SerializeField] private GameObject defaultSelectedObject;
+    [SerializeField] private LevelPlayersManager _levelPlayersManager;
+    [SerializeField] private InputSystemUIInputModule _inputSystemUI;
+    [SerializeField] private EventSystem _eventSystem;
+    [SerializeField] private GameObject _defaultSelectedObject;
     [Header("------------------")]
     [Header("UI Dependencies")]
     [Header("Next Level UI")]
-    [SerializeField] private GameObject nextLevelScreenObject;
-    [SerializeField] private TextMeshProUGUI nextLevelTitleText;
-    [SerializeField] private List<TextMeshProUGUI> nextLevelPlayersScoreTexts;
-    [SerializeField] private TextMeshProUGUI countdownText;
+    [SerializeField] private GameObject _nextLevelScreenObject;
+    [SerializeField] private TextMeshProUGUI _nextLevelTitleText;
+    [SerializeField] private List<TextMeshProUGUI> _nextLevelPlayersScoreTexts;
+    [SerializeField] private TextMeshProUGUI _countdownText;
     [Header("Player Won UI")]
-    [SerializeField] private GameObject playerWonScreenObject;
-    [SerializeField] private TextMeshProUGUI playerWonTitleText;
-    [SerializeField] private List<TextMeshProUGUI> playerWonPlayersScoreTexts;
-    [SerializeField] private Button mainMenuButton;
-    [SerializeField] private Button exitGameButton;
+    [SerializeField] private GameObject _playerWonScreenObject;
+    [SerializeField] private TextMeshProUGUI _playerWonTitleText;
+    [SerializeField] private List<TextMeshProUGUI> _playerWonPlayersScoreTexts;
+    [SerializeField] private Button _mainMenuButton;
+    [SerializeField] private Button _exitGameButton;
     [Header("------------------")]
     [Header("Settings")]
-    [SerializeField] private int timeTillNextlevel;
+    [SerializeField] private int _timeTillNextlevel;
 
-    private int currentTime;
+    private int _currentTime;
 
     private void Awake()
     {
-        currentTime = timeTillNextlevel;
-        levelPlayersManager.OnLevelEnded += OnLevelEnded;
+        _currentTime = _timeTillNextlevel;
+        _levelPlayersManager.OnLevelEnded += OnLevelEnded;
 
-        for (int i = 0; i < playerWonPlayersScoreTexts.Count; i++)
+        for (int i = 0; i < _playerWonPlayersScoreTexts.Count; i++)
         {
-            playerWonPlayersScoreTexts[i].gameObject.SetActive(false);
+            _playerWonPlayersScoreTexts[i].gameObject.SetActive(false);
         }
     }
     private void OnDestroy()
     {
-        levelPlayersManager.OnLevelEnded -= OnLevelEnded;
+        _levelPlayersManager.OnLevelEnded -= OnLevelEnded;
     }
 
     private void OnLevelEnded()
@@ -72,8 +71,8 @@ public class EndLevelScreen : MonoBehaviour
     {
         for (int i = 0; i < playersPoints.Length; i++)
         {
-            nextLevelPlayersScoreTexts[i].text = $"Player {i + 1} Points: {playersPoints[i]}";
-            nextLevelPlayersScoreTexts[i].gameObject.SetActive(true);
+            _nextLevelPlayersScoreTexts[i].text = $"Player {i + 1} Points: {playersPoints[i]}";
+            _nextLevelPlayersScoreTexts[i].gameObject.SetActive(true);
         }
 
         int lastPlayerIndex = GlobalPlayersManager.Instance.GetLastPlayerStandingIndex();
@@ -82,9 +81,9 @@ public class EndLevelScreen : MonoBehaviour
         GlobalPlayersManager.Instance.DisableAllPlayersGameplayComponents();
         GlobalPlayersManager.Instance.DisableAllPlayersVisuals();
 
-        nextLevelTitleText.text = $"Player {lastPlayerIndex + 1} Won This Round";
+        _nextLevelTitleText.text = $"Player {lastPlayerIndex + 1} Won This Round";
 
-        nextLevelScreenObject.SetActive(true);
+        _nextLevelScreenObject.SetActive(true);
 
         StartCoroutine(nameof(NextLevelCountdown));
     }
@@ -93,27 +92,27 @@ public class EndLevelScreen : MonoBehaviour
     {
         for (int i = 0; i < playersPoints.Length; i++)
         {
-            playerWonPlayersScoreTexts[i].text = $"Player {i + 1} Points: {playersPoints[i]}";
-            playerWonPlayersScoreTexts[i].gameObject.SetActive(true);
+            _playerWonPlayersScoreTexts[i].text = $"Player {i + 1} Points: {playersPoints[i]}";
+            _playerWonPlayersScoreTexts[i].gameObject.SetActive(true);
         }
 
         GlobalPlayersManager.Instance.SetAllPlayersDefaultTurret();
         GlobalPlayersManager.Instance.DisableAllPlayersGameplayComponents();
         GlobalPlayersManager.Instance.DisableAllPlayersVisuals();
 
-        playerWonTitleText.text = $"Player {playerIndex + 1} Won The Game!";
+        _playerWonTitleText.text = $"Player {playerIndex + 1} Won The Game!";
 
-        mainMenuButton.onClick.AddListener(LoadMainMenu);
-        exitGameButton.onClick.AddListener(ExitGame);
+        _mainMenuButton.onClick.AddListener(LoadMainMenu);
+        _exitGameButton.onClick.AddListener(ExitGame);
 
         PlayerInput winner = GlobalPlayersManager.Instance.GetPlayerInputs[playerIndex];
 
         winner.enabled = true;
-        eventSystem.SetSelectedGameObject(defaultSelectedObject);
+        _eventSystem.SetSelectedGameObject(_defaultSelectedObject);
         GlobalPlayersManager.Instance.SwitchPlayerActionMap(winner,"UI");
-        inputSystemUI.actionsAsset = winner.actions;
+        _inputSystemUI.actionsAsset = winner.actions;
 
-        playerWonScreenObject.SetActive(true);
+        _playerWonScreenObject.SetActive(true);
     }
 
     private void LoadMainMenu()
@@ -132,11 +131,11 @@ public class EndLevelScreen : MonoBehaviour
 
     private IEnumerator NextLevelCountdown()
     {
-        while (currentTime > 0)
+        while (_currentTime > 0)
         {
             yield return new WaitForSeconds(1);
-            currentTime--;
-            countdownText.text = $"Next Level Starts In: {currentTime}";
+            _currentTime--;
+            _countdownText.text = $"Next Level Starts In: {_currentTime}";
         }
         LoadNextLevel();
     }

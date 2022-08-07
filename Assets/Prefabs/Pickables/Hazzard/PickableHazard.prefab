@@ -164,7 +164,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26f7098aaf973fc48bd93b6c644203b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAmount: 20
+  _pickupSfx: {fileID: 0}
+  _pickupVfx: {fileID: 0}
+  _shouldDisappear: 0
+  _damageAmount: 50
 --- !u!1001 &6069890939878178703
 PrefabInstance:
   m_ObjectHideFlags: 0

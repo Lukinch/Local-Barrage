@@ -11,53 +11,53 @@ using UnityEngine.EventSystems;
 public class PauseMenuScreen : MonoBehaviour
 {
     [Header("Systems Dependencies")]
-    [SerializeField] private InputSystemUIInputModule inputSystemUI;
-    [SerializeField] private EventSystem eventSystem;
+    [SerializeField] private InputSystemUIInputModule _inputSystemUI;
+    [SerializeField] private EventSystem _eventSystem;
     [Header("UI Dependencies")]
     [Header("Objects")]
-    [SerializeField] private GameObject pauseMenuObject;
-    [SerializeField] private GameObject defaultSelectedObject;
+    [SerializeField] private GameObject _pauseMenuObject;
+    [SerializeField] private GameObject _defaultSelectedObject;
     [Header("Buttons")]
-    [SerializeField] private Button resumeButton;
-    [SerializeField] private Button settingsButton;
-    [SerializeField] private Button mainMenuButton;
-    [SerializeField] private Button exitGameButton;
+    [SerializeField] private Button _resumeButton;
+    [SerializeField] private Button _settingsButton;
+    [SerializeField] private Button _mainMenuButton;
+    [SerializeField] private Button _exitGameButton;
 
 
-    private bool isGamePaused;
+    private bool _isGamePaused;
 
-    private PlayerInput currentPlayer;
+    private PlayerInput _currentPlayer;
 
     private void Awake()
     {
         PlayerPauseController.OnPauseGame += OnPauseGame;
 
-        resumeButton.onClick.AddListener(ResumeGame);
+        _resumeButton.onClick.AddListener(ResumeGame);
         //settingsButton.onClick.AddListener();
-        mainMenuButton.onClick.AddListener(LoadMainMenu);
-        exitGameButton.onClick.AddListener(ExitGame);
+        _mainMenuButton.onClick.AddListener(LoadMainMenu);
+        _exitGameButton.onClick.AddListener(ExitGame);
     }
 
     private void OnDestroy()
     {
         PlayerPauseController.OnPauseGame -= OnPauseGame;
 
-        resumeButton.onClick.RemoveAllListeners();
+        _resumeButton.onClick.RemoveAllListeners();
         //settingsButton.onClick.RemoveAllListeners();
-        mainMenuButton.onClick.RemoveAllListeners();
-        exitGameButton.onClick.RemoveAllListeners();
+        _mainMenuButton.onClick.RemoveAllListeners();
+        _exitGameButton.onClick.RemoveAllListeners();
     }
 
     private void OnPauseGame(PlayerInput playerInput)
     {
-        currentPlayer = playerInput;
-        if (isGamePaused) UnPauseGame(playerInput);
+        _currentPlayer = playerInput;
+        if (_isGamePaused) UnPauseGame(playerInput);
         else PauseGame(playerInput);
     }
 
     private void ResumeGame()
     {
-        UnPauseGame(currentPlayer);
+        UnPauseGame(_currentPlayer);
     }
     private void LoadMainMenu()
     {
@@ -77,19 +77,19 @@ public class PauseMenuScreen : MonoBehaviour
     private void UnPauseGame(PlayerInput playerInput)
     {
         GlobalPlayersManager.Instance.SwitchPlayerActionMap(playerInput, "Player");
-        pauseMenuObject.SetActive(false);
+        _pauseMenuObject.SetActive(false);
         Time.timeScale = 1.0f;
-        isGamePaused = false;
+        _isGamePaused = false;
     }
 
     private void PauseGame(PlayerInput playerInput)
     {
         Time.timeScale = 0.0f;
         playerInput.enabled = true;
-        eventSystem.SetSelectedGameObject(defaultSelectedObject);
+        _eventSystem.SetSelectedGameObject(_defaultSelectedObject);
         GlobalPlayersManager.Instance.SwitchPlayerActionMap(playerInput, "UI");
-        inputSystemUI.actionsAsset = playerInput.actions;
-        isGamePaused = true;
-        pauseMenuObject.SetActive(true);
+        _inputSystemUI.actionsAsset = playerInput.actions;
+        _isGamePaused = true;
+        _pauseMenuObject.SetActive(true);
     }
 }

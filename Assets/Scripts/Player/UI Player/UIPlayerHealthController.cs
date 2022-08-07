@@ -5,24 +5,24 @@ using UnityEngine.UI;
 
 public class UIPlayerHealthController : MonoBehaviour
 {
-    [SerializeField] private PlayerStatsController playerDamageController;
-    [SerializeField] private Image healthBar;
-    [SerializeField] private float easeSpeed = 2f;
+    [SerializeField] private PlayerStatsController _playerDamageController;
+    [SerializeField] private Image _healthBar;
+    [SerializeField] private float _easeSpeed = 2f;
 
     private float currentHealth;
 
-    private void OnEnable() => playerDamageController.OnHullHealthChangedEvent += OnTakeHealthDamage;
+    private void OnEnable() => _playerDamageController.OnHullHealthChangedEvent += OnTakeHealthDamage;
     private void OnDisable()
     {
-        currentHealth = healthBar.fillAmount = 1;
-        playerDamageController.OnHullHealthChangedEvent -= OnTakeHealthDamage;
+        currentHealth = _healthBar.fillAmount = 1;
+        _playerDamageController.OnHullHealthChangedEvent -= OnTakeHealthDamage;
     }
 
-    private void Start() => currentHealth = healthBar.fillAmount;
+    private void Start() => currentHealth = _healthBar.fillAmount;
 
     private void Update()
     {
-        if (healthBar.fillAmount != currentHealth)
+        if (_healthBar.fillAmount != currentHealth)
             UpdateHealthVisuals();
     }
 
@@ -30,7 +30,7 @@ public class UIPlayerHealthController : MonoBehaviour
 
     private void UpdateHealthVisuals()
     {
-        healthBar.fillAmount =
-            Mathf.MoveTowards(healthBar.fillAmount, currentHealth, easeSpeed * Time.deltaTime);
+        _healthBar.fillAmount =
+            Mathf.MoveTowards(_healthBar.fillAmount, currentHealth, _easeSpeed * Time.deltaTime);
     }
 }

@@ -5,32 +5,32 @@ using UnityEngine.UI;
 
 public class UIPlayerShieldController : MonoBehaviour
 {
-    [SerializeField] private PlayerStatsController playerDamageController;
-    [SerializeField] private Image shieldBar;
-    [SerializeField] private float easeSpeed = 2f;
+    [SerializeField] private PlayerStatsController _playerDamageController;
+    [SerializeField] private Image _shieldBar;
+    [SerializeField] private float _easeSpeed = 2f;
 
-    private float currentShield;
+    private float _currentShield;
 
-    private void OnEnable() => playerDamageController.OnShieldHealthChangedEvent += OnTakeShieldDamage;
+    private void OnEnable() => _playerDamageController.OnShieldHealthChangedEvent += OnTakeShieldDamage;
     private void OnDisable()
     {
-        currentShield = shieldBar.fillAmount = 1;
-        playerDamageController.OnShieldHealthChangedEvent -= OnTakeShieldDamage;
+        _currentShield = _shieldBar.fillAmount = 1;
+        _playerDamageController.OnShieldHealthChangedEvent -= OnTakeShieldDamage;
     }
 
-    private void Start() => currentShield = shieldBar.fillAmount;
+    private void Start() => _currentShield = _shieldBar.fillAmount;
 
     private void Update()
     {
-        if (shieldBar.fillAmount != currentShield)
+        if (_shieldBar.fillAmount != _currentShield)
             UpdateShieldVisuals();
     }
 
-    private void OnTakeShieldDamage(float unitShield) => currentShield = unitShield;
+    private void OnTakeShieldDamage(float unitShield) => _currentShield = unitShield;
 
     private void UpdateShieldVisuals()
     {
-        shieldBar.fillAmount =
-            Mathf.MoveTowards(shieldBar.fillAmount, currentShield, easeSpeed * Time.deltaTime);
+        _shieldBar.fillAmount =
+            Mathf.MoveTowards(_shieldBar.fillAmount, _currentShield, _easeSpeed * Time.deltaTime);
     }
 }

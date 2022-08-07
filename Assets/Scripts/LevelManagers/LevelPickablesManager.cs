@@ -7,29 +7,29 @@ using Random = UnityEngine.Random;
 
 public class LevelPickablesManager : MonoBehaviour
 {
-    [SerializeField] private LevelObjectiveScreenController levelObjectiveScreenController;
+    [SerializeField] private LevelObjectiveScreenController _levelObjectiveScreenController;
     [Header("Locations")]
-    [SerializeField] private Transform[] turretLocations;
-    [SerializeField] private Transform[] statsLocations;
+    [SerializeField] private Transform[] _turretLocations;
+    [SerializeField] private Transform[] _statsLocations;
     [Header("Prefabs")]
-    [SerializeField] private GameObject[] turretPrefabs;
-    [SerializeField] private GameObject[] statsPrefabs;
+    [SerializeField] private GameObject[] _turretPrefabs;
+    [SerializeField] private GameObject[] _statsPrefabs;
     [Header("Settings")]
-    [SerializeField] private int turretsAtATime;
-    [SerializeField] private int statsAtATime;
-    [SerializeField] private float timeToStartSpawning;
+    [SerializeField] private int _turretsAtATime;
+    [SerializeField] private int _statsAtATime;
+    [SerializeField] private float _timeToStartSpawning;
     [SerializeField] private float timeBetweenSpawns;
 
-    private Transform[] statsLocationsBeingUsed;
-    private Transform[] turretsLocationsBeingUsed;
-    private Queue<Processes> queuedStatsProcesses;
-    private Queue<Processes> queuedTurretsProcesses;
-    private int currentAmountOfTurrets;
-    private int currentAmountOfStats;
-    private bool isStatSpawningTakingPlace;
-    private bool isTurretSpawningTakingPlace;
+    private Transform[] _statsLocationsBeingUsed;
+    private Transform[] _turretsLocationsBeingUsed;
+    private Queue<Processes> _queuedStatsProcesses;
+    private Queue<Processes> _queuedTurretsProcesses;
+    private int _currentAmountOfTurrets;
+    private int _currentAmountOfStats;
+    private bool _isStatSpawningTakingPlace;
+    private bool _isTurretSpawningTakingPlace;
 
-    private bool shouldUpdateQueues;
+    private bool _shouldUpdateQueues;
 
     private void Awake()
     {
@@ -39,7 +39,7 @@ public class LevelPickablesManager : MonoBehaviour
         ShieldPickable.OnShieldDestroyed += OnStatRequested;
         TurretPickable.OnTurretDestroyed += OnWeaponRequested;
 
-        levelObjectiveScreenController.OnObjectiveShown += InitializeSpawn;
+        _levelObjectiveScreenController.OnObjectiveShown += InitializeSpawn;
     }
     private void OnDestroy()
     {
@@ -47,37 +47,37 @@ public class LevelPickablesManager : MonoBehaviour
         ShieldPickable.OnShieldDestroyed -= OnStatRequested;
         TurretPickable.OnTurretDestroyed -= OnWeaponRequested;
 
-        levelObjectiveScreenController.OnObjectiveShown -= InitializeSpawn;
+        _levelObjectiveScreenController.OnObjectiveShown -= InitializeSpawn;
     }
 
     private void Update()
     {
-        if (!shouldUpdateQueues) return;
+        if (!_shouldUpdateQueues) return;
 
-        if (queuedStatsProcesses.Count > 0)
+        if (_queuedStatsProcesses.Count > 0)
         {
-            if (currentAmountOfStats >= statsAtATime) return;
-            if (isStatSpawningTakingPlace) return;
-            queuedStatsProcesses.Dequeue();
+            if (_currentAmountOfStats >= _statsAtATime) return;
+            if (_isStatSpawningTakingPlace) return;
+            _queuedStatsProcesses.Dequeue();
             StartCoroutine(nameof(WaitForNextStatSpawn));
         }
 
-        if (queuedTurretsProcesses.Count > 0)
+        if (_queuedTurretsProcesses.Count > 0)
         {
-            if (currentAmountOfTurrets >= turretsAtATime) return;
-            if (isTurretSpawningTakingPlace) return;
-            queuedTurretsProcesses.Dequeue();
+            if (_currentAmountOfTurrets >= _turretsAtATime) return;
+            if (_isTurretSpawningTakingPlace) return;
+            _queuedTurretsProcesses.Dequeue();
             StartCoroutine(nameof(WaitForNextWeaponSpawn));
         }
     }
 
     private void InitializeQueuesAndArrays()
     {
-        queuedStatsProcesses = new Queue<Processes>();
-        queuedTurretsProcesses = new Queue<Processes>();
+        _queuedStatsProcesses = new Queue<Processes>();
+        _queuedTurretsProcesses = new Queue<Processes>();
 
-        statsLocationsBeingUsed = new Transform[statsLocations.Length];
-        turretsLocationsBeingUsed = new Transform[turretLocations.Length];
+        _statsLocationsBeingUsed = new Transform[_statsLocations.Length];
+        _turretsLocationsBeingUsed = new Transform[_turretLocations.Length];
     }
 
     private void InitializeSpawn()
@@ -87,16 +87,16 @@ public class LevelPickablesManager : MonoBehaviour
 
     private IEnumerator WaitForSpawn()
     {
-        yield return new WaitForSeconds(timeToStartSpawning);
+        yield return new WaitForSeconds(_timeToStartSpawning);
         SpawnInitialPickables();
     }
 
     private void SpawnInitialPickables()
     {
-        SpawnMultiplePrefabs(statsAtATime, statsLocations, statsLocationsBeingUsed, statsPrefabs, ref currentAmountOfStats);
-        SpawnMultiplePrefabs(turretsAtATime, turretLocations, turretsLocationsBeingUsed, turretPrefabs, ref currentAmountOfTurrets);
+        SpawnMultiplePrefabs(_statsAtATime, _statsLocations, _statsLocationsBeingUsed, _statsPrefabs, ref _currentAmountOfStats);
+        SpawnMultiplePrefabs(_turretsAtATime, _turretLocations, _turretsLocationsBeingUsed, _turretPrefabs, ref _currentAmountOfTurrets);
 
-        shouldUpdateQueues = true;
+        _shouldUpdateQueues = true;
     }
 
     private void SpawnSinglePrefab(Transform[] locations, Transform[] locationsUsed, GameObject[] prefabs, ref int trackAmount)
@@ -132,46 +132,46 @@ public class LevelPickablesManager : MonoBehaviour
 
     private void OnStatRequested(Transform pickableParent)
     {
-        currentAmountOfStats--;
+        _currentAmountOfStats--;
         int index = Array.FindIndex(
-            statsLocationsBeingUsed,
+            _statsLocationsBeingUsed,
             location => location == pickableParent);
 
-        statsLocationsBeingUsed[index] = null;
+        _statsLocationsBeingUsed[index] = null;
         
-        queuedStatsProcesses.Enqueue(Processes.StatSpawn);
+        _queuedStatsProcesses.Enqueue(Processes.StatSpawn);
     }
 
     private void OnWeaponRequested(Transform pickableParent)
     {
-        currentAmountOfTurrets--;
+        _currentAmountOfTurrets--;
         int index = Array.FindIndex(
-            turretsLocationsBeingUsed,
+            _turretsLocationsBeingUsed,
             location => location == pickableParent);
 
-        turretsLocationsBeingUsed[index] = null;
+        _turretsLocationsBeingUsed[index] = null;
         
-        queuedTurretsProcesses.Enqueue(Processes.WeaponSpawn);
+        _queuedTurretsProcesses.Enqueue(Processes.WeaponSpawn);
     }
 
     private IEnumerator WaitForNextStatSpawn()
     {
-        isStatSpawningTakingPlace = true;
+        _isStatSpawningTakingPlace = true;
         yield return new WaitForSeconds(timeBetweenSpawns);
 
-        SpawnSinglePrefab(statsLocations, statsLocationsBeingUsed, statsPrefabs, ref currentAmountOfStats);
+        SpawnSinglePrefab(_statsLocations, _statsLocationsBeingUsed, _statsPrefabs, ref _currentAmountOfStats);
 
-        isStatSpawningTakingPlace = false;
+        _isStatSpawningTakingPlace = false;
     }
 
     private IEnumerator WaitForNextWeaponSpawn()
     {
-        isTurretSpawningTakingPlace = true;
+        _isTurretSpawningTakingPlace = true;
         yield return new WaitForSeconds(timeBetweenSpawns);
 
-        SpawnSinglePrefab(turretLocations, turretsLocationsBeingUsed, turretPrefabs, ref currentAmountOfTurrets);
+        SpawnSinglePrefab(_turretLocations, _turretsLocationsBeingUsed, _turretPrefabs, ref _currentAmountOfTurrets);
 
-        isTurretSpawningTakingPlace = false;
+        _isTurretSpawningTakingPlace = false;
     }
 }
 
