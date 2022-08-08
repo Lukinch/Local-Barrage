@@ -19,6 +19,7 @@ public class PlayerComponentReferences : MonoBehaviour
     [SerializeField] private PlayerMoveController _moveController;
     [SerializeField] private PlayerPoints _points;
     [SerializeField] private PlayerTurretController _turretController;
+    [SerializeField] private TurretFiringController _turretFiringController;
     [SerializeField] private PlayerTurretRotationController _turretRotationController;
 
     public GameObject MenuUI { get => _menuUI; }
@@ -30,6 +31,7 @@ public class PlayerComponentReferences : MonoBehaviour
     public KeepInPlacePositionAndRotation KeepInPlacePositionAndRotation { get => _keepInPlacePositionAndRotation; }
     public PlayerMoveController MoveController { get => _moveController; }
     public PlayerPoints Points { get => _points; }
+    public TurretFiringController TurretFiringController { get => _turretFiringController; }
     public PlayerTurretController TurretController { get => _turretController; }
     public PlayerTurretRotationController TurretRotationController { get => _turretRotationController; }
 }

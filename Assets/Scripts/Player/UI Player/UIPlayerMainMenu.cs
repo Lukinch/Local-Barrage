@@ -1,16 +1,19 @@
 
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class UIPlayerMainMenu : MonoBehaviour
 {
+    [SerializeField] private UnityEngine.InputSystem.PlayerInput _playerInput;
     [SerializeField] private Button _readyButton;
     [SerializeField] private Image _background;
 
-    public static event Action<bool> IsPlayerReady;
+    private bool _isReady = false;
 
-    private bool isReady = false;
+    public static event Action<bool> IsPlayerReady;
+    public static event Action<UnityEngine.InputSystem.PlayerInput> OnAnyPlayerUIBackTriggered;
 
     private void OnEnable()
     {
@@ -23,13 +26,18 @@ public class UIPlayerMainMenu : MonoBehaviour
 
     private void TogglePlayerReady()
     {
-        isReady = !isReady;
+        _isReady = !_isReady;
         UpdateReadyVisuals();
-        IsPlayerReady?.Invoke(isReady);
+        IsPlayerReady?.Invoke(_isReady);
     }
 
     private void UpdateReadyVisuals()
     {
-        _background.color = isReady ? Color.green : Color.white;
+        _background.color = _isReady ? Color.green : Color.white;
+    }
+
+    public void OnBack(InputAction.CallbackContext context)
+    {
+        OnAnyPlayerUIBackTriggered?.Invoke(_playerInput);
     }
 }

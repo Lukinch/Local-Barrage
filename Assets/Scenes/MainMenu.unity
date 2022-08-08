@@ -269,7 +269,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 68937397}
   m_LocalRotation: {x: 0.046060417, y: -0, z: -0, w: 0.9989387}
-  m_LocalPosition: {x: -0.0310735, y: 0.4884653, z: -2.3578024}
+  m_LocalPosition: {x: -0.0310735, y: -0.35, z: -2.3578024}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1559,8 +1559,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1132491781}
-  - {fileID: 271229752}
   - {fileID: 1256037292}
+  - {fileID: 271229752}
   m_Father: {fileID: 1010227244}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2258,8 +2258,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 265.97}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 0, y: 220}
+  m_SizeDelta: {x: 234.5, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1132491782
 MonoBehaviour:
@@ -2395,7 +2395,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -150}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 329.48, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1256037293
 Animator:
@@ -2499,7 +2499,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 0
+    m_Mode: 3
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -2622,7 +2622,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1452207125
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2677,7 +2677,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 0
+    m_Mode: 3
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -3270,6 +3270,7 @@ MonoBehaviour:
     type: 3}
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
+  m_CursorLockBehavior: 0
 --- !u!114 &1694890870
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3282,7 +3283,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 1327520201}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &1694890871
@@ -3504,7 +3505,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -125}
+  m_AnchoredPosition: {x: 0, y: -90}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &2000096757
@@ -3540,7 +3541,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 0
+    m_Mode: 3
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -3941,6 +3942,12 @@ PrefabInstance:
       propertyPath: m_PlayerPrefab
       value: 
       objectReference: {fileID: 4365908596991377683, guid: f5a392650ce488f4d9cd1b1bac39400c,
+        type: 3}
+    - target: {fileID: 843438086979241452, guid: 22ac876b79cdf864b9743f8f37ffc854,
+        type: 3}
+      propertyPath: m_JoinAction.m_Reference
+      value: 
+      objectReference: {fileID: 5140710851025777156, guid: 044ae34f705871d4e8dd6b3069202633,
         type: 3}
     - target: {fileID: 843438086979241453, guid: 22ac876b79cdf864b9743f8f37ffc854,
         type: 3}
@@ -4432,13 +4439,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06b392696a710cf4488a068b58e9827c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nextLevelCountDown: 5
+  _cinemachineAnimator: {fileID: 347168657}
+  _inputSystemUI: {fileID: 1694890869}
+  _eventSystem: {fileID: 1694890870}
+  _defaultSelectedObject: {fileID: 1327520201}
+  _mainMenuTitleObject: {fileID: 1132491780}
+  _pressAnyKeyObject: {fileID: 1256037291}
+  _menuButtonContainer: {fileID: 271229751}
+  _newGameButton: {fileID: 1327520204}
+  _exitGameButton: {fileID: 2000096758}
   _countDownText: {fileID: 373631248}
   _spawnPoints:
   - {fileID: 468766330}
   - {fileID: 39371292}
   - {fileID: 495692344}
   - {fileID: 2095326761}
+  _nextLevelCountDown: 5
 --- !u!23 &4283039743973235770
 MeshRenderer:
   m_ObjectHideFlags: 0

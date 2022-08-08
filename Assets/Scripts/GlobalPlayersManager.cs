@@ -45,6 +45,7 @@ public class GlobalPlayersManager : MonoBehaviour
 
         _players.Add(playerInput);
 
+        DisablePlayerRigidBody(_playersAmount);
         DisablePlayerGameplayComponents(PlayersAmount);
         EnablePlayerMenuUI(PlayersAmount);
 
@@ -53,6 +54,11 @@ public class GlobalPlayersManager : MonoBehaviour
         _playersAmount++;
 
         OnNewPlayerAdded?.Invoke(playerInput);
+    }
+
+    private void DisablePlayerRigidBody(int playerIndex)
+    {
+        _players[playerIndex].gameObject.GetComponent<PlayerComponentReferences>().MoveController.DisableRigidBody();
     }
 
     private void EnableAllPlayersRigidBodies()
@@ -76,6 +82,10 @@ public class GlobalPlayersManager : MonoBehaviour
     {
         player.SwitchCurrentActionMap(actionMap);
     }
+    public void SwitchPlayerActionMap(int playerIndex, string actionMap)
+    {
+        _players[playerIndex].SwitchCurrentActionMap(actionMap);
+    }
 
     public void SwitchAllPlayersActionMap(string actionMap)
     {
@@ -87,6 +97,7 @@ public class GlobalPlayersManager : MonoBehaviour
         PlayerComponentReferences player = _players[index].gameObject.GetComponent<PlayerComponentReferences>();
         player.TurretRotationController.enabled = true;
         player.TurretController.enabled = true;
+        player.TurretFiringController.ShouldTriggerEvents = true;
         player.LiveUI.SetActive(true);
         player.PlayerColliders.SetActive(true);
     }
@@ -96,6 +107,7 @@ public class GlobalPlayersManager : MonoBehaviour
         PlayerComponentReferences player = _players[index].gameObject.GetComponent<PlayerComponentReferences>();
         player.TurretRotationController.enabled = false;
         player.TurretController.enabled = false;
+        player.TurretFiringController.ShouldTriggerEvents = false;
         player.LiveUI.SetActive(false);
         player.PlayerColliders.SetActive(false);
     }
@@ -114,6 +126,21 @@ public class GlobalPlayersManager : MonoBehaviour
         for (int i = 0; i < _playersAmount; i++)
         {
             DisablePlayerGameplayComponents(i);
+        }
+    }
+
+    internal void SwitchAllPlayersToUiInput()
+    {
+        for (int i = 0; i < _playersAmount; i++)
+        {
+            _players[i].SwitchCurrentActionMap("UI");
+        }
+    }
+    internal void SwitchAllPlayersToEmptyInput()
+    {
+        for (int i = 0; i < _playersAmount; i++)
+        {
+            _players[i].SwitchCurrentActionMap("Empty");
         }
     }
 
