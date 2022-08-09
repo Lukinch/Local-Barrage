@@ -19,17 +19,23 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private EventSystem _eventSystem;
     [SerializeField] private GameObject _defaultSelectedObject;
     [Header("Main Menu UI Dependencies")]
-    [SerializeField] private GameObject _mainMenuTitleObject;
+    [SerializeField] private Transform _mainMenuObject;
     [SerializeField] private GameObject _pressAnyKeyObject;
     [SerializeField] private GameObject _menuButtonContainer;
     [SerializeField] private Button _newGameButton;
     [SerializeField] private Button _exitGameButton;
+    [SerializeField] private Vector3 _transitionPositionFrom;
+    [SerializeField] private Vector3 _transitionPositionTo;
+    [SerializeField] private float _transitionDuration = 0.5f;
+    [SerializeField] private float _timeBeforeNextTransition = 0.5f;
     [Header("New Game Dependencies")]
     [SerializeField] private TextMeshProUGUI _countDownText;
     [SerializeField] private List<Transform> _spawnPoints;
     [SerializeField] private int _nextLevelCountDown = 5;
 
+    private GlobalPlayersManager _playersManager;
     private bool _isFirstPlayerSpawned;
+    private bool _isTransitioning;
 
     private int _currentAmountOfPlayers;
     private int _amountOfPlayersReady;
@@ -44,99 +50,144 @@ public class MainMenuManager : MonoBehaviour
         _amountOfPlayersReady = 0;
     }
 
-    private void Start()
+    private void OnEnable()
     {
-        GlobalPlayersManager.Instance.ClearPlayersList();
-        GlobalPlayersManager.Instance.EnablePlayersJoin();
-        GlobalPlayersManager.Instance.SubscribeToNewPlayersEvent();
-        GlobalPlayersManager.Instance.OnNewPlayerAdded += OnFirstPlayerAdded;
+        _playersManager = GlobalPlayersManager.Instance;
+        _playersManager.ClearPlayersList();
+        _playersManager.EnablePlayersJoin();
+        _playersManager.SubscribeToNewPlayersEvent();
+        _playersManager.OnFirstPlayerAdded += OnFirstPlayerAdded;
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
+        _playersManager.OnFirstPlayerAdded -= OnFirstPlayerAdded;
+        _playersManager.OnNewPlayerAdded -= OnNewPlayerAdded;
+
         UIPlayerMainMenu.IsPlayerReady -= PlayerReady;
-        GlobalPlayersManager.Instance.OnNewPlayerAdded -= ManageNewPlayer;
-        GlobalPlayersManager.Instance.OnNewPlayerAdded -= OnFirstPlayerAdded;
+        UIPlayerMainMenu.OnAnyPlayerUIBackTriggered -= OnAnyPlayerBacked;
     }
 
     private void OnFirstPlayerAdded(PlayerInput playerInput)
     {
+        _playersManager.OnFirstPlayerAdded -= OnFirstPlayerAdded;
+
+        _playersManager.DisablePlayersJoin();
+        _playersManager.UnsubscribeToNewPlayersEvent();
+
+        SetupPlayerForMainMenu(playerInput.playerIndex);
+        _playersManager.DisablePlayerPersonalEventSystem(playerInput.playerIndex);
+
         _pressAnyKeyObject.SetActive(false);
-
-        GlobalPlayersManager.Instance.DisablePlayersJoin();
-        GlobalPlayersManager.Instance.UnsubscribeToNewPlayersEvent();
-        GlobalPlayersManager.Instance.OnNewPlayerAdded -= OnFirstPlayerAdded;
-
-        _currentAmountOfPlayers++;
-        ShowMenuButtons(playerInput);
-    }
-
-    private void ShowMenuButtons(PlayerInput playerInput)
-    {
-        _pressAnyKeyObject.SetActive(false);
-
-        _eventSystem.SetSelectedGameObject(_defaultSelectedObject);
-        _inputSystemUI.actionsAsset = playerInput.actions;
-
         _menuButtonContainer.SetActive(true);
 
+        SetupMainMenuEventSystem(playerInput, "UI");
+
         _newGameButton.onClick.AddListener(OnNewGameSelected);
-        _exitGameButton.onClick.AddListener(ExitGame);
+        _exitGameButton.onClick.AddListener(OnExitGameSelected);
+    }
+
+    private void SetupMainMenuEventSystem(PlayerInput playerInput, string playerActionMap)
+    {
+        if (playerInput.currentControlScheme == "Gamepad")
+        {
+            _eventSystem.SetSelectedGameObject(_defaultSelectedObject);
+            _newGameButton.animator.Play("Selected");
+        }
+        else
+        {
+            _eventSystem.SetSelectedGameObject(null);
+        }
+
+        _playersManager.SwitchPlayerActionMap(playerInput.playerIndex, playerActionMap);
+
+        _inputSystemUI.actionsAsset = playerInput.actions;
+    }
+
+    private void SetupPlayerForMainMenu(int playerIndex)
+    {
+        _playersManager.MakePlayerKinematic(playerIndex);
+        _playersManager.DisablePlayerGameplayComponents(playerIndex);
+        _playersManager.EnablePlayerMenuUI(playerIndex);
+        _playersManager.EnablePlayerPersonalEventSystem(playerIndex);
+        _playersManager.SetupPlayerPersonalEventSystem(playerIndex);
+        SetPlayerPosition(playerIndex);
+        _currentAmountOfPlayers++;
+    }
+
+    private void SetPlayerPosition(int playerIndex)
+    {
+        _playersManager.GetPlayerInputs[playerIndex].transform.position = 
+            _spawnPoints[playerIndex].position;
     }
 
     private void OnNewGameSelected()
     {
-        _mainMenuTitleObject.SetActive(false);
-        _menuButtonContainer.SetActive(false);
+        if (_isTransitioning) return;
 
-        if (!_isFirstPlayerSpawned) SpawnFirstPlayer();
+        StartCoroutine(TransitionCooldown());
+        StartCoroutine(LerpPosition(_mainMenuObject, _transitionPositionFrom, _transitionPositionTo, _transitionDuration));
+
+        _newGameButton.onClick.RemoveListener(OnNewGameSelected);
+        _exitGameButton.onClick.RemoveListener(OnExitGameSelected);
+
+        _playersManager.EnablePlayersJoin();
+        _playersManager.SubscribeToNewPlayersEvent();
+        
+        _playersManager.OnNewPlayerAdded += OnNewPlayerAdded;
+
+        _eventSystem.gameObject.SetActive(false);
+
         SwitchCamera();
-        if (_isFirstPlayerSpawned) GlobalPlayersManager.Instance.SwitchAllPlayersToUiInput();
 
-        GlobalPlayersManager.Instance.EnablePlayersJoin();
-        GlobalPlayersManager.Instance.SubscribeToNewPlayersEvent();
-        GlobalPlayersManager.Instance.OnNewPlayerAdded += ManageNewPlayer;
+        _playersManager.EnableAllPlayersPersonalEventSystem();
+        _playersManager.SetupAllPlayersPersonalEventSystem();
 
         UIPlayerMainMenu.IsPlayerReady += PlayerReady;
-        UIPlayerMainMenu.OnAnyPlayerUIBackTriggered += OnReturnFromNewGame;
+        UIPlayerMainMenu.OnAnyPlayerUIBackTriggered += OnAnyPlayerBacked;
+
+        if (_amountOfPlayersReady == _currentAmountOfPlayers)
+        {
+            StartCountDownToLoadNextLevel();
+        }
     }
 
-    private void ManageNewPlayer(PlayerInput playerInput)
+    private void OnAnyPlayerBacked(PlayerInput playerInput)
     {
+        if (_isTransitioning) return;
+
         StopCountDownToLoadNextLevel();
-        SpawnPlayerIntoPosition(playerInput.gameObject);
-        _currentAmountOfPlayers++;
-    }
 
-    private void OnReturnFromNewGame(PlayerInput playerInput)
-    {
-        GlobalPlayersManager.Instance.DisablePlayersJoin();
+        _playersManager.OnNewPlayerAdded -= OnNewPlayerAdded;
         UIPlayerMainMenu.IsPlayerReady -= PlayerReady;
-        UIPlayerMainMenu.OnAnyPlayerUIBackTriggered -= OnReturnFromNewGame;
-        GlobalPlayersManager.Instance.OnNewPlayerAdded -= ManageNewPlayer;
+        UIPlayerMainMenu.OnAnyPlayerUIBackTriggered -= OnAnyPlayerBacked;
 
-        GlobalPlayersManager.Instance.UnsubscribeToNewPlayersEvent();
-        GlobalPlayersManager.Instance.SwitchAllPlayersToEmptyInput();
-        GlobalPlayersManager.Instance.SwitchPlayerActionMap(playerInput, "UI");
+        _playersManager.DisablePlayersJoin();
+        _playersManager.UnsubscribeToNewPlayersEvent();
 
-        _eventSystem.SetSelectedGameObject(_defaultSelectedObject);
-        _inputSystemUI.actionsAsset = GlobalPlayersManager.Instance.GetPlayerInputs[0].actions;
+        StartCoroutine(nameof(TransitionCooldown));
+        StartCoroutine(LerpPosition(_mainMenuObject, _transitionPositionTo, _transitionPositionFrom, _transitionDuration));
 
-        _mainMenuTitleObject.SetActive(true);
-        _menuButtonContainer.SetActive(true);
+        _playersManager.DisableAllPlayersPersonalEventSystem();
+
+        _eventSystem.gameObject.SetActive(true);
+
+        SetupMainMenuEventSystem(playerInput, "UI");
 
         SwitchCamera();
+
+        _newGameButton.onClick.AddListener(OnNewGameSelected);
+        _exitGameButton.onClick.AddListener(OnExitGameSelected);
     }
 
-    private void SpawnFirstPlayer()
+    private void OnNewPlayerAdded(PlayerInput playerInput)
     {
-        GlobalPlayersManager.Instance.GetPlayerInputs[0].transform.position = _spawnPoints[0].position;
-        _isFirstPlayerSpawned = true;
+        SetupPlayerForMainMenu(playerInput.playerIndex);
     }
 
-    private void SpawnPlayerIntoPosition(GameObject player)
+    private void SwitchCamera()
     {
-        player.transform.position = _spawnPoints[_currentAmountOfPlayers].position;
+        _cinemachineAnimator.SetTrigger("Switch");
     }
 
     private void PlayerReady(bool isReady)
@@ -184,30 +235,46 @@ public class MainMenuManager : MonoBehaviour
         LoadNextLevel();
     }
 
-    private void SwitchCamera()
+    private IEnumerator TransitionCooldown()
     {
-        _cinemachineAnimator.SetTrigger("Switch");
+        _isTransitioning = true;
+        yield return new WaitForSeconds(_timeBeforeNextTransition);
+        _isTransitioning = false;
+    }
+    private IEnumerator LerpPosition(Transform transform ,Vector3 StartPos, Vector3 EndPos, float LerpTime)
+    {
+        float StartTime = Time.time;
+        float EndTime = StartTime + LerpTime;
+
+        while (Time.time < EndTime)
+        {
+            float timeProgressed = (Time.time - StartTime) / LerpTime;  // this will be 0 at the beginning and 1 at the end.
+            transform.position = Vector3.Lerp(StartPos, EndPos, timeProgressed);
+
+            yield return new WaitForFixedUpdate();
+        }
     }
 
     private void LoadNextLevel()
     {
-        GlobalPlayersManager.Instance.DisablePlayersJoin();
-        GlobalPlayersManager.Instance.UnsubscribeToNewPlayersEvent();
-        GlobalPlayersManager.Instance.DisableAllPlayersGameplayComponents();
-        GlobalPlayersManager.Instance.DisableAllPlayersVisuals();
-        GlobalPlayersManager.Instance.DisableAllPlayersUIs();
+        _playersManager.DisablePlayersJoin();
+        _playersManager.UnsubscribeToNewPlayersEvent();
+        _playersManager.DisableAllPlayersGameplayComponents();
+        _playersManager.DisableAllPlayersVisuals();
+        _playersManager.DisableAllPlayersUIs();
 
         int amountOfLevels = SceneManager.sceneCountInBuildSettings;
         int lextLevelIndex = UnityEngine.Random.Range(1, amountOfLevels);
         SceneManager.LoadScene(lextLevelIndex);
     }
-    private void ExitGame()
+
+    private void OnExitGameSelected()
     {
-        GlobalPlayersManager.Instance.SetAllPlayersDefaultTurret();
+        _playersManager.SetAllPlayersDefaultTurret();
         #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
+            UnityEditor.EditorApplication.isPlaying = false;
         #else
-         Application.Quit();
+            Application.Quit();
         #endif
     }
 

@@ -1233,6 +1233,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f5ee00930bed6f4181c68bc8810c433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _eventSystem: {fileID: 3487079668705916302}
+  _inputSystemUI: {fileID: 6093340873260307506}
+  _defaultSelectedObject: {fileID: 328674511986263179}
   _playerInput: {fileID: 4365908596991377682}
   _readyButton: {fileID: 1440265564239169362}
   _background: {fileID: 3908735518303155545}
@@ -1941,6 +1944,7 @@ MonoBehaviour:
   _playerColliders: {fileID: 4083899312053309317}
   _turretPosition: {fileID: 504410234683134090}
   _sphereRenderer: {fileID: 2925236342545116705}
+  _playerUiManager: {fileID: 4891254575036582769}
   _billboard: {fileID: 3670483752807628276}
   _keepInPlacePositionAndRotation: {fileID: 6251826115761994373}
   _moveController: {fileID: 4365908596991377681}

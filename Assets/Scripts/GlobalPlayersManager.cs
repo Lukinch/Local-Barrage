@@ -17,6 +17,8 @@ public class GlobalPlayersManager : MonoBehaviour
     public int PlayersAmount => _playersAmount;
     public int MaxAmountOfPointsPerPlayer => _maxAmountOfPointsPerPlayer;
     public List<PlayerInput> GetPlayerInputs { get => _players; }
+
+    public event Action<PlayerInput> OnFirstPlayerAdded;
     public event Action<PlayerInput> OnNewPlayerAdded;
 
     private void Awake()
@@ -41,43 +43,36 @@ public class GlobalPlayersManager : MonoBehaviour
     {
         if (_playersAmount == _maxNumerOfPlayers) return;
 
-        GameObject playerObject = playerInput.gameObject;
-
         _players.Add(playerInput);
 
-        DisablePlayerRigidBody(_playersAmount);
-        DisablePlayerGameplayComponents(PlayersAmount);
-        EnablePlayerMenuUI(PlayersAmount);
-
-        SwitchPlayerActionMap(playerInput, "UI");
-
         _playersAmount++;
-
-        OnNewPlayerAdded?.Invoke(playerInput);
-    }
-
-    private void DisablePlayerRigidBody(int playerIndex)
-    {
-        _players[playerIndex].gameObject.GetComponent<PlayerComponentReferences>().MoveController.DisableRigidBody();
-    }
-
-    private void EnableAllPlayersRigidBodies()
-    {
-        for (int i = 0; i < _playersAmount; i++)
-        {
-            _players[i].gameObject.GetComponent<PlayerComponentReferences>().MoveController.EnableRigidBody();
-        }
-    }
-
-    private void DisableAllPlayersRigidBodies()
-    {
-        for (int i = 0; i < _playersAmount; i++)
-        {
-            _players[i].gameObject.GetComponent<PlayerComponentReferences>().MoveController.DisableRigidBody();
-        }
+        
+        if (_playersAmount < 2) OnFirstPlayerAdded?.Invoke(playerInput);
+        else OnNewPlayerAdded?.Invoke(playerInput);
     }
 
     #region Public Methods
+    public void MakePlayerKinematic(int playerIndex)
+    {
+        _players[playerIndex].gameObject.GetComponent<PlayerComponentReferences>().MoveController.MakePlayerKinematic();
+    }
+
+    public void MakeAllPlayerNonKinematic()
+    {
+        for (int i = 0; i < _playersAmount; i++)
+        {
+            _players[i].gameObject.GetComponent<PlayerComponentReferences>().MoveController.MakePlayerNonKinematic();
+        }
+    }
+
+    public void MakeAllPlayerKinematic()
+    {
+        for (int i = 0; i < _playersAmount; i++)
+        {
+            _players[i].gameObject.GetComponent<PlayerComponentReferences>().MoveController.MakePlayerKinematic();
+        }
+    }
+
     public void SwitchPlayerActionMap(PlayerInput player ,string actionMap)
     {
         player.SwitchCurrentActionMap(actionMap);
@@ -129,18 +124,66 @@ public class GlobalPlayersManager : MonoBehaviour
         }
     }
 
-    internal void SwitchAllPlayersToUiInput()
+    public void SwitchAllPlayersToUiInput()
     {
         for (int i = 0; i < _playersAmount; i++)
         {
             _players[i].SwitchCurrentActionMap("UI");
         }
     }
-    internal void SwitchAllPlayersToEmptyInput()
+    public void SwitchAllPlayersToEmptyInput()
     {
         for (int i = 0; i < _playersAmount; i++)
         {
             _players[i].SwitchCurrentActionMap("Empty");
+        }
+    }
+
+    public void SetupPlayerPersonalEventSystem(int index)
+    {
+        _players[index].gameObject
+            .GetComponent<PlayerComponentReferences>()
+            .PlayerUiManager
+            .SetupEventSystem();
+    }
+
+    public void SetupAllPlayersPersonalEventSystem()
+    {
+        for (int i = 0; i < _playersAmount; i++)
+        {
+            SetupPlayerPersonalEventSystem(i);
+        }
+    }
+
+    public void EnablePlayerPersonalEventSystem(int index)
+    {
+        _players[index].gameObject
+            .GetComponent<PlayerComponentReferences>()
+            .PlayerUiManager
+            .EnableEventSystem();
+    }
+
+    public void EnableAllPlayersPersonalEventSystem()
+    {
+        for (int i = 0; i < _playersAmount; i++)
+        {
+            EnablePlayerPersonalEventSystem(i);
+        }
+    }
+
+    public void DisablePlayerPersonalEventSystem(int index)
+    {
+        _players[index].gameObject
+            .GetComponent<PlayerComponentReferences>()
+            .PlayerUiManager
+            .DisableEventSystem();
+    }
+
+    public void DisableAllPlayersPersonalEventSystem()
+    {
+        for (int i = 0; i < _playersAmount; i++)
+        {
+            DisablePlayerPersonalEventSystem(i);
         }
     }
 
@@ -168,12 +211,12 @@ public class GlobalPlayersManager : MonoBehaviour
             player.SphereRenderer.enabled = true;
         }
 
-        EnableAllPlayersRigidBodies();
+        MakeAllPlayerNonKinematic();
     }
 
     public void DisableAllPlayersVisuals()
     {
-        DisableAllPlayersRigidBodies();
+        MakeAllPlayerKinematic();
 
         for (int i = 0; i < _playersAmount; i++)
         {

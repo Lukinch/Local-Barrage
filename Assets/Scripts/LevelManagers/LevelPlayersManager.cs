@@ -40,9 +40,10 @@ public class LevelPlayersManager : MonoBehaviour
 
     private void EnableAllPlayersVisualsAndGameplayComponents()
     {
+        GlobalPlayersManager.Instance.SwitchAllPlayersActionMap("UI");
+        GlobalPlayersManager.Instance.SwitchAllPlayersActionMap("Player");
         GlobalPlayersManager.Instance.EnableAllPlayersVisuals();
         GlobalPlayersManager.Instance.EnableAllPlayersGameplayComponents();
-        GlobalPlayersManager.Instance.SwitchAllPlayersActionMap("Player");
     }
 
     private void SetPlayersInitialPositions()

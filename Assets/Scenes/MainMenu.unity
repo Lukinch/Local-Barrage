@@ -4443,11 +4443,15 @@ MonoBehaviour:
   _inputSystemUI: {fileID: 1694890869}
   _eventSystem: {fileID: 1694890870}
   _defaultSelectedObject: {fileID: 1327520201}
-  _mainMenuTitleObject: {fileID: 1132491780}
+  _mainMenuObject: {fileID: 707335587}
   _pressAnyKeyObject: {fileID: 1256037291}
   _menuButtonContainer: {fileID: 271229751}
   _newGameButton: {fileID: 1327520204}
   _exitGameButton: {fileID: 2000096758}
+  _transitionPositionFrom: {x: 960, y: 540, z: 0}
+  _transitionPositionTo: {x: 960, y: 1680, z: 0}
+  _transitionDuration: 0.5
+  _timeBeforeNextTransition: 0.5
   _countDownText: {fileID: 373631248}
   _spawnPoints:
   - {fileID: 468766330}
