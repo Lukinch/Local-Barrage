@@ -62,6 +62,7 @@ public class PauseMenuScreen : MonoBehaviour
     private void LoadMainMenu()
     {
         GlobalPlayersManager.Instance.SetAllPlayersDefaultTurret();
+        Time.timeScale = 1.0f;
         SceneManager.LoadScene(0);
     }
     private void ExitGame()
@@ -86,7 +87,11 @@ public class PauseMenuScreen : MonoBehaviour
     {
         Time.timeScale = 0.0f;
         playerInput.enabled = true;
-        _eventSystem.SetSelectedGameObject(_defaultSelectedObject);
+
+        _eventSystem.SetSelectedGameObject(null);
+        if (playerInput.currentControlScheme == "Gamepad")
+            _eventSystem.SetSelectedGameObject(_defaultSelectedObject);
+
         GlobalPlayersManager.Instance.SwitchPlayerActionMap(playerInput, "UI");
         _inputSystemUI.actionsAsset = playerInput.actions;
         _isGamePaused = true;

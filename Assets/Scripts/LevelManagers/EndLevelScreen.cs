@@ -108,7 +108,11 @@ public class EndLevelScreen : MonoBehaviour
         PlayerInput winner = GlobalPlayersManager.Instance.GetPlayerInputs[playerIndex];
 
         winner.enabled = true;
-        _eventSystem.SetSelectedGameObject(_defaultSelectedObject);
+
+        _eventSystem.SetSelectedGameObject(null);
+        if (winner.currentControlScheme == "Gamepad")
+            _eventSystem.SetSelectedGameObject(_defaultSelectedObject);
+
         GlobalPlayersManager.Instance.SwitchPlayerActionMap(winner,"UI");
         _inputSystemUI.actionsAsset = winner.actions;
 
