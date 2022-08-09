@@ -292,6 +292,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerInput: {fileID: 4365908596991377682}
+  ShouldTriggerEvents: 1
 --- !u!1 &737680070300017700
 GameObject:
   m_ObjectHideFlags: 0
@@ -1232,6 +1233,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f5ee00930bed6f4181c68bc8810c433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _eventSystem: {fileID: 3487079668705916302}
+  _inputSystemUI: {fileID: 6093340873260307506}
+  _defaultSelectedObject: {fileID: 328674511986263179}
+  _playerInput: {fileID: 4365908596991377682}
   _readyButton: {fileID: 1440265564239169362}
   _background: {fileID: 3908735518303155545}
 --- !u!1 &2788726584972215744
@@ -1939,11 +1944,13 @@ MonoBehaviour:
   _playerColliders: {fileID: 4083899312053309317}
   _turretPosition: {fileID: 504410234683134090}
   _sphereRenderer: {fileID: 2925236342545116705}
+  _playerUiManager: {fileID: 4891254575036582769}
   _billboard: {fileID: 3670483752807628276}
   _keepInPlacePositionAndRotation: {fileID: 6251826115761994373}
   _moveController: {fileID: 4365908596991377681}
   _points: {fileID: -370307971412681411}
   _turretController: {fileID: 1054963788964794805}
+  _turretFiringController: {fileID: 4250510189242333970}
   _turretRotationController: {fileID: 2762894981470264502}
 --- !u!114 &4365908596991377682
 MonoBehaviour:
@@ -2053,10 +2060,6 @@ MonoBehaviour:
     m_ActionName: Player/Turret Fire Hold[/DualSenseGamepadHID/rightTrigger,/XInputControllerWindows/rightTrigger,/Mouse/leftButton]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 10f0866e-9c44-44d8-a962-b84291617228
-    m_ActionName: Player/Join[/Keyboard/space,/DualSenseGamepadHID/start,/XInputControllerWindows/start]
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: cd9f2588-47b8-40ee-853a-240683f8847d
     m_ActionName: UI/Navigate[/DualSenseGamepadHID/leftStick/up,/XInputControllerWindows/leftStick/up,/DualSenseGamepadHID/rightStick/up,/XInputControllerWindows/rightStick/up,/DualSenseGamepadHID/leftStick/down,/XInputControllerWindows/leftStick/down,/DualSenseGamepadHID/rightStick/down,/XInputControllerWindows/rightStick/down,/DualSenseGamepadHID/leftStick/left,/XInputControllerWindows/leftStick/left,/DualSenseGamepadHID/rightStick/left,/XInputControllerWindows/rightStick/left,/DualSenseGamepadHID/leftStick/right,/XInputControllerWindows/leftStick/right,/DualSenseGamepadHID/rightStick/right,/XInputControllerWindows/rightStick/right,/DualSenseGamepadHID/dpad,/XInputControllerWindows/dpad,/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
@@ -2127,6 +2130,26 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: f44a2003-fc1f-44a0-bfe9-5a4c581f7111
     m_ActionName: UI/Pause[/Keyboard/p,/DualSenseGamepadHID/start]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5c97527b-e98c-4b77-97dd-dde6696aef49
+    m_ActionName: UI/Join[/Keyboard/anyKey,/DualSenseGamepadHID/buttonEast,/DualSenseGamepadHID/buttonNorth,/DualSenseGamepadHID/buttonSouth,/DualSenseGamepadHID/buttonWest,/DualSenseGamepadHID/dpad/down,/DualSenseGamepadHID/dpad/left,/DualSenseGamepadHID/dpad/right,/DualSenseGamepadHID/dpad/up,/DualSenseGamepadHID/leftShoulder,/DualSenseGamepadHID/rightShoulder,/DualSenseGamepadHID/leftStickPress,/DualSenseGamepadHID/rightStickPress,/DualSenseGamepadHID/leftTrigger,/DualSenseGamepadHID/rightTrigger,/DualSenseGamepadHID/start,/DualSenseGamepadHID/select]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4891254575036582769}
+        m_TargetAssemblyTypeName: UIPlayerMainMenu, Assembly-CSharp
+        m_MethodName: OnBack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e37adaf0-e93c-4abf-8d6f-99366d059a8c
+    m_ActionName: UI/Back[/Mouse/rightButton,/Keyboard/backspace,/Keyboard/escape,/DualSenseGamepadHID/buttonEast]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -2911,6 +2934,7 @@ MonoBehaviour:
     type: 3}
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
+  m_CursorLockBehavior: 0
 --- !u!1 &9138546705978027712
 GameObject:
   m_ObjectHideFlags: 0
