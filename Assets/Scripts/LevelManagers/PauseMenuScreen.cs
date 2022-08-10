@@ -18,10 +18,9 @@ public class PauseMenuScreen : MonoBehaviour
     [SerializeField] private GameObject _pauseMenuObject;
     [SerializeField] private GameObject _defaultSelectedObject;
     [Header("Buttons")]
-    [SerializeField] private Button _resumeButton;
-    [SerializeField] private Button _settingsButton;
-    [SerializeField] private Button _mainMenuButton;
-    [SerializeField] private Button _exitGameButton;
+    [SerializeField] private ButtonEventEmitter _resumeButton;
+    [SerializeField] private ButtonEventEmitter _mainMenuButton;
+    [SerializeField] private ButtonEventEmitter _exitGameButton;
 
 
     private bool _isGamePaused;
@@ -33,7 +32,6 @@ public class PauseMenuScreen : MonoBehaviour
         PlayerPauseController.OnPauseGame += OnPauseGame;
 
         _resumeButton.onClick.AddListener(ResumeGame);
-        //settingsButton.onClick.AddListener();
         _mainMenuButton.onClick.AddListener(LoadMainMenu);
         _exitGameButton.onClick.AddListener(ExitGame);
     }
@@ -43,7 +41,6 @@ public class PauseMenuScreen : MonoBehaviour
         PlayerPauseController.OnPauseGame -= OnPauseGame;
 
         _resumeButton.onClick.RemoveAllListeners();
-        //settingsButton.onClick.RemoveAllListeners();
         _mainMenuButton.onClick.RemoveAllListeners();
         _exitGameButton.onClick.RemoveAllListeners();
     }
@@ -88,13 +85,15 @@ public class PauseMenuScreen : MonoBehaviour
         Time.timeScale = 0.0f;
         playerInput.enabled = true;
 
-        _eventSystem.SetSelectedGameObject(null);
-        if (playerInput.currentControlScheme == "Gamepad")
-            _eventSystem.SetSelectedGameObject(_defaultSelectedObject);
-
         GlobalPlayersManager.Instance.SwitchPlayerActionMap(playerInput, "UI");
         _inputSystemUI.actionsAsset = playerInput.actions;
         _isGamePaused = true;
         _pauseMenuObject.SetActive(true);
+
+        _eventSystem.SetSelectedGameObject(null);
+        if (playerInput.currentControlScheme == "Gamepad")
+        {
+            _eventSystem.SetSelectedGameObject(_defaultSelectedObject);
+        }
     }
 }

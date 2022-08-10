@@ -12,16 +12,15 @@ public class UIPlayerMainMenu : MonoBehaviour
     [SerializeField] private InputSystemUIInputModule _inputSystemUI;
     [SerializeField] private GameObject _defaultSelectedObject;
     [Header("Player Input")]
-    [SerializeField] private UnityEngine.InputSystem.PlayerInput _playerInput;
+    [SerializeField] private PlayerInput _playerInput;
     [Header("UI Items")]
-    [SerializeField] private Button _readyButton;
+    [SerializeField] private ButtonEventEmitter _readyButton;
     [SerializeField] private Image _background;
 
     private bool _isReady = false;
-    private bool _eventSystemActive;
 
     public static event Action<bool> IsPlayerReady;
-    public static event Action<UnityEngine.InputSystem.PlayerInput> OnAnyPlayerUIBackTriggered;
+    public static event Action<PlayerInput> OnAnyPlayerUIBackTriggered;
 
     private void OnEnable()
     {
