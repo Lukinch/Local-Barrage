@@ -28,8 +28,8 @@ public class EndLevelScreen : MonoBehaviour
     [SerializeField] private GameObject _playerWonScreenObject;
     [SerializeField] private TextMeshProUGUI _playerWonTitleText;
     [SerializeField] private List<TextMeshProUGUI> _playerWonPlayersScoreTexts;
-    [SerializeField] private Button _mainMenuButton;
-    [SerializeField] private Button _exitGameButton;
+    [SerializeField] private ButtonEventEmitter _mainMenuButton;
+    [SerializeField] private ButtonEventEmitter _exitGameButton;
     [Header("------------------")]
     [Header("Settings")]
     [SerializeField] private int _timeTillNextlevel;
@@ -109,14 +109,16 @@ public class EndLevelScreen : MonoBehaviour
 
         winner.enabled = true;
 
-        _eventSystem.SetSelectedGameObject(null);
-        if (winner.currentControlScheme == "Gamepad")
-            _eventSystem.SetSelectedGameObject(_defaultSelectedObject);
-
         GlobalPlayersManager.Instance.SwitchPlayerActionMap(winner,"UI");
         _inputSystemUI.actionsAsset = winner.actions;
 
         _playerWonScreenObject.SetActive(true);
+
+        _eventSystem.SetSelectedGameObject(null);
+        if (winner.currentControlScheme == "Gamepad")
+        {
+            _eventSystem.SetSelectedGameObject(_defaultSelectedObject);
+        }
     }
 
     private void LoadMainMenu()

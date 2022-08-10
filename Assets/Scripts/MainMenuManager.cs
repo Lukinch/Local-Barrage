@@ -8,7 +8,6 @@ using TMPro;
 using System;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -22,8 +21,8 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private Transform _mainMenuObject;
     [SerializeField] private GameObject _pressAnyKeyObject;
     [SerializeField] private GameObject _menuButtonContainer;
-    [SerializeField] private Button _newGameButton;
-    [SerializeField] private Button _exitGameButton;
+    [SerializeField] private ButtonEventEmitter _newGameButton;
+    [SerializeField] private ButtonEventEmitter _exitGameButton;
     [SerializeField] private Vector3 _transitionPositionFrom;
     [SerializeField] private Vector3 _transitionPositionTo;
     [SerializeField] private float _transitionDuration = 0.5f;
@@ -89,14 +88,10 @@ public class MainMenuManager : MonoBehaviour
 
     private void SetupMainMenuEventSystem(PlayerInput playerInput, string playerActionMap)
     {
+        _eventSystem.SetSelectedGameObject(null);
         if (playerInput.currentControlScheme == "Gamepad")
         {
             _eventSystem.SetSelectedGameObject(_defaultSelectedObject);
-            _newGameButton.animator.Play("Selected");
-        }
-        else
-        {
-            _eventSystem.SetSelectedGameObject(null);
         }
 
         _playersManager.SwitchPlayerActionMap(playerInput.playerIndex, playerActionMap);
