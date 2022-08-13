@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 public class GlobalPlayersManager : MonoBehaviour
 {
-    [SerializeField] private int _maxNumerOfPlayers;
+    [SerializeField] private int _maxNumberOfPlayers;
     [SerializeField] private PlayerInputManager _playerInputManager;
     [SerializeField] private int _maxAmountOfPointsPerPlayer = 50;
 
@@ -41,12 +41,12 @@ public class GlobalPlayersManager : MonoBehaviour
 
     private void AddPlayer(PlayerInput playerInput)
     {
-        if (_playersAmount == _maxNumerOfPlayers) return;
+        if (_playersAmount == _maxNumberOfPlayers) return;
 
         _players.Add(playerInput);
 
         _playersAmount++;
-        
+
         if (_playersAmount < 2) OnFirstPlayerAdded?.Invoke(playerInput);
         else OnNewPlayerAdded?.Invoke(playerInput);
     }
@@ -73,7 +73,7 @@ public class GlobalPlayersManager : MonoBehaviour
         }
     }
 
-    public void SwitchPlayerActionMap(PlayerInput player ,string actionMap)
+    public void SwitchPlayerActionMap(PlayerInput player, string actionMap)
     {
         player.SwitchCurrentActionMap(actionMap);
     }
@@ -235,7 +235,10 @@ public class GlobalPlayersManager : MonoBehaviour
 
     public void ClearPlayersList()
     {
-        _players.ForEach(player => Destroy(player.gameObject));
+        for (int i = _players.Count - 1; i >= 0; i--)
+        {
+            Destroy(_players[i].gameObject);
+        }
         _players.Clear();
 
         _playersAmount = 0;
@@ -262,7 +265,7 @@ public class GlobalPlayersManager : MonoBehaviour
     public int[] GetPlayerPointsInt()
     {
         int[] points = new int[_playersAmount];
-        
+
         for (int i = 0; i < _playersAmount; i++)
         {
             points[i] = _players[i].gameObject.GetComponent<PlayerComponentReferences>().Points.GetPointsInt();

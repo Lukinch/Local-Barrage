@@ -24,8 +24,8 @@ public class PlayerTurretRotationController : MonoBehaviour
 
     private void Update()
     {
-        if (!_isInputMouse) HandleGamepadInput();
-        if (_isInputMouse) HandleMouseInput();
+        if (_mainCamera && !_isInputMouse) HandleGamepadInput();
+        if (_mainCamera && _isInputMouse) HandleMouseInput();
     }
 
     public void OnTurretRotation(InputAction.CallbackContext context)
@@ -33,7 +33,7 @@ public class PlayerTurretRotationController : MonoBehaviour
         _isInputMouse = context.control.device.name == "Mouse";
 
         if (_isInputMouse) _mousePosition = context.ReadValue<Vector2>();
-        else 
+        else
         {
             Vector2 value = context.ReadValue<Vector2>();
             if (value != Vector2.zero)
@@ -43,16 +43,16 @@ public class PlayerTurretRotationController : MonoBehaviour
 
     private void HandleMouseInput()
     {
-       _worldPoint = GetMouseInWorld();
-       Vector3 targetPosition = new Vector3(_worldPoint.x, transform.position.y, _worldPoint.z);
-       transform.LookAt(targetPosition);
+        _worldPoint = GetMouseInWorld();
+        Vector3 targetPosition = new Vector3(_worldPoint.x, transform.position.y, _worldPoint.z);
+        transform.LookAt(targetPosition);
     }
 
     private Vector3 GetMouseInWorld()
     {
-       Ray ray = _mainCamera.ScreenPointToRay(_mousePosition);
-       Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue, _mouseWorldLayerMask);
-       return raycastHit.point;
+        Ray ray = _mainCamera.ScreenPointToRay(_mousePosition);
+        Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue, _mouseWorldLayerMask);
+        return raycastHit.point;
     }
 
     private void HandleGamepadInput()

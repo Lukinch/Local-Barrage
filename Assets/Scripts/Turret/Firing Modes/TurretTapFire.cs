@@ -15,22 +15,22 @@ public class TurretTapFire : TurretBase
     private float _currentReloadTime;
 
     public event Action<float> OnReloadTimeChanged;
-    
+
     private void OnEnable()
     {
         if (turretFiringController == null)
         {
             turretFiringController = GetComponentInParent<TurretFiringController>();
         }
-        
+
         turretFiringController.OnFireInstantPerformed += Fire;
     }
-    
+
     private void OnDisable()
     {
         _isReloading = false;
         _currentReloadTime = 0;
-        
+
         turretFiringController.OnFireInstantPerformed -= Fire;
     }
 
@@ -50,7 +50,7 @@ public class TurretTapFire : TurretBase
                 firingPoint,
                 _turretTapFireStatsSO.damagePerShot,
                 _turretTapFireStatsSO.projectileForce);
-            
+
             yield return new WaitForSeconds(_turretTapFireStatsSO.timeBetweenShots);
         }
 
