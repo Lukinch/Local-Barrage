@@ -101,6 +101,11 @@ MonoBehaviour:
   _turretType: 1
   _projectilePrefab: {fileID: 7516791745877141054, guid: 05c900abef257a44182bdddb66502797,
     type: 3}
+  _audioSourcePrefab: {fileID: 8260007326794584728, guid: 3395939b2cb917649b42723868262fc8,
+    type: 3}
+  _firingSound: {fileID: 8300000, guid: 209ed7fa23ac45c48810d3703272fc97, type: 3}
+  _lowerPitchRange: 0.7
+  _higherPitchRange: 0.9
   _firingPoints:
   - {fileID: 1238030221264375290}
   _turretChargeFireStatsSO: {fileID: 11400000, guid: a1d6bcb8e391dae4ca2d99e0fbe3b953,

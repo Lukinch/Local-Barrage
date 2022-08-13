@@ -11,7 +11,7 @@ public class TurretChargeFire : TurretBase
     [Space(10)]
     [Tooltip("Scriptable Object containing the turret stats")]
     [SerializeField] private TurretChargeFireStatsSO _turretChargeFireStatsSO;
-    
+
     /// <summary>Minimum value to no overshoot below zero, to avoid zero divisions</summary>
     private static readonly float MIN_VALUE_AMOUNT = 0.001f;
 
@@ -20,31 +20,31 @@ public class TurretChargeFire : TurretBase
     private bool _isChargeActive;
 
     private Coroutine _chargeCoroutine;
-    
+
     public event Action<float> OnChargeAmountChanged;
-    
+
     private void OnEnable()
     {
         if (turretFiringController == null)
         {
             turretFiringController = GetComponentInParent<TurretFiringController>();
         }
-        
+
         turretFiringController.OnFireChargeStarted += StartChargeEvent;
         turretFiringController.OnFireChargeCanceled += StopChargeEvent;
         turretFiringController.OnFireChargePerformed += StopChargeEvent;
     }
-    
+
     private void OnDisable()
     {
         _isChargeActive = false;
         _currentChargeAmount = 0;
-        
+
         turretFiringController.OnFireChargeStarted -= StartChargeEvent;
         turretFiringController.OnFireChargeCanceled -= StopChargeEvent;
         turretFiringController.OnFireChargePerformed -= StopChargeEvent;
     }
-    
+
     private void StartChargeEvent()
     {
         _isChargeActive = true;
@@ -55,7 +55,9 @@ public class TurretChargeFire : TurretBase
     private void StopChargeEvent()
     {
         _isChargeActive = false;
-        StopCoroutine(_chargeCoroutine);
+
+        if (_chargeCoroutine != null)
+            StopCoroutine(_chargeCoroutine);
 
         _currentChargeAmount = MIN_VALUE_AMOUNT;
 
@@ -95,7 +97,7 @@ public class TurretChargeFire : TurretBase
                 firingPoint,
                 _turretChargeFireStatsSO.damagePerShot,
                 _turretChargeFireStatsSO.projectileForce);
-            
+
             yield return new WaitForSeconds(_turretChargeFireStatsSO.timeBetweenShots);
         }
     }
