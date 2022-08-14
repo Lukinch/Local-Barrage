@@ -61,19 +61,23 @@ public class PauseMenuScreen : MonoBehaviour
         GlobalPlayersManager.Instance.SetAllPlayersDefaultTurret();
         Time.timeScale = 1.0f;
         SceneManager.LoadScene(0);
+        BackgroundMusicManager.Instance.PlayMenuTheme();
     }
     private void ExitGame()
     {
         GlobalPlayersManager.Instance.SetAllPlayersDefaultTurret();
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
-        #else
+#else
         Application.Quit();
-        #endif
+#endif
     }
 
     private void UnPauseGame(PlayerInput playerInput)
     {
+        _eventSystem.SetSelectedGameObject(null);
+
+        BackgroundMusicManager.Instance.ResumeMusic();
         GlobalPlayersManager.Instance.SwitchPlayerActionMap(playerInput, "Player");
         _pauseMenuObject.SetActive(false);
         Time.timeScale = 1.0f;
@@ -82,6 +86,11 @@ public class PauseMenuScreen : MonoBehaviour
 
     private void PauseGame(PlayerInput playerInput)
     {
+        UiSfxManager.Instance.ShouldPlayButtonsSounds = false;
+        UiSfxManager.Instance.ShouldPlaySelectedSounds = false;
+
+        BackgroundMusicManager.Instance.PauseMusic();
+        UiSfxManager.Instance.PlayPauseMenuClip();
         Time.timeScale = 0.0f;
         playerInput.enabled = true;
 
@@ -94,6 +103,15 @@ public class PauseMenuScreen : MonoBehaviour
         if (playerInput.currentControlScheme == "Gamepad")
         {
             _eventSystem.SetSelectedGameObject(_defaultSelectedObject);
+            UiSfxManager.Instance.ShouldPlaySelectedSounds = true;
         }
+
+        StartCoroutine(WaitForButtonSelectionToFinish());
+    }
+
+    private IEnumerator WaitForButtonSelectionToFinish()
+    {
+        yield return new WaitForSecondsRealtime(0.1f);
+        UiSfxManager.Instance.ShouldPlayButtonsSounds = true;
     }
 }

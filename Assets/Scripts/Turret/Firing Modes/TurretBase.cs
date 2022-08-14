@@ -1,11 +1,13 @@
 
 using UnityEngine;
+using UnityEngine.Audio;
 
 public abstract class TurretBase : MonoBehaviour
 {
     [Header("Base Fields")]
     [SerializeField] private string _turretName;
     [SerializeField] private TurretType _turretType;
+    [SerializeField] private AudioMixerGroup _mixerGroup;
     [SerializeField] protected GameObject _projectilePrefab;
     [SerializeField] protected GameObject _audioSourcePrefab;
     [SerializeField] protected AudioClip _firingSound;
@@ -30,6 +32,7 @@ public abstract class TurretBase : MonoBehaviour
 
         GameObject audioSourceObject = Instantiate(_audioSourcePrefab, firingPoint.position, firingPoint.rotation);
         AudioSource audioSource = audioSourceObject.GetComponent<AudioSource>();
+        audioSource.outputAudioMixerGroup = _mixerGroup;
         audioSource.volume = _soundVolume;
         audioSource.pitch = Random.Range(_lowerPitchRange, _higherPitchRange);
         audioSource.PlayOneShot(_firingSound);

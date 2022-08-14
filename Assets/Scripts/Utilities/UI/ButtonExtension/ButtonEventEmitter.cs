@@ -20,10 +20,11 @@ public class ButtonEventEmitter : SelectableExtension, IPointerClickHandler, ISu
 
     public event Action OnButtonPointerEntered;
     public event Action OnButtonPointerExited;
-    public event Action OnButtonPressed;
-    public event Action OnButtonReleased;
+    public event Action OnButtonPointerDown;
+    public event Action OnButtonPointerUp;
     public event Action OnButtonSelected;
     public event Action OnButtonDeselected;
+    public event Action OnButtonPressed;
 
     protected ButtonEventEmitter()
     { }
@@ -41,6 +42,7 @@ public class ButtonEventEmitter : SelectableExtension, IPointerClickHandler, ISu
 
         UISystemProfilerApi.AddMarker("Button.onClick", this);
         m_OnClick.Invoke();
+        OnButtonPressed?.Invoke();
     }
 
     public virtual void OnPointerClick(PointerEventData eventData)
@@ -93,13 +95,13 @@ public class ButtonEventEmitter : SelectableExtension, IPointerClickHandler, ISu
     public override void OnPointerDown(PointerEventData eventData)
     {
         base.OnPointerDown(eventData);
-        OnButtonPressed?.Invoke();
+        OnButtonPointerDown?.Invoke();
     }
 
     public override void OnPointerUp(PointerEventData eventData)
     {
         base.OnPointerUp(eventData);
-        OnButtonReleased?.Invoke();
+        OnButtonPointerUp?.Invoke();
     }
 
     public override void OnSelect(BaseEventData eventData)
