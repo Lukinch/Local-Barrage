@@ -162,11 +162,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _turretName: Medium Railgun
   _turretType: 1
+  _mixerGroup: {fileID: -5600124991507403453, guid: 14eac8130f3e321438ad1269d97d2fd7,
+    type: 2}
   _projectilePrefab: {fileID: 7516791745877141054, guid: 05c900abef257a44182bdddb66502797,
     type: 3}
   _audioSourcePrefab: {fileID: 8260007326794584728, guid: 3395939b2cb917649b42723868262fc8,
     type: 3}
   _firingSound: {fileID: 8300000, guid: 2bd0852351831a848a83809bda1749c4, type: 3}
+  _soundVolume: 1
   _lowerPitchRange: 0.8
   _higherPitchRange: 1.2
   _firingPoints:

@@ -69,6 +69,9 @@ public class MainMenuManager : MonoBehaviour
 
     private void OnFirstPlayerAdded(PlayerInput playerInput)
     {
+        UiSfxManager.Instance.ShouldPlayButtonsSounds = false;
+        UiSfxManager.Instance.ShouldPlaySelectedSounds = false;
+
         _playersManager.OnFirstPlayerAdded -= OnFirstPlayerAdded;
 
         _playersManager.DisablePlayersJoin();
@@ -84,6 +87,20 @@ public class MainMenuManager : MonoBehaviour
 
         _newGameButton.onClick.AddListener(OnNewGameSelected);
         _exitGameButton.onClick.AddListener(OnExitGameSelected);
+
+        if (playerInput.currentControlScheme == "Gamepad")
+        {
+            _eventSystem.SetSelectedGameObject(_defaultSelectedObject);
+            UiSfxManager.Instance.ShouldPlaySelectedSounds = true;
+        }
+
+        StartCoroutine(WaitForButtonSelectionToFinish());
+    }
+
+    private IEnumerator WaitForButtonSelectionToFinish()
+    {
+        yield return new WaitForSecondsRealtime(0.1f);
+        UiSfxManager.Instance.ShouldPlayButtonsSounds = true;
     }
 
     private void SetupMainMenuEventSystem(PlayerInput playerInput, string playerActionMap)
@@ -112,7 +129,7 @@ public class MainMenuManager : MonoBehaviour
 
     private void SetPlayerPosition(int playerIndex)
     {
-        _playersManager.GetPlayerInputs[playerIndex].transform.position = 
+        _playersManager.GetPlayerInputs[playerIndex].transform.position =
             _spawnPoints[playerIndex].position;
     }
 
@@ -128,7 +145,7 @@ public class MainMenuManager : MonoBehaviour
 
         _playersManager.EnablePlayersJoin();
         _playersManager.SubscribeToNewPlayersEvent();
-        
+
         _playersManager.OnNewPlayerAdded += OnNewPlayerAdded;
 
         _eventSystem.gameObject.SetActive(false);
@@ -236,7 +253,7 @@ public class MainMenuManager : MonoBehaviour
         yield return new WaitForSeconds(_timeBeforeNextTransition);
         _isTransitioning = false;
     }
-    private IEnumerator LerpPosition(Transform transform ,Vector3 StartPos, Vector3 EndPos, float LerpTime)
+    private IEnumerator LerpPosition(Transform transform, Vector3 StartPos, Vector3 EndPos, float LerpTime)
     {
         float StartTime = Time.time;
         float EndTime = StartTime + LerpTime;
@@ -259,18 +276,18 @@ public class MainMenuManager : MonoBehaviour
         _playersManager.DisableAllPlayersUIs();
 
         int amountOfLevels = SceneManager.sceneCountInBuildSettings;
-        int lextLevelIndex = UnityEngine.Random.Range(1, amountOfLevels);
-        SceneManager.LoadScene(lextLevelIndex);
+        int nextLevelIndex = UnityEngine.Random.Range(1, amountOfLevels);
+        SceneManager.LoadScene(nextLevelIndex);
     }
 
     private void OnExitGameSelected()
     {
         _playersManager.SetAllPlayersDefaultTurret();
-        #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-        #else
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
             Application.Quit();
-        #endif
+#endif
     }
 
     private void EnableCountDownText() => _countDownText.enabled = true;

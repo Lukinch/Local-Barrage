@@ -32,13 +32,13 @@ public class EndLevelScreen : MonoBehaviour
     [SerializeField] private ButtonEventEmitter _exitGameButton;
     [Header("------------------")]
     [Header("Settings")]
-    [SerializeField] private int _timeTillNextlevel;
+    [SerializeField] private int _timeTillNextLevel = 3;
 
     private int _currentTime;
 
     private void Awake()
     {
-        _currentTime = _timeTillNextlevel;
+        _currentTime = _timeTillNextLevel;
         _levelPlayersManager.OnLevelEnded += OnLevelEnded;
 
         for (int i = 0; i < _playerWonPlayersScoreTexts.Count; i++)
@@ -53,6 +53,7 @@ public class EndLevelScreen : MonoBehaviour
 
     private void OnLevelEnded()
     {
+        BackgroundMusicManager.Instance.StopMusic();
         int[] playersPoints = GlobalPlayersManager.Instance.GetPlayerPointsInt();
 
         int maxValue = playersPoints.Max();
@@ -69,6 +70,7 @@ public class EndLevelScreen : MonoBehaviour
 
     private void OnNextLevel(int[] playersPoints)
     {
+        BackgroundMusicManager.Instance.PlayNextLevelClip();
         for (int i = 0; i < playersPoints.Length; i++)
         {
             _nextLevelPlayersScoreTexts[i].text = $"Player {i + 1} Points: {playersPoints[i]}";
@@ -90,6 +92,7 @@ public class EndLevelScreen : MonoBehaviour
 
     private void OnPlayerWon(int playerIndex, int[] playersPoints)
     {
+        BackgroundMusicManager.Instance.PlayPlayerWonClip();
         for (int i = 0; i < playersPoints.Length; i++)
         {
             _playerWonPlayersScoreTexts[i].text = $"Player {i + 1} Points: {playersPoints[i]}";
@@ -109,7 +112,7 @@ public class EndLevelScreen : MonoBehaviour
 
         winner.enabled = true;
 
-        GlobalPlayersManager.Instance.SwitchPlayerActionMap(winner,"UI");
+        GlobalPlayersManager.Instance.SwitchPlayerActionMap(winner, "UI");
         _inputSystemUI.actionsAsset = winner.actions;
 
         _playerWonScreenObject.SetActive(true);
@@ -124,15 +127,16 @@ public class EndLevelScreen : MonoBehaviour
     private void LoadMainMenu()
     {
         SceneManager.LoadScene(0);
+        BackgroundMusicManager.Instance.PlayMenuTheme();
     }
 
     private void ExitGame()
     {
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
-        #else
+#else
         Application.Quit();
-        #endif
+#endif
     }
 
     private IEnumerator NextLevelCountdown()
@@ -151,12 +155,12 @@ public class EndLevelScreen : MonoBehaviour
         int amountOfLevels = SceneManager.sceneCountInBuildSettings;
         int currentLevelIndex = SceneManager.GetActiveScene().buildIndex;
 
-        int lextLevelIndex = Random.Range(1, amountOfLevels);
-        while (lextLevelIndex == currentLevelIndex)
+        int nextLevelIndex = Random.Range(1, amountOfLevels);
+        while (nextLevelIndex == currentLevelIndex)
         {
-            lextLevelIndex = Random.Range(1, amountOfLevels);
+            nextLevelIndex = Random.Range(1, amountOfLevels);
         }
 
-        SceneManager.LoadScene(lextLevelIndex);
+        SceneManager.LoadScene(nextLevelIndex);
     }
 }

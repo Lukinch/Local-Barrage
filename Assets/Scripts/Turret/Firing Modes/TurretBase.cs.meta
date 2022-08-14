@@ -4,7 +4,11 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - turretStats: {instanceID: 0}
+  - _mixerGroup: {fileID: -5600124991507403453, guid: 14eac8130f3e321438ad1269d97d2fd7,
+      type: 2}
+  - _projectilePrefab: {instanceID: 0}
+  - _audioSourcePrefab: {instanceID: 0}
+  - _firingSound: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

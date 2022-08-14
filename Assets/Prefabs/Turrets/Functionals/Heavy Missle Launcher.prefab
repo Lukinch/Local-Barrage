@@ -168,6 +168,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _turretName: Heavy Missle Launcher
   _turretType: 2
+  _mixerGroup: {fileID: -5600124991507403453, guid: 14eac8130f3e321438ad1269d97d2fd7,
+    type: 2}
   _projectilePrefab: {fileID: 7516791745877141054, guid: 05c900abef257a44182bdddb66502797,
     type: 3}
   _audioSourcePrefab: {fileID: 8260007326794584728, guid: 3395939b2cb917649b42723868262fc8,
@@ -185,7 +187,6 @@ MonoBehaviour:
   - {fileID: 566310411396324053}
   - {fileID: 3205796271043058464}
   - {fileID: 4203141401743340602}
-  _reloadSound: {fileID: 8300000, guid: 4c1afcdee9778354f9b4975e633eb7ac, type: 3}
   _turretTapFireStatsSO: {fileID: 11400000, guid: 2342e9be2a2eaf7468a8f34094d2210a,
     type: 2}
 --- !u!1 &2735298197334998310

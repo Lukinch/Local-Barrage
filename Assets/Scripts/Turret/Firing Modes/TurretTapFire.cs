@@ -39,10 +39,10 @@ public class TurretTapFire : TurretBase
         if (_isReloading) return;
 
         _isReloading = true;
-        StartCoroutine(nameof(FireFromFirginPoints));
+        StartCoroutine(nameof(FireFromFiringPoints));
     }
 
-    private IEnumerator FireFromFirginPoints()
+    private IEnumerator FireFromFiringPoints()
     {
         foreach (Transform firingPoint in _firingPoints)
         {
@@ -54,10 +54,10 @@ public class TurretTapFire : TurretBase
             yield return new WaitForSeconds(_turretTapFireStatsSO.timeBetweenShots);
         }
 
-        StartCoroutine(nameof(WaitForRealod));
+        StartCoroutine(nameof(WaitForReload));
     }
 
-    private IEnumerator WaitForRealod()
+    private IEnumerator WaitForReload()
     {
         while (_isReloading && _currentReloadTime <= _turretTapFireStatsSO.reloadTime)
         {
