@@ -3767,6 +3767,11 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 2159161567508891404, guid: 73bd83aed54862b4f91d5a97f1748fd0,
         type: 3}
+      propertyPath: _menuClip
+      value: 
+      objectReference: {fileID: 8300000, guid: eee2fbcba6f87694998289eb9af58636, type: 3}
+    - target: {fileID: 2159161567508891404, guid: 73bd83aed54862b4f91d5a97f1748fd0,
+        type: 3}
       propertyPath: _audioSource
       value: 
       objectReference: {fileID: 416556955}
@@ -3780,6 +3785,36 @@ PrefabInstance:
       propertyPath: _playerWonClip
       value: 
       objectReference: {fileID: 8300000, guid: 87ed0ad56a353b34bb208faf3866577d, type: 3}
+    - target: {fileID: 2159161567508891404, guid: 73bd83aed54862b4f91d5a97f1748fd0,
+        type: 3}
+      propertyPath: _levelClips.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2159161567508891404, guid: 73bd83aed54862b4f91d5a97f1748fd0,
+        type: 3}
+      propertyPath: _levelClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 4baae3723f15cf345b4c06892dfae4c2, type: 3}
+    - target: {fileID: 2159161567508891404, guid: 73bd83aed54862b4f91d5a97f1748fd0,
+        type: 3}
+      propertyPath: _levelClips.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 7df2d0ff9ac6241419eb9efe91cae927, type: 3}
+    - target: {fileID: 2159161567508891404, guid: 73bd83aed54862b4f91d5a97f1748fd0,
+        type: 3}
+      propertyPath: _levelClips.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 2e7fe5747d3996f4ca44a34dd9eacde6, type: 3}
+    - target: {fileID: 2159161567508891404, guid: 73bd83aed54862b4f91d5a97f1748fd0,
+        type: 3}
+      propertyPath: _levelClips.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: c9a8a5d951d1a1647938ff08b0873958, type: 3}
+    - target: {fileID: 2159161567508891404, guid: 73bd83aed54862b4f91d5a97f1748fd0,
+        type: 3}
+      propertyPath: _levelClips.Array.data[4]
+      value: 
+      objectReference: {fileID: 8300000, guid: 20df986adc225b5419c007c8e577eede, type: 3}
     - target: {fileID: 2159161567508891405, guid: 73bd83aed54862b4f91d5a97f1748fd0,
         type: 3}
       propertyPath: m_RootOrder
