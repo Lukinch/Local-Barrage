@@ -5,7 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Projectile : MonoBehaviour
 {
-    [SerializeField] private GameObject _impactParticles;
+    [SerializeField] private Rigidbody _rigidbody;
+    [SerializeField] private GameObject _projectileObject;
+    [SerializeField] private ParticleSystem _impactParticles;
     [SerializeField] private int _timeToDestroy = 3;
     private int _currentTime;
 
@@ -28,11 +30,6 @@ public class Projectile : MonoBehaviour
         DestroySelf();
     }
 
-    public void DestroySelf()
-    {
-        Destroy(gameObject);
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         IDamageCollision unitCollision = other.GetComponent<IDamageCollision>();
@@ -53,7 +50,23 @@ public class Projectile : MonoBehaviour
 
     private void Destroy()
     {
-        Instantiate(_impactParticles, transform.position, transform.rotation);
+        _rigidbody.velocity = Vector3.zero;
+        _rigidbody.angularVelocity = Vector3.zero;
+
+        _impactParticles.Play();
+        _projectileObject.SetActive(false);
+        StartCoroutine(DestroyGameObject());
+    }
+
+    private IEnumerator DestroyGameObject()
+    {
+        yield return new WaitForSeconds(_impactParticles.main.duration);
+        DestroySelf();
+    }
+
+    public void DestroySelf()
+    {
+        // TODO: Implement object pooling
         Destroy(gameObject);
     }
 }
