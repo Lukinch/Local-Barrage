@@ -1,0 +1,33 @@
+using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.UI;
+using TMPro;
+
+public class VolumeSlider : MonoBehaviour
+{
+    [SerializeField] private AudioMixerGroup _audioMixerGroup;
+    [SerializeField] private Slider _sliderToUpdate;
+    [SerializeField] private TextMeshProUGUI _textToUpdate;
+
+    private float _maxSliderValue = 1;
+
+    private void Start()
+    {
+        _sliderToUpdate.value = AudioSettingsManager.Instance.GetMixerVolume(_audioMixerGroup.name);
+        Debug.Log($"Slider {_audioMixerGroup.name} value:{_sliderToUpdate.value}");
+        UpdateText();
+    }
+
+    private void UpdateText()
+    {
+        float percentage = (_sliderToUpdate.value / _maxSliderValue) * 100;
+        string toText = percentage.ToString("0");
+        _textToUpdate.text = $"{toText}%";
+    }
+
+    public void SetVolume(float value)
+    {
+        AudioSettingsManager.Instance.SetMixerVolumeFromSlider(_audioMixerGroup.name, value);
+        UpdateText();
+    }
+}

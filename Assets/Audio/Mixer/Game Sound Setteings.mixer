@@ -6,7 +6,7 @@ AudioMixerGroupController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: UI SFX
+  m_Name: UI
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 98adddc6f15686b4db5432de2a847c8c
   m_Children: []
@@ -39,7 +39,7 @@ AudioMixerGroupController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Gameplay SFX
+  m_Name: Gameplay
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 16e3c6f3c0aebcc4b8d4eb5a9bd7146f
   m_Children: []
@@ -86,7 +86,7 @@ AudioMixerGroupController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Background Music
+  m_Name: Music
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: f791e990c921d8c4f9dfb671103af5a2
   m_Children: []
@@ -114,7 +114,15 @@ AudioMixerController:
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
   m_UpdateMode: 0
-  m_ExposedParameters: []
+  m_ExposedParameters:
+  - guid: 0b108d1003e94374dad3a51301a350bf
+    name: Music
+  - guid: c6085e6e997aa7446a32ce53cd6ad6d9
+    name: Gameplay
+  - guid: 50cb8ce9781e2414da7ba8df056a7160
+    name: Master
+  - guid: dd19bedae7b96bc4999837e98b257936
+    name: UI
   m_AudioMixerGroupViews:
   - guids:
     - 92304565cdad7ac4d9591f722f0e8a3f
@@ -170,8 +178,8 @@ AudioMixerSnapshotController:
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: 00850924c843443428601919f7683058
   m_FloatValues:
-    0b108d1003e94374dad3a51301a350bf: -6.1337094
+    0b108d1003e94374dad3a51301a350bf: 0
     50cb8ce9781e2414da7ba8df056a7160: 0
-    dd19bedae7b96bc4999837e98b257936: -12.498478
-    c6085e6e997aa7446a32ce53cd6ad6d9: -0.39762732
+    dd19bedae7b96bc4999837e98b257936: 0
+    c6085e6e997aa7446a32ce53cd6ad6d9: 0
   m_TransitionOverrides: {}
