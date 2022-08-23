@@ -4475,8 +4475,6 @@ MonoBehaviour:
   _menuButtonContainer: {fileID: 271229751}
   _newGameButton: {fileID: 1685826268}
   _exitGameButton: {fileID: 1297305170}
-  _transitionPositionFrom: {x: 960, y: 540, z: 0}
-  _transitionPositionTo: {x: 960, y: 1680, z: 0}
   _transitionDuration: 0.5
   _timeBeforeNextTransition: 0.5
   _countDownText: {fileID: 373631248}
