@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerStatsController : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem _explosionVsf;
     [SerializeField] private PlayerHullCollision _hullCollision;
     [SerializeField] private PlayerShieldCollision _shieldCollision;
 
@@ -51,12 +52,14 @@ public class PlayerStatsController : MonoBehaviour
         EnableShield();
 
         int inputIndex = gameObject.GetComponent<UnityEngine.InputSystem.PlayerInput>().playerIndex;
+        _explosionVsf.Play();
+        GlobalPlayersManager.Instance.MakePlayerKinematic(inputIndex);
         GlobalPlayersManager.Instance.DisablePlayerGameplayComponents(inputIndex);
         GlobalPlayersManager.Instance.DisablePlayerVisuals(inputIndex);
         OnPlayerKilled?.Invoke();
     }
 
-    private void EnableHull() => _hullCollision.gameObject.SetActive(true);    
+    private void EnableHull() => _hullCollision.gameObject.SetActive(true);
     private void DisableHull() => _hullCollision.gameObject.SetActive(false);
 
     private void EnableShield() => _shieldCollision.gameObject.SetActive(true);
@@ -97,7 +100,7 @@ public class PlayerStatsController : MonoBehaviour
             DisableShield();
             EnableHull();
         }
-        
+
         OnShieldHealthChangedEvent?.Invoke(_currentShield / _maxShield);
     }
     public void PickableDamageShield(float damage)

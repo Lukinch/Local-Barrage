@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem.UI;
+using TMPro;
 
 public class PlayerComponentReferences : MonoBehaviour
 {
@@ -37,6 +34,7 @@ public class PlayerComponentReferences : MonoBehaviour
     #region Scripts
     #region Menu UI Related
     public UIPlayerMainMenu PlayerUiManager { get => _playerUiManager; }
+    public TextMeshProUGUI MenuPlayerName;
     #endregion
 
     #region Gameplay Related
@@ -48,6 +46,7 @@ public class PlayerComponentReferences : MonoBehaviour
     public TurretFiringController TurretFiringController { get => _turretFiringController; }
     public PlayerTurretController TurretController { get => _turretController; }
     public PlayerTurretRotationController TurretRotationController { get => _turretRotationController; }
+    public TextMeshProUGUI GameplayPlayerName;
     #endregion
     #endregion
 }

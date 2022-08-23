@@ -1062,7 +1062,7 @@ MonoBehaviour:
   - {fileID: 7039374592521971332}
   _mainMenuButton: {fileID: 1252101859692869345}
   _exitGameButton: {fileID: 1894044169765923737}
-  _timeTillNextLevel: 3
+  _timeTillNextLevel: 5
 --- !u!114 &1708862740089621702
 MonoBehaviour:
   m_ObjectHideFlags: 0

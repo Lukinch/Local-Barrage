@@ -18,6 +18,6 @@ MonoBehaviour:
   overheatTime: 5
   coolingTime: 3
   overheatPerShot: 0.1
-  damagePerShot: 10
+  damagePerShot: 8
   projectileForce: 50
   damageType: 0

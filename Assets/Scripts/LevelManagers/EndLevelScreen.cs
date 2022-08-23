@@ -32,13 +32,14 @@ public class EndLevelScreen : MonoBehaviour
     [SerializeField] private ButtonEventEmitter _exitGameButton;
     [Header("------------------")]
     [Header("Settings")]
-    [SerializeField] private int _timeTillNextLevel = 3;
+    [SerializeField] private int _timeTillNextLevel;
 
     private int _currentTime;
 
     private void Awake()
     {
         _currentTime = _timeTillNextLevel;
+        _countdownText.text = $"Next Level Starts In: {_timeTillNextLevel}";
         _levelPlayersManager.OnLevelEnded += OnLevelEnded;
 
         for (int i = 0; i < _playerWonPlayersScoreTexts.Count; i++)

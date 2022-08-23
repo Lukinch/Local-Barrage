@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using TMPro;
-using System;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.EventSystems;
 
@@ -23,17 +22,15 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private GameObject _menuButtonContainer;
     [SerializeField] private ButtonEventEmitter _newGameButton;
     [SerializeField] private ButtonEventEmitter _exitGameButton;
-    [SerializeField] private Vector3 _transitionPositionFrom;
-    [SerializeField] private Vector3 _transitionPositionTo;
     [SerializeField] private float _transitionDuration = 0.5f;
     [SerializeField] private float _timeBeforeNextTransition = 0.5f;
     [Header("New Game Dependencies")]
     [SerializeField] private TextMeshProUGUI _countDownText;
     [SerializeField] private List<Transform> _spawnPoints;
-    [SerializeField] private int _nextLevelCountDown = 5;
+    [SerializeField] private List<Canvas> _spawnPointsCanvases;
+    [SerializeField] private int _nextLevelCountDown;
 
     private GlobalPlayersManager _playersManager;
-    private bool _isFirstPlayerSpawned;
     private bool _isTransitioning;
 
     private int _currentAmountOfPlayers;
@@ -47,6 +44,7 @@ public class MainMenuManager : MonoBehaviour
         _currentTimer = _nextLevelCountDown;
         _currentAmountOfPlayers = 0;
         _amountOfPlayersReady = 0;
+        _countDownText.text = $"Start in: {_nextLevelCountDown}";
     }
 
     private void OnEnable()
@@ -138,7 +136,8 @@ public class MainMenuManager : MonoBehaviour
         if (_isTransitioning) return;
 
         StartCoroutine(TransitionCooldown());
-        StartCoroutine(LerpPosition(_mainMenuObject, _transitionPositionFrom, _transitionPositionTo, _transitionDuration));
+
+        _mainMenuObject.gameObject.SetActive(false);
 
         _newGameButton.onClick.RemoveListener(OnNewGameSelected);
         _exitGameButton.onClick.RemoveListener(OnExitGameSelected);
@@ -178,7 +177,8 @@ public class MainMenuManager : MonoBehaviour
         _playersManager.UnsubscribeToNewPlayersEvent();
 
         StartCoroutine(nameof(TransitionCooldown));
-        StartCoroutine(LerpPosition(_mainMenuObject, _transitionPositionTo, _transitionPositionFrom, _transitionDuration));
+
+        StartCoroutine(WaitForTransition());
 
         _playersManager.DisableAllPlayersPersonalEventSystem();
 
@@ -194,6 +194,7 @@ public class MainMenuManager : MonoBehaviour
 
     private void OnNewPlayerAdded(PlayerInput playerInput)
     {
+        _spawnPointsCanvases[_currentAmountOfPlayers - 1].gameObject.SetActive(false);
         SetupPlayerForMainMenu(playerInput.playerIndex);
     }
 
@@ -253,18 +254,11 @@ public class MainMenuManager : MonoBehaviour
         yield return new WaitForSeconds(_timeBeforeNextTransition);
         _isTransitioning = false;
     }
-    private IEnumerator LerpPosition(Transform transform, Vector3 StartPos, Vector3 EndPos, float LerpTime)
+
+    private IEnumerator WaitForTransition()
     {
-        float StartTime = Time.time;
-        float EndTime = StartTime + LerpTime;
-
-        while (Time.time < EndTime)
-        {
-            float timeProgressed = (Time.time - StartTime) / LerpTime;  // this will be 0 at the beginning and 1 at the end.
-            transform.position = Vector3.Lerp(StartPos, EndPos, timeProgressed);
-
-            yield return new WaitForFixedUpdate();
-        }
+        yield return new WaitForSeconds(_transitionDuration);
+        _mainMenuObject.gameObject.SetActive(true);
     }
 
     private void LoadNextLevel()

@@ -45,10 +45,19 @@ public class GlobalPlayersManager : MonoBehaviour
 
         _players.Add(playerInput);
 
+        ChangePlayerName();
+
         _playersAmount++;
 
         if (_playersAmount < 2) OnFirstPlayerAdded?.Invoke(playerInput);
         else OnNewPlayerAdded?.Invoke(playerInput);
+    }
+
+    private void ChangePlayerName()
+    {
+        PlayerComponentReferences player = _players[_playersAmount].gameObject.GetComponent<PlayerComponentReferences>();
+        player.MenuPlayerName.text = $"Player {_players.Count}";
+        player.GameplayPlayerName.text = $"Player {_players.Count}";
     }
 
     #region Public Methods
