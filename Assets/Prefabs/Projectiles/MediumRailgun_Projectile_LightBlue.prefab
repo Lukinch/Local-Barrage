@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2e56689be7ed4574eb99308161956552, type: 2}
+  - {fileID: 2100000, guid: 41f6ef1ece1920d408a6f5a8f1bf64d7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -136,7 +136,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2e56689be7ed4574eb99308161956552, type: 2}
+  - {fileID: 2100000, guid: 41f6ef1ece1920d408a6f5a8f1bf64d7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5047,7 +5047,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2e56689be7ed4574eb99308161956552, type: 2}
+  - {fileID: 2100000, guid: 41f6ef1ece1920d408a6f5a8f1bf64d7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5111,7 +5111,7 @@ GameObject:
   - component: {fileID: 1363642431941470367}
   - component: {fileID: 241781864960477934}
   m_Layer: 9
-  m_Name: Projectile_White
+  m_Name: MediumRailgun_Projectile_LightBlue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
