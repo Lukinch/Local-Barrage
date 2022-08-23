@@ -28,18 +28,21 @@ public class UiSfxManager : MonoBehaviour
     public void PlayHighlightButtonClip()
     {
         if (!ShouldPlayButtonsSounds) return;
+        _audioSource.volume = 0.4f;
         _audioSource.PlayOneShot(_buttonHighlightClip);
     }
 
     public void PlayPressButtonClip()
     {
         if (!ShouldPlayButtonsSounds) return;
+        _audioSource.volume = 0.4f;
         _audioSource.PlayOneShot(_buttonPressClip);
     }
 
     public void PlayPauseMenuClip()
     {
         _audioSource.clip = _pauseMenuClip;
+        _audioSource.volume = 1f;
         _audioSource.Play();
     }
 }
