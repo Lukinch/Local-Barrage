@@ -72,8 +72,6 @@ public class PlayerStatsController : MonoBehaviour
         {
             _currentHealth = 0;
 
-            GlobalPlayersManager.Instance.AddPointsToPlayer(projectileOwner);
-
             DisableSelf();
         }
 

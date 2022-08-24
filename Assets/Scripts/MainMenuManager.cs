@@ -179,7 +179,7 @@ public class MainMenuManager : MonoBehaviour
         _playersManager.DisablePlayersJoin();
         _playersManager.UnsubscribeToNewPlayersEvent();
 
-        StartCoroutine(nameof(TransitionCooldown));
+        StartCoroutine(TransitionCooldown());
 
         StartCoroutine(WaitForTransition());
 
@@ -197,6 +197,7 @@ public class MainMenuManager : MonoBehaviour
 
     private void OnNewPlayerAdded(PlayerInput playerInput)
     {
+        StopCountDownToLoadNextLevel();
         _spawnPointsCanvases[_currentAmountOfPlayers - 1].gameObject.SetActive(false);
         SetupPlayerForMainMenu(playerInput.playerIndex);
     }
@@ -228,13 +229,14 @@ public class MainMenuManager : MonoBehaviour
 
     private void StartCountDownToLoadNextLevel()
     {
-        _countDown = StartCoroutine(nameof(StartContDown));
+        _countDown = StartCoroutine(StartContDown());
         EnableCountDownText();
         UpdateCountDownText();
     }
     private void StopCountDownToLoadNextLevel()
     {
         if (_countDown != null) StopCoroutine(_countDown);
+        _countDown = null;
         _currentTimer = _nextLevelCountDown;
         UpdateCountDownText();
         DisableCountDownText();
