@@ -114,4 +114,13 @@ public class PauseMenuScreen : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.1f);
         UiSfxManager.Instance.ShouldPlayButtonsSounds = true;
     }
+
+    public void SetSelectedGameObject(GameObject gameObject)
+    {
+        _eventSystem.SetSelectedGameObject(null);
+        if (_currentPlayer.currentControlScheme == "Gamepad")
+        {
+            _eventSystem.SetSelectedGameObject(gameObject);
+        }
+    }
 }
