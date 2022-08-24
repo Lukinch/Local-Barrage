@@ -32,6 +32,7 @@ public class MainMenuManager : MonoBehaviour
 
     private GlobalPlayersManager _playersManager;
     private bool _isTransitioning;
+    private PlayerInput _currentPlayerControllingUI;
 
     private int _currentAmountOfPlayers;
     private int _amountOfPlayersReady;
@@ -69,6 +70,8 @@ public class MainMenuManager : MonoBehaviour
     {
         UiSfxManager.Instance.ShouldPlayButtonsSounds = false;
         UiSfxManager.Instance.ShouldPlaySelectedSounds = false;
+
+        _currentPlayerControllingUI = playerInput;
 
         _playersManager.OnFirstPlayerAdded -= OnFirstPlayerAdded;
 
@@ -282,6 +285,15 @@ public class MainMenuManager : MonoBehaviour
 #else
             Application.Quit();
 #endif
+    }
+
+    public void SetSelectedGameObject(GameObject gameObject)
+    {
+        _eventSystem.SetSelectedGameObject(null);
+        if (_currentPlayerControllingUI.currentControlScheme == "Gamepad")
+        {
+            _eventSystem.SetSelectedGameObject(gameObject);
+        }
     }
 
     private void EnableCountDownText() => _countDownText.enabled = true;

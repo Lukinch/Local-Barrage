@@ -39,7 +39,6 @@ public class AudioSettingsManager : MonoBehaviour
         PlayerPrefs.SetFloat("GameplayVolume", GameplayVolume);
         PlayerPrefs.SetFloat("UIVolume", UiVolume);
         PlayerPrefs.SetFloat("MusicVolume", MusicVolume);
-        Debug.Log("Settings Saved");
     }
 
     private void LoadVolumeData()

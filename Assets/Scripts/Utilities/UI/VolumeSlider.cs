@@ -5,6 +5,12 @@ using TMPro;
 
 public class VolumeSlider : MonoBehaviour
 {
+    [Header("Selection Settings")]
+    [SerializeField] private Image _sliderHandle;
+    [SerializeField] private Color _selectedColor;
+    [SerializeField] private Color _normalColor;
+
+    [Header("Audio Settings")]
     [SerializeField] private AudioMixerGroup _audioMixerGroup;
     [SerializeField] private Slider _sliderToUpdate;
     [SerializeField] private TextMeshProUGUI _textToUpdate;
@@ -14,7 +20,7 @@ public class VolumeSlider : MonoBehaviour
     private void Start()
     {
         _sliderToUpdate.value = AudioSettingsManager.Instance.GetMixerVolume(_audioMixerGroup.name);
-        Debug.Log($"Slider {_audioMixerGroup.name} value:{_sliderToUpdate.value}");
+
         UpdateText();
     }
 
@@ -29,5 +35,14 @@ public class VolumeSlider : MonoBehaviour
     {
         AudioSettingsManager.Instance.SetMixerVolumeFromSlider(_audioMixerGroup.name, value);
         UpdateText();
+    }
+
+    public void SetSelectedColor()
+    {
+        _sliderHandle.color = _selectedColor;
+    }
+    public void SetDeselectedColor()
+    {
+        _sliderHandle.color = _normalColor;
     }
 }

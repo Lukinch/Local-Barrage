@@ -5491,11 +5491,6 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7039374591630307310, guid: a1bcd393479be644e91ab67f04e62e9b,
-        type: 3}
-      propertyPath: levelPlayersManager
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 7039374592799271961, guid: a1bcd393479be644e91ab67f04e62e9b,
         type: 3}
       propertyPath: m_Name
@@ -5556,11 +5551,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8759274562028694284, guid: a1bcd393479be644e91ab67f04e62e9b,
-        type: 3}
-      propertyPath: levelPlayersManager
-      value: 
-      objectReference: {fileID: 414153645}
     - target: {fileID: 8759274562028694284, guid: a1bcd393479be644e91ab67f04e62e9b,
         type: 3}
       propertyPath: _levelPlayersManager
