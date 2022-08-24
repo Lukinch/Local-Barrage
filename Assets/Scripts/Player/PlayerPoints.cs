@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerPoints : MonoBehaviour
 {
-    [SerializeField] private int _pointsPerKill = 25;
+    [SerializeField] private int _pointsPerWin = 25;
     [SerializeField] private PlayerInput _playerInput;
     private int _points;
 
@@ -14,7 +14,7 @@ public class PlayerPoints : MonoBehaviour
 
     public void AddPoints()
     {
-        _points += _pointsPerKill;
+        _points += _pointsPerWin;
         if (_points >= GlobalPlayersManager.Instance.MaxAmountOfPointsPerPlayer)
         {
             _points = 50;

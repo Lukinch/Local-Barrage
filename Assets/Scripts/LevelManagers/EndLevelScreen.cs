@@ -55,6 +55,10 @@ public class EndLevelScreen : MonoBehaviour
     private void OnLevelEnded()
     {
         BackgroundMusicManager.Instance.StopMusic();
+
+        int lastPlayerIndex = GlobalPlayersManager.Instance.GetLastPlayerStandingIndex();
+        GlobalPlayersManager.Instance.AddPointsToPlayer(lastPlayerIndex);
+
         int[] playersPoints = GlobalPlayersManager.Instance.GetPlayerPointsInt();
 
         int maxValue = playersPoints.Max();
