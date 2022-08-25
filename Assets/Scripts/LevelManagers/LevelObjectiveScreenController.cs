@@ -7,25 +7,31 @@ using System;
 
 public class LevelObjectiveScreenController : MonoBehaviour
 {
+    [Header("Settings Dependency")]
+    [SerializeField] private GameplaySettingsSO _gameplaySettings;
+
+    [Header("UI Dependencies")]
     [SerializeField] private Image _background;
     [SerializeField] private TextMeshProUGUI _countdown;
-    [SerializeField] private int _timeToStartMatch;
+
+    private int _timeToStartMatch;
 
     private int _currentTime;
     private Vector3 _imageSize;
     private GlobalPlayersManager _globalPlayersManager;
 
-    private float _amountToSubstract;
+    private float _amountToSubtract;
 
     public event Action OnObjectiveShown;
 
     private void Awake()
     {
+        _timeToStartMatch = _gameplaySettings.TimeToStartLevel;
         _globalPlayersManager = FindObjectOfType<GlobalPlayersManager>();
 
         /// 1 - Full image fill amount
         /// 50 - WaitForFixedUpdate calls per second
-        _amountToSubstract = (1f / (float)_timeToStartMatch) / 50f;
+        _amountToSubtract = (1f / (float)_timeToStartMatch) / 50f;
     }
 
     private void OnEnable()
@@ -58,7 +64,7 @@ public class LevelObjectiveScreenController : MonoBehaviour
     {
         while (_currentTime > 0)
         {
-            _imageSize.y -= _amountToSubstract;
+            _imageSize.y -= _amountToSubtract;
             _background.rectTransform.localScale = _imageSize;
             yield return new WaitForFixedUpdate();
         }

@@ -10,6 +10,8 @@ using UnityEngine.EventSystems;
 
 public class MainMenuManager : MonoBehaviour
 {
+    [Header("Settings Dependency")]
+    [SerializeField] private GameplaySettingsSO _gameplaySettings;
     [Header("Cameras Dependencies")]
     [SerializeReference] private Animator _cinemachineAnimator;
     [Header("Systems Dependencies")]
@@ -28,7 +30,7 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _countDownText;
     [SerializeField] private List<Transform> _spawnPoints;
     [SerializeField] private List<Canvas> _spawnPointsCanvases;
-    [SerializeField] private int _nextLevelCountDown;
+    private int _nextLevelCountDown;
 
     private GlobalPlayersManager _playersManager;
     private bool _isTransitioning;
@@ -42,6 +44,7 @@ public class MainMenuManager : MonoBehaviour
 
     private void Awake()
     {
+        _nextLevelCountDown = _gameplaySettings.TimeToStartNewGame;
         _currentTimer = _nextLevelCountDown;
         _currentAmountOfPlayers = 0;
         _amountOfPlayersReady = 0;

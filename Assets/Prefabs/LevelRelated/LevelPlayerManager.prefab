@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29ca7d4c8ce7ed14f9e1bcf0a326c518, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameplaySettings: {fileID: 11400000, guid: 9f98e57bc2d3bbf4699b3da26efef7b3, type: 2}
   _dummyPlayerPrefab: {fileID: 148451351391489397, guid: 764fd95a141a8d74882d741de6df2964,
     type: 3}
   _levelCamera: {fileID: 0}

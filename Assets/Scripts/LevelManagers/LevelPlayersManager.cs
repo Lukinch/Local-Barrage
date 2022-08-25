@@ -7,21 +7,29 @@ using UnityEngine.SceneManagement;
 
 public class LevelPlayersManager : MonoBehaviour
 {
+    [Header("Settings Dependency")]
+    [SerializeField] private GameplaySettingsSO _gameplaySettings;
     [SerializeField] private GameObject _dummyPlayerPrefab;
+
+    [Header("Level Dependencies")]
     [SerializeField] private Camera _levelCamera;
     [SerializeField] private LevelObjectiveScreenController _levelObjectiveScreenController;
     [SerializeField] private List<Transform> _spawnPoints;
-    [SerializeField, Range(1, 3)] private int _maxAmountOfDummies = 3;
+
+    private int _maxAmountOfDummies;
 
     private int _amountOfPlayersKilled;
     private int _amountOfDummiesKilled;
     private int _amountOfPlayers;
-    private PlayerComponentReferences[] _dummies = new PlayerComponentReferences[3];
+    private int _currentAmountOfDummies;
+    private PlayerComponentReferences[] _dummies;
 
     public event Action OnLevelEnded;
 
     private void Awake()
     {
+        _maxAmountOfDummies = Mathf.RoundToInt(_gameplaySettings.AmountOfDummies);
+        _dummies = new PlayerComponentReferences[_maxAmountOfDummies];
         _levelCamera = Camera.main;
     }
 
@@ -56,18 +64,19 @@ public class LevelPlayersManager : MonoBehaviour
 
     private void SpawnDummyplayers()
     {
-        for (int i = 1; i < _spawnPoints.Count; i++)
+        for (int i = 0; i < _maxAmountOfDummies; i++)
         {
-            Vector3 position = _spawnPoints[i].position;
-            Quaternion rotation = _spawnPoints[i].rotation;
+            Vector3 position = _spawnPoints[i + 1].position;
+            Quaternion rotation = _spawnPoints[i + 1].rotation;
             GameObject dummy = Instantiate(_dummyPlayerPrefab, position, rotation);
             PlayerComponentReferences player = dummy.GetComponent<PlayerComponentReferences>();
-            _dummies[i - 1] = player;
+            _dummies[i] = player;
             player.TurretPosition.SetActive(false);
             player.SphereRenderer.enabled = false;
             player.LiveUI.SetActive(false);
             player.PlayerColliders.SetActive(false);
             player.GameplayPlayerName.text = $"Dummy {i}";
+            _currentAmountOfDummies++;
         }
     }
 
@@ -92,7 +101,7 @@ public class LevelPlayersManager : MonoBehaviour
 
     private void EnableDummiesVisuals()
     {
-        for (int i = 0; i < _dummies.Length; i++)
+        for (int i = 0; i < _maxAmountOfDummies; i++)
         {
             _dummies[i].TurretPosition.SetActive(true);
             _dummies[i].SphereRenderer.enabled = true;

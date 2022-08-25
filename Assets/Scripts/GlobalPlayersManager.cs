@@ -6,16 +6,20 @@ using UnityEngine.InputSystem;
 
 public class GlobalPlayersManager : MonoBehaviour
 {
+    [Header("Settings Dependency")]
+    [SerializeField] private GameplaySettingsSO _gameplaySettings;
+
     [SerializeField] private int _maxNumberOfPlayers;
     [SerializeField] private PlayerInputManager _playerInputManager;
-    [SerializeField] private int _maxAmountOfPointsPerPlayer = 50;
+
+    private float _maxAmountOfPointsToWin;
 
     private int _playersAmount;
     private List<PlayerInput> _players = new List<PlayerInput>();
 
     public static GlobalPlayersManager Instance;
     public int PlayersAmount => _playersAmount;
-    public int MaxAmountOfPointsPerPlayer => _maxAmountOfPointsPerPlayer;
+    public float MaxAmountOfPointsToWin => _maxAmountOfPointsToWin;
     public List<PlayerInput> GetPlayerInputs { get => _players; }
 
     public event Action<PlayerInput> OnFirstPlayerAdded;
@@ -33,6 +37,7 @@ public class GlobalPlayersManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
 
+        _maxAmountOfPointsToWin = _gameplaySettings.AmountOfPointsToWin;
         _playersAmount = 0;
     }
 
@@ -271,9 +276,9 @@ public class GlobalPlayersManager : MonoBehaviour
         }
     }
 
-    public int[] GetPlayerPointsInt()
+    public float[] GetPlayerPointsInt()
     {
-        int[] points = new int[_playersAmount];
+        float[] points = new float[_playersAmount];
 
         for (int i = 0; i < _playersAmount; i++)
         {
@@ -285,7 +290,7 @@ public class GlobalPlayersManager : MonoBehaviour
 
     public void AddPointsToPlayer(int index)
     {
-        _players[index].gameObject.GetComponent<PlayerComponentReferences>().Points.AddPoints();
+        _players[index].gameObject.GetComponent<PlayerComponentReferences>().Points.AddPoints(_gameplaySettings.AmountOfPointsPerWin);
     }
 
     public int GetLastPlayerStandingIndex()

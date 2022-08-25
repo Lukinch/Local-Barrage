@@ -1041,6 +1041,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9e84a38a53732044b364f085e305797, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameplaySettings: {fileID: 11400000, guid: 9f98e57bc2d3bbf4699b3da26efef7b3, type: 2}
   _levelPlayersManager: {fileID: 0}
   _inputSystemUI: {fileID: 7039374591812997677}
   _eventSystem: {fileID: 7039374591812997678}
@@ -1062,7 +1063,6 @@ MonoBehaviour:
   - {fileID: 7039374592521971332}
   _mainMenuButton: {fileID: 1252101859692869345}
   _exitGameButton: {fileID: 1894044169765923737}
-  _timeTillNextLevel: 5
 --- !u!114 &1708862740089621702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3314,9 +3314,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1984dccfc1406404a9b843c47e58bdc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameplaySettings: {fileID: 11400000, guid: 9f98e57bc2d3bbf4699b3da26efef7b3, type: 2}
   _background: {fileID: 7039374593162906166}
   _countdown: {fileID: 7039374591434304053}
-  _timeToStartMatch: 3
 --- !u!1 &7039374592998681326
 GameObject:
   m_ObjectHideFlags: 0

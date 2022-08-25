@@ -6,20 +6,20 @@ using UnityEngine.InputSystem;
 
 public class PlayerPoints : MonoBehaviour
 {
-    [SerializeField] private int _pointsPerWin = 25;
     [SerializeField] private PlayerInput _playerInput;
-    private int _points;
+    private float _points;
 
-    public int Points { get => _points; }
+    public float Points { get => _points; }
 
-    public void AddPoints()
+    public void AddPoints(float amount)
     {
-        _points += _pointsPerWin;
-        if (_points >= GlobalPlayersManager.Instance.MaxAmountOfPointsPerPlayer)
+        _points += amount;
+        float maxPoints = GlobalPlayersManager.Instance.MaxAmountOfPointsToWin;
+        if (_points >= maxPoints)
         {
-            _points = 50;
+            _points = maxPoints;
         }
     }
-    public int GetPointsInt() => _points;
+    public float GetPointsInt() => _points;
     public string GetPointsString() => _points.ToString();
 }
