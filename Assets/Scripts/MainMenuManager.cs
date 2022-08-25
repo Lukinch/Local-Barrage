@@ -26,6 +26,7 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private ButtonEventEmitter _exitGameButton;
     [SerializeField] private float _transitionDuration = 0.5f;
     [SerializeField] private float _timeBeforeNextTransition = 0.5f;
+    [SerializeField] private ButtonEventEmitter _backButton;
     [Header("New Game Dependencies")]
     [SerializeField] private TextMeshProUGUI _countDownText;
     [SerializeField] private List<Transform> _spawnPoints;
@@ -40,6 +41,8 @@ public class MainMenuManager : MonoBehaviour
     private int _amountOfPlayersReady;
     private int _currentTimer;
 
+    private bool _isInMenu;
+
     private Coroutine _countDown;
 
     private void Awake()
@@ -49,6 +52,7 @@ public class MainMenuManager : MonoBehaviour
         _currentAmountOfPlayers = 0;
         _amountOfPlayersReady = 0;
         _countDownText.text = $"Start in: {_nextLevelCountDown}";
+        _isInMenu = true;
     }
 
     private void OnEnable()
@@ -99,6 +103,7 @@ public class MainMenuManager : MonoBehaviour
         }
 
         StartCoroutine(WaitForButtonSelectionToFinish());
+        UIPlayerMainMenu.OnAnyPlayerUIBackTriggered += OnAnyPlayerBacked;
     }
 
     private IEnumerator WaitForButtonSelectionToFinish()
@@ -139,6 +144,8 @@ public class MainMenuManager : MonoBehaviour
 
     private void OnNewGameSelected()
     {
+        _isInMenu = false;
+
         if (_isTransitioning) return;
 
         StartCoroutine(TransitionCooldown());
@@ -161,7 +168,6 @@ public class MainMenuManager : MonoBehaviour
         _playersManager.SetupAllPlayersPersonalEventSystem();
 
         UIPlayerMainMenu.IsPlayerReady += PlayerReady;
-        UIPlayerMainMenu.OnAnyPlayerUIBackTriggered += OnAnyPlayerBacked;
 
         if (_amountOfPlayersReady == _currentAmountOfPlayers)
         {
@@ -171,13 +177,33 @@ public class MainMenuManager : MonoBehaviour
 
     private void OnAnyPlayerBacked(PlayerInput playerInput)
     {
+        if (_isInMenu)
+        {
+            TriggerCurrentBackButton();
+        }
+        else
+        {
+            GoBackToMenuOptions(playerInput);
+        }
+
+    }
+
+    private void TriggerCurrentBackButton()
+    {
+        if (_backButton)
+        {
+            _backButton.onClick.Invoke();
+        }
+    }
+
+    private void GoBackToMenuOptions(PlayerInput playerInput)
+    {
         if (_isTransitioning) return;
 
         StopCountDownToLoadNextLevel();
 
         _playersManager.OnNewPlayerAdded -= OnNewPlayerAdded;
         UIPlayerMainMenu.IsPlayerReady -= PlayerReady;
-        UIPlayerMainMenu.OnAnyPlayerUIBackTriggered -= OnAnyPlayerBacked;
 
         _playersManager.DisablePlayersJoin();
         _playersManager.UnsubscribeToNewPlayersEvent();
@@ -238,6 +264,7 @@ public class MainMenuManager : MonoBehaviour
     }
     private void StopCountDownToLoadNextLevel()
     {
+        _currentTimer = _gameplaySettings.TimeToStartNewGame;
         if (_countDown != null) StopCoroutine(_countDown);
         _countDown = null;
         _currentTimer = _nextLevelCountDown;
@@ -272,6 +299,8 @@ public class MainMenuManager : MonoBehaviour
         {
             RemoveAllOtherPlayers();
         }
+
+        _isInMenu = true;
     }
 
     private void RemoveAllOtherPlayers()
@@ -316,6 +345,11 @@ public class MainMenuManager : MonoBehaviour
         {
             _eventSystem.SetSelectedGameObject(gameObject);
         }
+    }
+
+    public void SetCurrentBackButton(ButtonEventEmitter button)
+    {
+        _backButton = button;
     }
 
     private void EnableCountDownText() => _countDownText.enabled = true;
