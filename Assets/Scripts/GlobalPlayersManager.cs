@@ -294,6 +294,17 @@ public class GlobalPlayersManager : MonoBehaviour
             player => player.gameObject.GetComponent<PlayerComponentReferences>().TurretPosition.activeInHierarchy);
     }
 
+    public void RemoveAllExtraPlayers()
+    {
+        for (int i = _players.Count - 1; i >= 1; i--)
+        {
+            Destroy(_players[i].gameObject);
+            _players.RemoveAt(i);
+        }
+
+        _playersAmount = 1;
+    }
+
     public void EnablePlayersJoin() => _playerInputManager.EnableJoining();
     public void DisablePlayersJoin() => _playerInputManager.DisableJoining();
     public void SubscribeToNewPlayersEvent() => _playerInputManager.onPlayerJoined += AddPlayer;

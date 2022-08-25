@@ -198,7 +198,7 @@ public class MainMenuManager : MonoBehaviour
     private void OnNewPlayerAdded(PlayerInput playerInput)
     {
         StopCountDownToLoadNextLevel();
-        _spawnPointsCanvases[_currentAmountOfPlayers - 1].gameObject.SetActive(false);
+        _spawnPointsCanvases[_currentAmountOfPlayers - 1].enabled = false;
         SetupPlayerForMainMenu(playerInput.playerIndex);
     }
 
@@ -264,6 +264,23 @@ public class MainMenuManager : MonoBehaviour
     {
         yield return new WaitForSeconds(_transitionDuration);
         _mainMenuObject.gameObject.SetActive(true);
+
+        if (_currentAmountOfPlayers > 1)
+        {
+            RemoveAllOtherPlayers();
+        }
+    }
+
+    private void RemoveAllOtherPlayers()
+    {
+        _currentAmountOfPlayers = 1;
+        if (_amountOfPlayersReady > 1) _amountOfPlayersReady = 1;
+        _playersManager.RemoveAllExtraPlayers();
+
+        for (int i = 0; i < _spawnPointsCanvases.Count; i++)
+        {
+            _spawnPointsCanvases[i].enabled = true;
+        }
     }
 
     private void LoadNextLevel()
