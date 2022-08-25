@@ -12,6 +12,9 @@ using UnityEngine.InputSystem;
 
 public class EndLevelScreen : MonoBehaviour
 {
+    [Header("Settings Dependency")]
+    [SerializeField] private GameplaySettingsSO _gameplaySettings;
+
     [Header("Level Dependencies")]
     [SerializeField] private LevelPlayersManager _levelPlayersManager;
     [SerializeField] private InputSystemUIInputModule _inputSystemUI;
@@ -30,14 +33,14 @@ public class EndLevelScreen : MonoBehaviour
     [SerializeField] private List<TextMeshProUGUI> _playerWonPlayersScoreTexts;
     [SerializeField] private ButtonEventEmitter _mainMenuButton;
     [SerializeField] private ButtonEventEmitter _exitGameButton;
-    [Header("------------------")]
-    [Header("Settings")]
-    [SerializeField] private int _timeTillNextLevel;
+
+    private int _timeTillNextLevel;
 
     private int _currentTime;
 
     private void Awake()
     {
+        _timeTillNextLevel = _gameplaySettings.TimeTillNextLevel;
         _currentTime = _timeTillNextLevel;
         _countdownText.text = $"Next Level Starts In: {_timeTillNextLevel}";
         _levelPlayersManager.OnLevelEnded += OnLevelEnded;
@@ -59,11 +62,11 @@ public class EndLevelScreen : MonoBehaviour
         int lastPlayerIndex = GlobalPlayersManager.Instance.GetLastPlayerStandingIndex();
         GlobalPlayersManager.Instance.AddPointsToPlayer(lastPlayerIndex);
 
-        int[] playersPoints = GlobalPlayersManager.Instance.GetPlayerPointsInt();
+        float[] playersPoints = GlobalPlayersManager.Instance.GetPlayerPointsInt();
 
-        int maxValue = playersPoints.Max();
+        float maxValue = playersPoints.Max();
 
-        if (maxValue >= 50)
+        if (maxValue >= _gameplaySettings.AmountOfPointsToWin)
         {
             OnPlayerWon(playersPoints.ToList().IndexOf(maxValue), playersPoints);
         }
@@ -73,7 +76,7 @@ public class EndLevelScreen : MonoBehaviour
         }
     }
 
-    private void OnNextLevel(int[] playersPoints)
+    private void OnNextLevel(float[] playersPoints)
     {
         BackgroundMusicManager.Instance.PlayNextLevelClip();
         for (int i = 0; i < playersPoints.Length; i++)
@@ -95,7 +98,7 @@ public class EndLevelScreen : MonoBehaviour
         StartCoroutine(nameof(NextLevelCountdown));
     }
 
-    private void OnPlayerWon(int playerIndex, int[] playersPoints)
+    private void OnPlayerWon(int playerIndex, float[] playersPoints)
     {
         BackgroundMusicManager.Instance.PlayPlayerWonClip();
         for (int i = 0; i < playersPoints.Length; i++)

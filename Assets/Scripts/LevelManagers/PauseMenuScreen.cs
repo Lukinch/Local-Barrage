@@ -21,6 +21,7 @@ public class PauseMenuScreen : MonoBehaviour
     [SerializeField] private ButtonEventEmitter _resumeButton;
     [SerializeField] private ButtonEventEmitter _mainMenuButton;
     [SerializeField] private ButtonEventEmitter _exitGameButton;
+    [SerializeField] private ButtonEventEmitter _backButton;
 
 
     private bool _isGamePaused;
@@ -34,6 +35,7 @@ public class PauseMenuScreen : MonoBehaviour
         _resumeButton.onClick.AddListener(ResumeGame);
         _mainMenuButton.onClick.AddListener(LoadMainMenu);
         _exitGameButton.onClick.AddListener(ExitGame);
+        UIPlayerMainMenu.OnAnyPlayerUIBackTriggered += OnAnyPlayerBacked;
     }
 
     private void OnDestroy()
@@ -43,6 +45,7 @@ public class PauseMenuScreen : MonoBehaviour
         _resumeButton.onClick.RemoveAllListeners();
         _mainMenuButton.onClick.RemoveAllListeners();
         _exitGameButton.onClick.RemoveAllListeners();
+        UIPlayerMainMenu.OnAnyPlayerUIBackTriggered -= OnAnyPlayerBacked;
     }
 
     private void OnPauseGame(PlayerInput playerInput)
@@ -50,6 +53,14 @@ public class PauseMenuScreen : MonoBehaviour
         _currentPlayer = playerInput;
         if (_isGamePaused) UnPauseGame(playerInput);
         else PauseGame(playerInput);
+    }
+
+    private void OnAnyPlayerBacked(PlayerInput playerInput)
+    {
+        if (_backButton)
+        {
+            _backButton.onClick.Invoke();
+        }
     }
 
     private void ResumeGame()
@@ -122,5 +133,10 @@ public class PauseMenuScreen : MonoBehaviour
         {
             _eventSystem.SetSelectedGameObject(gameObject);
         }
+    }
+
+    public void SetCurrentBackButton(ButtonEventEmitter button)
+    {
+        _backButton = button;
     }
 }
