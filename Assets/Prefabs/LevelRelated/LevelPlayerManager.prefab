@@ -44,6 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29ca7d4c8ce7ed14f9e1bcf0a326c518, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelCamera: {fileID: 0}
-  levelObjectiveScreenController: {fileID: 0}
-  spawnPoints: []
+  _dummyPlayerPrefab: {fileID: 148451351391489397, guid: 764fd95a141a8d74882d741de6df2964,
+    type: 3}
+  _levelCamera: {fileID: 0}
+  _levelObjectiveScreenController: {fileID: 0}
+  _spawnPoints: []

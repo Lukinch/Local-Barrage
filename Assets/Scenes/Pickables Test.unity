@@ -2657,7 +2657,7 @@ GameObject:
   - component: {fileID: 420465987}
   - component: {fileID: 420465986}
   m_Layer: 0
-  m_Name: Player (1)
+  m_Name: Player 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2918,7 +2918,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d52ebc5760437346994711d3871f473, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pointsPerKill: 25
+  _pointsPerWin: 25
   _playerInput: {fileID: 420465986}
 --- !u!114 &420465990
 MonoBehaviour:
@@ -9926,6 +9926,77 @@ MonoBehaviour:
   - {fileID: 3683298776767113922}
   _turretHoldFireStatsSO: {fileID: 11400000, guid: 0a75f20d818bf1d4bbcd82db06f16d6d,
     type: 2}
+--- !u!1001 &1485679855283280342
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 2
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 148451351391489394, guid: 764fd95a141a8d74882d741de6df2964,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 148451351391489394, guid: 764fd95a141a8d74882d741de6df2964,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 148451351391489394, guid: 764fd95a141a8d74882d741de6df2964,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 148451351391489394, guid: 764fd95a141a8d74882d741de6df2964,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 148451351391489394, guid: 764fd95a141a8d74882d741de6df2964,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 148451351391489394, guid: 764fd95a141a8d74882d741de6df2964,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 148451351391489394, guid: 764fd95a141a8d74882d741de6df2964,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 148451351391489394, guid: 764fd95a141a8d74882d741de6df2964,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 148451351391489394, guid: 764fd95a141a8d74882d741de6df2964,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 148451351391489394, guid: 764fd95a141a8d74882d741de6df2964,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 148451351391489394, guid: 764fd95a141a8d74882d741de6df2964,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 148451351391489397, guid: 764fd95a141a8d74882d741de6df2964,
+        type: 3}
+      propertyPath: m_Name
+      value: DummyPlayer
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_AddedGameObjects: []
+  m_SourcePrefab: {fileID: 100100000, guid: 764fd95a141a8d74882d741de6df2964, type: 3}
 --- !u!4 &1486785278471289118
 Transform:
   m_ObjectHideFlags: 0
@@ -11175,7 +11246,7 @@ GameObject:
   - component: {fileID: 5419409111921614226}
   - component: {fileID: 4365908596241693181}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Player 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12671,7 +12742,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d52ebc5760437346994711d3871f473, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pointsPerKill: 25
+  _pointsPerWin: 25
   _playerInput: {fileID: 4365908596241693181}
 --- !u!114 &8858693870092559634
 MonoBehaviour:
