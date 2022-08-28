@@ -75,7 +75,7 @@ public class LevelPlayersManager : MonoBehaviour
             player.SphereRenderer.enabled = false;
             player.LiveUI.SetActive(false);
             player.PlayerColliders.SetActive(false);
-            player.GameplayPlayerName.text = $"Dummy {i}";
+            player.GameplayPlayerName.text = $"Dummy {i + 1}";
             _currentAmountOfDummies++;
         }
     }

@@ -13,8 +13,6 @@ public class GameplaySettingsSO : ScriptableObject
     [SerializeField][Range(25, 100)] private int _amountOfPointsToWin = 50;
     [SerializeField][Range(1, 3)] private int _amountOfDummies = 3;
 
-    private Coroutine _saveCoroutine;
-
     public int TimeToStartNewGame
     {
         get => _timeToStartNewGame;
