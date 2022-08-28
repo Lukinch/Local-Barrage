@@ -1080,10 +1080,12 @@ MonoBehaviour:
   _eventSystem: {fileID: 7039374591812997678}
   _pauseMenuObject: {fileID: 153912745}
   _defaultSelectedObject: {fileID: 1398327547390245850}
+  _playerWonScreenObject: {fileID: 7039374592786411522}
   _resumeButton: {fileID: 1398327547390245852}
   _mainMenuButton: {fileID: 6009076241496150844}
   _exitGameButton: {fileID: 2326969185656215985}
-  _backButton: {fileID: 4722707660468172680}
+  _currentBackButton: {fileID: 4722707660468172680}
+  _nonFunctionalButton: {fileID: 4722707660468172680}
 --- !u!114 &7039374591812997678
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4452,7 +4454,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 4722707660468172680}
+      objectReference: {fileID: 1398327547390245852}
     - target: {fileID: 816744899964544697, guid: 7e60e1c79a37a7c45b007bbf127b8497,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName

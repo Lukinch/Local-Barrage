@@ -46,6 +46,7 @@ public class TurretHoldFire : TurretBase
         _isHoldActive = false;
         _isFireActionTakingPlace = false;
         _isFiring = false;
+        _isOverheated = false;
         _currentOverheatAmount = 0;
 
         turretFiringController.OnFireHoldStarted -= StartHoldEvent;

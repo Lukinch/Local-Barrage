@@ -17,11 +17,13 @@ public class PauseMenuScreen : MonoBehaviour
     [Header("Objects")]
     [SerializeField] private GameObject _pauseMenuObject;
     [SerializeField] private GameObject _defaultSelectedObject;
+    [SerializeField] private GameObject _playerWonScreenObject;
     [Header("Buttons")]
     [SerializeField] private ButtonEventEmitter _resumeButton;
     [SerializeField] private ButtonEventEmitter _mainMenuButton;
     [SerializeField] private ButtonEventEmitter _exitGameButton;
-    [SerializeField] private ButtonEventEmitter _backButton;
+    [SerializeField] private ButtonEventEmitter _currentBackButton;
+    [SerializeField] private ButtonEventEmitter _nonFunctionalButton;
 
 
     private bool _isGamePaused;
@@ -50,6 +52,8 @@ public class PauseMenuScreen : MonoBehaviour
 
     private void OnPauseGame(PlayerInput playerInput)
     {
+        if (_playerWonScreenObject.activeSelf) return;
+
         _currentPlayer = playerInput;
         if (_isGamePaused) UnPauseGame(playerInput);
         else PauseGame(playerInput);
@@ -57,9 +61,9 @@ public class PauseMenuScreen : MonoBehaviour
 
     private void OnAnyPlayerBacked(PlayerInput playerInput)
     {
-        if (_backButton)
+        if (_currentBackButton)
         {
-            _backButton.onClick.Invoke();
+            _currentBackButton.onClick.Invoke();
         }
     }
 
@@ -86,6 +90,7 @@ public class PauseMenuScreen : MonoBehaviour
 
     private void UnPauseGame(PlayerInput playerInput)
     {
+        _currentBackButton = _nonFunctionalButton;
         _eventSystem.SetSelectedGameObject(null);
 
         BackgroundMusicManager.Instance.ResumeMusic();
@@ -118,6 +123,7 @@ public class PauseMenuScreen : MonoBehaviour
         }
 
         StartCoroutine(WaitForButtonSelectionToFinish());
+        _currentBackButton = _resumeButton;
     }
 
     private IEnumerator WaitForButtonSelectionToFinish()
@@ -137,6 +143,6 @@ public class PauseMenuScreen : MonoBehaviour
 
     public void SetCurrentBackButton(ButtonEventEmitter button)
     {
-        _backButton = button;
+        _currentBackButton = button;
     }
 }
