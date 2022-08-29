@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DummyStatsController : MonoBehaviour
 {
-    [SerializeField] private ParticleSystem _explosionVsf;
+    [SerializeField] private GameObject _explosionVsf;
     [SerializeField] private DummyHullCollider _hullCollision;
     [SerializeField] private DummyShieldCollider _shieldCollision;
 
@@ -42,6 +42,7 @@ public class DummyStatsController : MonoBehaviour
     }
     private void DisableSelf()
     {
+        Instantiate(_explosionVsf, transform.position, transform.rotation);
         Destroy(gameObject);
         OnDummyKilled?.Invoke();
     }
